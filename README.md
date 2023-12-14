@@ -4,14 +4,11 @@ We, as Java and React full-stack developers, are currently developing a cutting-
 
 ![2b2](https://github.com/bedirhanbalci/RentACar/assets/61194064/f29e9eb2-9f54-48fd-8162-e4c97de061fd)
 
-<hr>
-
-> Rent A Car Project is Being Developed for Tobeto
-
 ## ERD
 
 ![rentACarERD](https://github.com/bedirhanbalci/RentACar/assets/61194064/e8ce17ac-2780-4e1e-b8d7-1c17d4ae4954)
 
+> Rent A Car Project is Being Developed for Tobeto
 
 ## Contributors
 
