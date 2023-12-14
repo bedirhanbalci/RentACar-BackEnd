@@ -1,8 +1,7 @@
 package com.tobeto.pair6.rentACar.services.concretes;
 
-import com.tobeto.pair6.rentACar.entities.Color;
+import com.tobeto.pair6.rentACar.repositories.ColorRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.ColorService;
-import com.tobeto.pair6.rentACar.services.dtos.color.responses.GetByIdColorResponse;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,8 +9,10 @@ import org.springframework.stereotype.Service;
 @AllArgsConstructor
 public class ColorManager implements ColorService {
 
+    private final ColorRepository colorRepository;
+
     @Override
-    public GetByIdColorResponse getById(int id) {
-        return null;
+    public boolean getColorById(int id) {
+        return this.colorRepository.existsById(id);
     }
 }

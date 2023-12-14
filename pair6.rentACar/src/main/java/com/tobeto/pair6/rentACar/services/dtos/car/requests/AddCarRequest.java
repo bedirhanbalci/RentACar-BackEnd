@@ -4,7 +4,6 @@ import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.Length;
 
 @Data
 @AllArgsConstructor
@@ -15,11 +14,15 @@ public class AddCarRequest {
     private int kilometer;
 
     @NotBlank(message = "Plaka boş olamaz!")
-    @Pattern(regexp = "^[0-9]{1,3}[A-Z]{1,2}[0-9]{2,3}$", message = "Geçersiz plaka formatı!")
+    @Pattern(regexp = "^(0[1-9]|[1-7][0-9]|8[01])(([A-Z])(\\d{4,5})|([A-Z]{2})(\\d{3,4})|([A-Z]{3})(\\d{2,3}))$", message = "Geçersiz Plaka formatı!")
     private String plate;
 
-    @Min(value=2005, message = "Yıl bilgisi en az 2005 olmalıdır!")
-    @Max(value =2024, message = "Yıl bilgisi en fazla 2024 olmalıdır!")
+    public void setPlate(String plate) {
+        this.plate = plate != null ? plate.replaceAll("\\s", "") : null;
+    }
+
+    @Min(value = 2005, message = "Yıl bilgisi 2005'den küçük olamaz!")
+    @Max(value = 2024, message = "Yıl bilgisi 2024'den büyük olamaz!")
     private int year;
 
     @Positive(message = "Daily Price 0'dan küçük olamaz!")

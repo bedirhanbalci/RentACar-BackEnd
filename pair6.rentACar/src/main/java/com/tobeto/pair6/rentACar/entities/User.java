@@ -1,6 +1,5 @@
 package com.tobeto.pair6.rentACar.entities;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -36,7 +35,6 @@ public class User {
     private LocalDate birthDate;
 
     @OneToMany(mappedBy = "user")
-    @JsonIgnore
     private List<Rental> rentals;
 
 }

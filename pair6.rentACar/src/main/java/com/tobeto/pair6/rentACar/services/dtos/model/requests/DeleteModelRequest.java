@@ -9,6 +9,4 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DeleteModelRequest {
     private int id;
-    private String name;
-    private String brandName;
 }
