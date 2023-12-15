@@ -41,8 +41,8 @@ public class CarsController {
         return carService.getAll();
     }
 
-    @GetMapping("/getById")
-    public GetByIdCarResponse getById(int id) {
+    @GetMapping("/getById/{id}")
+    public GetByIdCarResponse getById(@PathVariable int id) {
         return carService.getById(id);
     }
 }

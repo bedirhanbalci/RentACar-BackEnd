@@ -1,5 +1,6 @@
 package com.tobeto.pair6.rentACar.services.dtos.invoice.requests;
 
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -10,9 +11,14 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateInvoiceRequest {
+
+    @Positive(message = "Doğru Id girişi yapınız!")
     private int id;
 
     private LocalDate createDate;
 
-    private double totalPrice;
+
+    @Positive(message = "Doğru Rental Id girişi yapınız!")
+    private int rentalId;
+
 }

@@ -16,6 +16,6 @@ public class GetAllRentalsResponse {
     private int startKilometer;
     private int endKilometer;
     private double totalPrice;
-    private String modelName;
+    private String carName;
     private String userName;
 }

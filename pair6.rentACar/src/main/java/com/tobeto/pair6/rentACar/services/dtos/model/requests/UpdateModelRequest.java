@@ -1,5 +1,7 @@
 package com.tobeto.pair6.rentACar.services.dtos.model.requests;
 
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,7 +10,13 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UpdateModelRequest {
+
+    @Positive(message = "Doğru Id girişi yapınız!")
     private int id;
+
+    @Size(min = 2, message = "Eklenecek model en az 2 harften oluşmalıdır!")
     private String name;
-    private String brandName;
+
+    @Positive(message = "Doğru Brand Id girişi yapınız!")
+    private int brandId;
 }

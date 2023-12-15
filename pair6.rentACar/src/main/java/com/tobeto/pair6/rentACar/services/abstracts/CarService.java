@@ -19,4 +19,7 @@ public interface CarService {
 
     GetByIdCarResponse getById(int id);
 
+    boolean getCarById(int id);
+
+
 }

@@ -1,5 +1,6 @@
 package com.tobeto.pair6.rentACar.services.dtos.invoice.requests;
 
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,5 +14,6 @@ public class AddInvoiceRequest {
 
     private LocalDate createDate;
 
-    private double totalPrice;
+    @Positive(message = "Doğru Rental Id girişi yapınız!")
+    private int rentalId;
 }

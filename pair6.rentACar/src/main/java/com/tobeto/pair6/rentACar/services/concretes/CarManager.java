@@ -94,4 +94,9 @@ public class CarManager implements CarService {
 
         return response;
     }
+
+    @Override
+    public boolean getCarById(int id) {
+        return this.carRepository.existsById(id);
+    }
 }
