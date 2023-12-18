@@ -16,4 +16,10 @@ public class ColorBusinessRules {
         }
     }
 
+    public void checkIfColorByIdExists(int id) {
+        if (!this.colorRepository.existsById(id)) {
+            throw new RuntimeException("Verilen Color Id ile sistemde bir color olmalıdır!");
+        }
+    }
+
 }

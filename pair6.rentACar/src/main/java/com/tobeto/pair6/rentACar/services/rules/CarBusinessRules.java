@@ -33,4 +33,10 @@ public class CarBusinessRules {
         }
     }
 
+    public void checkIfCarByIdExists(int id) {
+        if (!this.carRepository.existsById(id)) {
+            throw new RuntimeException("Verilen Car Id ile sistemde bir car olmalıdır!");
+        }
+    }
+
 }

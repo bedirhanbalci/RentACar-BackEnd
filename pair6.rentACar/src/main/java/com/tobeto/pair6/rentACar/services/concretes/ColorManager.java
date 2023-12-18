@@ -36,6 +36,8 @@ public class ColorManager implements ColorService {
     @Override
     public void delete(DeleteColorRequest deleteColorRequest) {
 
+        this.colorBusinessRules.checkIfColorByIdExists(deleteColorRequest.getId());
+
         Color color = this.modelMapperService.forRequest().map(deleteColorRequest, Color.class);
 
         this.colorRepository.delete(color);
@@ -43,6 +45,8 @@ public class ColorManager implements ColorService {
 
     @Override
     public void update(UpdateColorRequest updateColorRequest) {
+
+        this.colorBusinessRules.checkIfColorByIdExists(updateColorRequest.getId());
 
         this.colorBusinessRules.checkIfColorByNameExists(updateColorRequest.getName());
 
@@ -64,9 +68,9 @@ public class ColorManager implements ColorService {
     @Override
     public GetByIdColorResponse getById(int id) {
 
-        Color color = colorRepository.findById(id).orElseThrow();
+        this.colorBusinessRules.checkIfColorByIdExists(id);
 
-        GetByIdColorResponse response = this.modelMapperService.forResponse().map(color, GetByIdColorResponse.class);
+        GetByIdColorResponse response = this.modelMapperService.forResponse().map(colorRepository.findById(id), GetByIdColorResponse.class);
         return response;
     }
 

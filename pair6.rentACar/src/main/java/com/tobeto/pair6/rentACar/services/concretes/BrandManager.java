@@ -36,6 +36,8 @@ public class BrandManager implements BrandService {
     @Override
     public void delete(DeleteBrandRequest deleteBrandRequest) {
 
+        this.brandBusinessRules.checkIfBrandByIdExists(deleteBrandRequest.getId());
+
         Brand brand = this.modelMapperService.forRequest().map(deleteBrandRequest, Brand.class);
 
         this.brandRepository.delete(brand);
@@ -43,6 +45,8 @@ public class BrandManager implements BrandService {
 
     @Override
     public void update(UpdateBrandRequest updateBrandRequest) {
+
+        this.brandBusinessRules.checkIfBrandByIdExists(updateBrandRequest.getId());
 
         this.brandBusinessRules.checkIfBrandByNameExists(updateBrandRequest.getName());
 
@@ -64,9 +68,9 @@ public class BrandManager implements BrandService {
     @Override
     public GetByIdBrandResponse getById(int id) {
 
-        Brand brand = brandRepository.findById(id).orElseThrow();
+        this.brandBusinessRules.checkIfBrandByIdExists(id);
 
-        GetByIdBrandResponse response = this.modelMapperService.forResponse().map(brand, GetByIdBrandResponse.class);
+        GetByIdBrandResponse response = this.modelMapperService.forResponse().map(brandRepository.findById(id), GetByIdBrandResponse.class);
         return response;
     }
 

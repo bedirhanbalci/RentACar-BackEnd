@@ -38,6 +38,8 @@ public class ModelManager implements ModelService {
     @Override
     public void delete(DeleteModelRequest deleteModelRequest) {
 
+        this.modelBusinessRules.checkIfModelByIdExists(deleteModelRequest.getId());
+
         Model model = this.modelMapperService.forRequest().map(deleteModelRequest, Model.class);
 
         this.modelRepository.delete(model);
@@ -46,6 +48,8 @@ public class ModelManager implements ModelService {
 
     @Override
     public void update(UpdateModelRequest updateModelRequest) {
+
+        this.modelBusinessRules.checkIfModelByIdExists(updateModelRequest.getId());
 
         this.modelBusinessRules.checkIfModelByNameExists(updateModelRequest.getName());
 
@@ -71,9 +75,9 @@ public class ModelManager implements ModelService {
     @Override
     public GetByIdModelResponse getById(int id) {
 
-        Model model = modelRepository.findById(id).orElseThrow();
+        this.modelBusinessRules.checkIfModelByIdExists(id);
 
-        GetByIdModelResponse response = this.modelMapperService.forResponse().map(model, GetByIdModelResponse.class);
+        GetByIdModelResponse response = this.modelMapperService.forResponse().map(modelRepository.findById(id), GetByIdModelResponse.class);
 
         return response;
     }

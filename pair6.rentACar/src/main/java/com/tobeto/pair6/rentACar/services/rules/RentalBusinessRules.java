@@ -52,4 +52,9 @@ public class RentalBusinessRules {
         return rentalTime * dailyPrice;
     }
 
+    public void checkIfRentalByIdExists(int id) {
+        if (!this.rentalRepository.existsById(id)) {
+            throw new RuntimeException("Verilen Rental Id ile sistemde bir rental olmalıdır!");
+        }
+
 }
