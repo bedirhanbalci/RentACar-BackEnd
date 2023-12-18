@@ -21,5 +21,4 @@ public interface CarService {
 
     boolean getCarById(int id);
 
-
 }

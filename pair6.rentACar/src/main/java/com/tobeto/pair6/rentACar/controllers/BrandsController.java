@@ -19,29 +19,30 @@ import java.util.List;
 public class BrandsController {
 
     private final BrandService brandService;
+
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public void add(@RequestBody @Valid AddBrandRequest addBrandRequest){
+    public void add(@RequestBody @Valid AddBrandRequest addBrandRequest) {
         brandService.add(addBrandRequest);
     }
 
     @DeleteMapping("/delete")
-    public void delete(@RequestBody DeleteBrandRequest deleteBrandRequest){
+    public void delete(@RequestBody @Valid DeleteBrandRequest deleteBrandRequest) {
         brandService.delete(deleteBrandRequest);
     }
 
     @PutMapping("/update")
-    public void update(@RequestBody @Valid UpdateBrandRequest updateBrandRequest){
+    public void update(@RequestBody @Valid UpdateBrandRequest updateBrandRequest) {
         brandService.update(updateBrandRequest);
     }
 
     @GetMapping("/getAll")
-    public List<GetAllBrandsResponse> getAll(){
+    public List<GetAllBrandsResponse> getAll() {
         return brandService.getAll();
     }
 
     @GetMapping("/getById/{id}")
-    public GetByIdBrandResponse getById(@PathVariable int id){
+    public GetByIdBrandResponse getById(@PathVariable int id) {
         return brandService.getById(id);
     }
 }

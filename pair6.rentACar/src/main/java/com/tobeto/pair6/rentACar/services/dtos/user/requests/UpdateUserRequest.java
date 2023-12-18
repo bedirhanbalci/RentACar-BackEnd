@@ -1,5 +1,7 @@
 package com.tobeto.pair6.rentACar.services.dtos.user.requests;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,6 +21,8 @@ public class UpdateUserRequest {
 
     private String surname;
 
+    @NotBlank(message = "Email boş olamaz!")
+    @Email(message = "Email doğru formatta olmalıdır!")
     private String email;
 
     private LocalDate birthDate;

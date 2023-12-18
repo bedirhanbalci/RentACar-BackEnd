@@ -12,4 +12,5 @@ public class DeleteCarRequest {
 
     @Positive(message = "Doğru Id girişi yapınız!")
     private int id;
+
 }

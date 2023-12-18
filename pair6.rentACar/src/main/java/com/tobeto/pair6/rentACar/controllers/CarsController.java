@@ -27,7 +27,7 @@ public class CarsController {
     }
 
     @DeleteMapping("/delete")
-    public void delete(@RequestBody DeleteCarRequest deleteCarRequest) {
+    public void delete(@RequestBody @Valid DeleteCarRequest deleteCarRequest) {
         carService.delete(deleteCarRequest);
     }
 

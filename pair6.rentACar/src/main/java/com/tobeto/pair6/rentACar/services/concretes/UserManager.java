@@ -9,6 +9,7 @@ import com.tobeto.pair6.rentACar.services.dtos.user.requests.DeleteUserRequest;
 import com.tobeto.pair6.rentACar.services.dtos.user.requests.UpdateUserRequest;
 import com.tobeto.pair6.rentACar.services.dtos.user.responses.GetAllUsersResponse;
 import com.tobeto.pair6.rentACar.services.dtos.user.responses.GetByIdUserResponse;
+import com.tobeto.pair6.rentACar.services.rules.UserBusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +21,12 @@ public class UserManager implements UserService {
 
     private final UserRepository userRepository;
     private final ModelMapperService modelMapperService;
+    private final UserBusinessRules userBusinessRules;
 
     @Override
     public void add(AddUserRequest addUserRequest) {
+
+        this.userBusinessRules.checkIfUserByEmailExists(addUserRequest.getEmail());
 
         User user = this.modelMapperService.forRequest().map(addUserRequest, User.class);
 
@@ -42,6 +46,8 @@ public class UserManager implements UserService {
     @Override
     public void update(UpdateUserRequest updateUserRequest) {
 
+        this.userBusinessRules.checkIfUserByEmailExists(updateUserRequest.getEmail());
+
         User user = this.modelMapperService.forRequest().map(updateUserRequest, User.class);
 
         this.userRepository.save(user);
@@ -53,7 +59,7 @@ public class UserManager implements UserService {
         List<User> users = userRepository.findAll();
 
         List<GetAllUsersResponse> usersResponse = users.stream()
-                .map(user -> this.modelMapperService.forResponse().map(user,GetAllUsersResponse.class)).toList();
+                .map(user -> this.modelMapperService.forResponse().map(user, GetAllUsersResponse.class)).toList();
         return usersResponse;
     }
 

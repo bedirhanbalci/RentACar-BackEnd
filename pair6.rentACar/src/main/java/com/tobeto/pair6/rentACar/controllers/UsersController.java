@@ -22,27 +22,27 @@ public class UsersController {
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public void add(@RequestBody @Valid AddUserRequest addUserRequest){
+    public void add(@RequestBody @Valid AddUserRequest addUserRequest) {
         userService.add(addUserRequest);
     }
 
     @DeleteMapping("/delete")
-    public void delete(@RequestBody DeleteUserRequest deleteUserRequest){
+    public void delete(@RequestBody @Valid DeleteUserRequest deleteUserRequest) {
         userService.delete(deleteUserRequest);
     }
 
     @PutMapping("/update")
-    public void update(@RequestBody @Valid UpdateUserRequest updateUserRequest){
+    public void update(@RequestBody @Valid UpdateUserRequest updateUserRequest) {
         userService.update(updateUserRequest);
     }
 
     @GetMapping("/getAll")
-    public List<GetAllUsersResponse> getAll(){
+    public List<GetAllUsersResponse> getAll() {
         return userService.getAll();
     }
 
     @GetMapping("/getById/{id}")
-    public GetByIdUserResponse getById(@PathVariable int id){
+    public GetByIdUserResponse getById(@PathVariable int id) {
         return userService.getById(id);
     }
 }

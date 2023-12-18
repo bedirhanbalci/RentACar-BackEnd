@@ -3,15 +3,14 @@ package com.tobeto.pair6.rentACar.services.concretes;
 import com.tobeto.pair6.rentACar.core.utilities.mappers.ModelMapperService;
 import com.tobeto.pair6.rentACar.entities.Model;
 import com.tobeto.pair6.rentACar.repositories.ModelRepository;
-import com.tobeto.pair6.rentACar.services.abstracts.BrandService;
 import com.tobeto.pair6.rentACar.services.abstracts.ModelService;
 import com.tobeto.pair6.rentACar.services.dtos.model.requests.AddModelRequest;
 import com.tobeto.pair6.rentACar.services.dtos.model.requests.DeleteModelRequest;
 import com.tobeto.pair6.rentACar.services.dtos.model.requests.UpdateModelRequest;
 import com.tobeto.pair6.rentACar.services.dtos.model.responses.GetAllModelsResponse;
 import com.tobeto.pair6.rentACar.services.dtos.model.responses.GetByIdModelResponse;
+import com.tobeto.pair6.rentACar.services.rules.ModelBusinessRules;
 import lombok.AllArgsConstructor;
-import org.springframework.boot.Banner;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -22,17 +21,14 @@ public class ModelManager implements ModelService {
 
     private final ModelRepository modelRepository;
     private final ModelMapperService modelMapperService;
-    private final BrandService brandService;
+    private final ModelBusinessRules modelBusinessRules;
+
     @Override
     public void add(AddModelRequest addModelRequest) {
 
-        if(this.modelRepository.existsByName(addModelRequest.getName())){
-            throw new RuntimeException("Aynı Model 2. kez eklenemez!");
-        }
+        this.modelBusinessRules.checkIfModelByNameExists(addModelRequest.getName());
 
-        if(!brandService.getBrandById(addModelRequest.getBrandId())){
-            throw new RuntimeException("Verilen Brand Id ile veritabanında bir kayıt bulunmalıdır!");
-        }
+        this.modelBusinessRules.checkIfBrandByIdExists(addModelRequest.getBrandId());
 
         Model model = this.modelMapperService.forRequest().map(addModelRequest, Model.class);
 
@@ -51,13 +47,9 @@ public class ModelManager implements ModelService {
     @Override
     public void update(UpdateModelRequest updateModelRequest) {
 
-        if(this.modelRepository.existsByName(updateModelRequest.getName())){
-            throw new RuntimeException("Aynı Model 2. kez eklenemez!");
-        }
+        this.modelBusinessRules.checkIfModelByNameExists(updateModelRequest.getName());
 
-        if(!brandService.getBrandById(updateModelRequest.getBrandId())){
-            throw new RuntimeException("Verilen Brand Id ile veritabanında bir kayıt bulunmalıdır!");
-        }
+        this.modelBusinessRules.checkIfBrandByIdExists(updateModelRequest.getBrandId());
 
         Model model = this.modelMapperService.forRequest().map(updateModelRequest, Model.class);
 
@@ -81,7 +73,7 @@ public class ModelManager implements ModelService {
 
         Model model = modelRepository.findById(id).orElseThrow();
 
-        GetByIdModelResponse response = this.modelMapperService.forResponse().map(model,GetByIdModelResponse.class);
+        GetByIdModelResponse response = this.modelMapperService.forResponse().map(model, GetByIdModelResponse.class);
 
         return response;
     }

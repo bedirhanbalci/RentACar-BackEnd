@@ -13,7 +13,7 @@ public class UpdateCarRequest {
     @Positive(message = "Doğru Id girişi yapınız!")
     private int id;
 
-    @Positive(message = "Kilometer alanı 0'dan küçük olamaz!")
+    @Positive(message = "Kilometer 0'dan küçük olamaz!")
     private int kilometer;
 
     @NotBlank(message = "Plaka boş olamaz!")

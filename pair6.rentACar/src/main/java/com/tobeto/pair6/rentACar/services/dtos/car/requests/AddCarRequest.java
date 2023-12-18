@@ -1,16 +1,14 @@
 package com.tobeto.pair6.rentACar.services.dtos.car.requests;
 
 import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddCarRequest {
 
-    @Positive(message = "Kilometer alanı 0'dan küçük olamaz!")
+    @Positive(message = "Kilometer 0'dan küçük olamaz!")
     private int kilometer;
 
     @NotBlank(message = "Plaka boş olamaz!")

@@ -19,25 +19,30 @@ import java.util.List;
 public class ColorsController {
 
     private final ColorService colorService;
+
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public void add(@RequestBody @Valid AddColorRequest addColorRequest){
+    public void add(@RequestBody @Valid AddColorRequest addColorRequest) {
         colorService.add(addColorRequest);
     }
+
     @DeleteMapping("/delete")
-    public void delete(@RequestBody DeleteColorRequest deleteColorRequest){
+    public void delete(@RequestBody @Valid DeleteColorRequest deleteColorRequest) {
         colorService.delete(deleteColorRequest);
     }
+
     @PutMapping("/update")
-    public void update(@RequestBody @Valid UpdateColorRequest updateColorRequest){
+    public void update(@RequestBody @Valid UpdateColorRequest updateColorRequest) {
         colorService.update(updateColorRequest);
     }
+
     @GetMapping("/getAll")
-    public List<GetAllColorsResponse> getAll(){
+    public List<GetAllColorsResponse> getAll() {
         return colorService.getAll();
     }
+
     @GetMapping("/getById/{id}")
-    public GetByIdColorResponse getById(@PathVariable int id){
+    public GetByIdColorResponse getById(@PathVariable int id) {
         return colorService.getById(id);
     }
 

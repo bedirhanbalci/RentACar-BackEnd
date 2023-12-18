@@ -14,8 +14,7 @@ public class GetByIdRentalResponse {
     private LocalDate endDate;
     private LocalDate returnDate;
     private int startKilometer;
-    private int endKilometer;
     private double totalPrice;
-    private String carName;
+    private String carPlate;
     private String userName;
 }

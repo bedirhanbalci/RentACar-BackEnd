@@ -1,5 +1,6 @@
 package com.tobeto.pair6.rentACar.services.dtos.invoice.requests;
 
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class AddInvoiceRequest {
 
+    @NotNull(message = "Fatura oluşturma tarihi boş olamaz!")
     private LocalDate createDate;
 
     @Positive(message = "Doğru Rental Id girişi yapınız!")

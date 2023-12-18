@@ -9,6 +9,7 @@ import com.tobeto.pair6.rentACar.services.dtos.brand.requests.DeleteBrandRequest
 import com.tobeto.pair6.rentACar.services.dtos.brand.requests.UpdateBrandRequest;
 import com.tobeto.pair6.rentACar.services.dtos.brand.responses.GetAllBrandsResponse;
 import com.tobeto.pair6.rentACar.services.dtos.brand.responses.GetByIdBrandResponse;
+import com.tobeto.pair6.rentACar.services.rules.BrandBusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +21,12 @@ public class BrandManager implements BrandService {
 
     private final BrandRepository brandRepository;
     private final ModelMapperService modelMapperService;
+    private final BrandBusinessRules brandBusinessRules;
 
     @Override
     public void add(AddBrandRequest addBrandRequest) {
 
-        if(this.brandRepository.existsByName(addBrandRequest.getName())){
-            throw new RuntimeException("Aynı marka 2. kez eklenemez!");
-        }
+        this.brandBusinessRules.checkIfBrandByNameExists(addBrandRequest.getName());
 
         Brand brand = this.modelMapperService.forRequest().map(addBrandRequest, Brand.class);
 
@@ -44,9 +44,7 @@ public class BrandManager implements BrandService {
     @Override
     public void update(UpdateBrandRequest updateBrandRequest) {
 
-        if(this.brandRepository.existsByName(updateBrandRequest.getName())){
-            throw new RuntimeException("Aynı marka 2. kez eklenemez!");
-        }
+        this.brandBusinessRules.checkIfBrandByNameExists(updateBrandRequest.getName());
 
         Brand brand = this.modelMapperService.forRequest().map(updateBrandRequest, Brand.class);
 
@@ -68,13 +66,12 @@ public class BrandManager implements BrandService {
 
         Brand brand = brandRepository.findById(id).orElseThrow();
 
-        GetByIdBrandResponse response = this.modelMapperService.forResponse().map(brand,GetByIdBrandResponse.class);
+        GetByIdBrandResponse response = this.modelMapperService.forResponse().map(brand, GetByIdBrandResponse.class);
         return response;
     }
 
     @Override
     public boolean getBrandById(int id) {
-
         return this.brandRepository.existsById(id);
     }
 }

@@ -12,4 +12,5 @@ public class AddBrandRequest {
 
     @Size(min = 2, message = "Eklenecek marka en az 2 harften oluşmalıdır.")
     private String name;
+
 }

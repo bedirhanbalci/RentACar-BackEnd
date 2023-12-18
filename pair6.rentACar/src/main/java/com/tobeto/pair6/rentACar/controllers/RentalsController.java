@@ -1,7 +1,6 @@
 package com.tobeto.pair6.rentACar.controllers;
 
 import com.tobeto.pair6.rentACar.services.abstracts.RentalService;
-import com.tobeto.pair6.rentACar.services.dtos.brand.responses.GetAllBrandsResponse;
 import com.tobeto.pair6.rentACar.services.dtos.rental.requests.AddRentalRequest;
 import com.tobeto.pair6.rentACar.services.dtos.rental.requests.DeleteRentalRequest;
 import com.tobeto.pair6.rentACar.services.dtos.rental.requests.UpdateRentalRequest;
@@ -23,27 +22,27 @@ public class RentalsController {
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public void add(@RequestBody @Valid AddRentalRequest addRentalRequest){
+    public void add(@RequestBody @Valid AddRentalRequest addRentalRequest) {
         rentalService.add(addRentalRequest);
     }
 
     @DeleteMapping("/delete")
-    public void delete(@RequestBody DeleteRentalRequest deleteRentalRequest){
+    public void delete(@RequestBody @Valid DeleteRentalRequest deleteRentalRequest) {
         rentalService.delete(deleteRentalRequest);
     }
 
     @PutMapping("/update")
-    public void update(@RequestBody @Valid UpdateRentalRequest updateRentalRequest){
+    public void update(@RequestBody @Valid UpdateRentalRequest updateRentalRequest) {
         rentalService.update(updateRentalRequest);
     }
 
     @GetMapping("/getAll")
-    public List<GetAllRentalsResponse> getAll(){
+    public List<GetAllRentalsResponse> getAll() {
         return rentalService.getAll();
     }
 
     @GetMapping("/getById/{id}")
-    public GetByIdRentalResponse getById(@PathVariable int id){
+    public GetByIdRentalResponse getById(@PathVariable int id) {
         return rentalService.getById(id);
     }
 

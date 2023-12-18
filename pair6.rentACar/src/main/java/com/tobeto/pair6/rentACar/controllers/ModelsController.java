@@ -22,27 +22,27 @@ public class ModelsController {
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public void add(@RequestBody @Valid AddModelRequest addModelRequest){
+    public void add(@RequestBody @Valid AddModelRequest addModelRequest) {
         modelService.add(addModelRequest);
     }
 
     @DeleteMapping("/delete")
-    public void delete(@RequestBody DeleteModelRequest deleteModelRequest){
+    public void delete(@RequestBody @Valid DeleteModelRequest deleteModelRequest) {
         modelService.delete(deleteModelRequest);
     }
 
     @PutMapping("/update")
-    public void update(@RequestBody @Valid UpdateModelRequest updateModelRequest){
+    public void update(@RequestBody @Valid UpdateModelRequest updateModelRequest) {
         modelService.update(updateModelRequest);
     }
 
     @GetMapping("/getAll")
-    public List<GetAllModelsResponse> getAll(){
+    public List<GetAllModelsResponse> getAll() {
         return modelService.getAll();
     }
 
     @GetMapping("/getById/{id}")
-    public GetByIdModelResponse getById(@PathVariable int id){
+    public GetByIdModelResponse getById(@PathVariable int id) {
         return modelService.getById(id);
     }
 }

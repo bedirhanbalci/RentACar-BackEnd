@@ -9,6 +9,7 @@ import com.tobeto.pair6.rentACar.services.dtos.color.requests.DeleteColorRequest
 import com.tobeto.pair6.rentACar.services.dtos.color.requests.UpdateColorRequest;
 import com.tobeto.pair6.rentACar.services.dtos.color.responses.GetAllColorsResponse;
 import com.tobeto.pair6.rentACar.services.dtos.color.responses.GetByIdColorResponse;
+import com.tobeto.pair6.rentACar.services.rules.ColorBusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,13 +21,12 @@ public class ColorManager implements ColorService {
 
     private final ColorRepository colorRepository;
     private final ModelMapperService modelMapperService;
+    private final ColorBusinessRules colorBusinessRules;
 
     @Override
     public void add(AddColorRequest addColorRequest) {
 
-        if(this.colorRepository.existsByName(addColorRequest.getName())){
-            throw new RuntimeException("Aynı renk 2. kez eklenemez!");
-        }
+        this.colorBusinessRules.checkIfColorByNameExists(addColorRequest.getName());
 
         Color color = this.modelMapperService.forRequest().map(addColorRequest, Color.class);
 
@@ -44,9 +44,7 @@ public class ColorManager implements ColorService {
     @Override
     public void update(UpdateColorRequest updateColorRequest) {
 
-        if(this.colorRepository.existsByName(updateColorRequest.getName())){
-            throw new RuntimeException("Aynı renk 2. kez eklenemez!");
-        }
+        this.colorBusinessRules.checkIfColorByNameExists(updateColorRequest.getName());
 
         Color color = this.modelMapperService.forRequest().map(updateColorRequest, Color.class);
 

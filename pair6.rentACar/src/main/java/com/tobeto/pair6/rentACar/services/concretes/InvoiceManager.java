@@ -20,6 +20,7 @@ public class InvoiceManager implements InvoiceService {
 
     private final InvoiceRepository invoiceRepository;
     private final ModelMapperService modelMapperService;
+
     @Override
     public void add(AddInvoiceRequest addInvoiceRequest) {
 
@@ -31,7 +32,7 @@ public class InvoiceManager implements InvoiceService {
     @Override
     public void delete(DeleteInvoiceRequest deleteInvoiceRequest) {
 
-        Invoice invoice = this.modelMapperService.forRequest().map(deleteInvoiceRequest,Invoice.class);
+        Invoice invoice = this.modelMapperService.forRequest().map(deleteInvoiceRequest, Invoice.class);
 
         this.invoiceRepository.delete(invoice);
     }
@@ -60,7 +61,7 @@ public class InvoiceManager implements InvoiceService {
 
         Invoice invoice = invoiceRepository.findById(id).orElseThrow();
 
-        GetByIdInvoiceResponse response = this.modelMapperService.forResponse().map(invoice,GetByIdInvoiceResponse.class);
+        GetByIdInvoiceResponse response = this.modelMapperService.forResponse().map(invoice, GetByIdInvoiceResponse.class);
         return response;
     }
 }
