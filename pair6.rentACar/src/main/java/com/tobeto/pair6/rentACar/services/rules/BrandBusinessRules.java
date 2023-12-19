@@ -15,4 +15,10 @@ public class BrandBusinessRules {
             throw new RuntimeException("Aynı marka 2. kez eklenemez!");
         }
     }
+
+    public void checkIfBrandByIdExists(int id) {
+        if (!this.brandRepository.existsById(id)) {
+            throw new RuntimeException("Verilen Brand Id ile sistemde bir brand olmalıdır!");
+        }
+    }
 }

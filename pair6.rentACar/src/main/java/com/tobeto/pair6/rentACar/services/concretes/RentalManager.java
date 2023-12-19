@@ -53,6 +53,8 @@ public class RentalManager implements RentalService {
     @Override
     public void delete(DeleteRentalRequest deleteRentalRequest) {
 
+        this.rentalBusinessRules.checkIfRentalByIdExists(deleteRentalRequest.getId());
+
         Rental rental = this.modelMapperService.forRequest().map(deleteRentalRequest, Rental.class);
 
         this.rentalRepository.delete(rental);
@@ -61,6 +63,8 @@ public class RentalManager implements RentalService {
 
     @Override
     public void update(UpdateRentalRequest updateRentalRequest) {
+
+        this.rentalBusinessRules.checkIfRentalByIdExists(updateRentalRequest.getId());
 
         this.rentalBusinessRules.checkIfCarByIdExists(updateRentalRequest.getCarId());
 
@@ -89,9 +93,9 @@ public class RentalManager implements RentalService {
     @Override
     public GetByIdRentalResponse getById(int id) {
 
-        Rental rental = rentalRepository.findById(id).orElseThrow();
+        this.rentalBusinessRules.checkIfRentalByIdExists(id);
 
-        GetByIdRentalResponse response = this.modelMapperService.forResponse().map(rental, GetByIdRentalResponse.class);
+        GetByIdRentalResponse response = this.modelMapperService.forResponse().map(rentalRepository.findById(id), GetByIdRentalResponse.class);
         return response;
     }
 }

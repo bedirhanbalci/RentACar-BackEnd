@@ -42,6 +42,8 @@ public class CarManager implements CarService {
     @Override
     public void delete(DeleteCarRequest deleteCarRequest) {
 
+        this.carBusinessRules.checkIfCarByIdExists(deleteCarRequest.getId());
+
         Car car = this.modelMapperService.forRequest().map(deleteCarRequest, Car.class);
 
         this.carRepository.delete(car);
@@ -49,6 +51,8 @@ public class CarManager implements CarService {
 
     @Override
     public void update(UpdateCarRequest updateCarRequest) {
+
+        this.carBusinessRules.checkIfCarByIdExists(updateCarRequest.getId());
 
         this.carBusinessRules.checkIfCarByPlateExists(updateCarRequest.getPlate());
 
@@ -76,9 +80,9 @@ public class CarManager implements CarService {
     @Override
     public GetByIdCarResponse getById(int id) {
 
-        Car car = carRepository.findById(id).orElseThrow();
+        this.carBusinessRules.checkIfCarByIdExists(id);
 
-        GetByIdCarResponse response = this.modelMapperService.forResponse().map(car, GetByIdCarResponse.class);
+        GetByIdCarResponse response = this.modelMapperService.forResponse().map(carRepository.findById(id), GetByIdCarResponse.class);
 
         return response;
     }

@@ -9,6 +9,7 @@ import com.tobeto.pair6.rentACar.services.dtos.invoice.requests.DeleteInvoiceReq
 import com.tobeto.pair6.rentACar.services.dtos.invoice.requests.UpdateInvoiceRequest;
 import com.tobeto.pair6.rentACar.services.dtos.invoice.responses.GetAllInvoicesResponse;
 import com.tobeto.pair6.rentACar.services.dtos.invoice.responses.GetByIdInvoiceResponse;
+import com.tobeto.pair6.rentACar.services.rules.InvoiceBusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +21,7 @@ public class InvoiceManager implements InvoiceService {
 
     private final InvoiceRepository invoiceRepository;
     private final ModelMapperService modelMapperService;
+    private final InvoiceBusinessRules invoiceBusinessRules;
 
     @Override
     public void add(AddInvoiceRequest addInvoiceRequest) {
@@ -32,6 +34,8 @@ public class InvoiceManager implements InvoiceService {
     @Override
     public void delete(DeleteInvoiceRequest deleteInvoiceRequest) {
 
+        this.invoiceBusinessRules.checkIfInvoiceByIdExists(deleteInvoiceRequest.getId());
+
         Invoice invoice = this.modelMapperService.forRequest().map(deleteInvoiceRequest, Invoice.class);
 
         this.invoiceRepository.delete(invoice);
@@ -39,6 +43,8 @@ public class InvoiceManager implements InvoiceService {
 
     @Override
     public void update(UpdateInvoiceRequest updateInvoiceRequest) {
+
+        this.invoiceBusinessRules.checkIfInvoiceByIdExists(updateInvoiceRequest.getId());
 
         Invoice invoice = this.modelMapperService.forRequest().map(updateInvoiceRequest, Invoice.class);
 
@@ -59,9 +65,9 @@ public class InvoiceManager implements InvoiceService {
     @Override
     public GetByIdInvoiceResponse getById(int id) {
 
-        Invoice invoice = invoiceRepository.findById(id).orElseThrow();
+        this.invoiceBusinessRules.checkIfInvoiceByIdExists(id);
 
-        GetByIdInvoiceResponse response = this.modelMapperService.forResponse().map(invoice, GetByIdInvoiceResponse.class);
+        GetByIdInvoiceResponse response = this.modelMapperService.forResponse().map(invoiceRepository.findById(id), GetByIdInvoiceResponse.class);
         return response;
     }
 }

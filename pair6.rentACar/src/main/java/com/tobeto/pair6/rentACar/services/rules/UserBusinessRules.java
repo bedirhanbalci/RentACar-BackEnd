@@ -15,4 +15,9 @@ public class UserBusinessRules {
             throw new RuntimeException("Aynı email ile 2. kullanıcı eklenemez!");
         }
     }
+
+    public void checkIfUserByIdExists(int id) {
+        if (!this.userRepository.existsById(id)) {
+            throw new RuntimeException("Verilen User Id ile sistemde bir user olmalıdır!");
+        }
 }

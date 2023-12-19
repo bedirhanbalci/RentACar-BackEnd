@@ -37,6 +37,8 @@ public class UserManager implements UserService {
     @Override
     public void delete(DeleteUserRequest deleteUserRequest) {
 
+        this.userBusinessRules.checkIfUserByIdExists(deleteUserRequest.getId());
+
         User user = this.modelMapperService.forRequest().map(deleteUserRequest, User.class);
 
         this.userRepository.delete(user);
@@ -45,6 +47,8 @@ public class UserManager implements UserService {
 
     @Override
     public void update(UpdateUserRequest updateUserRequest) {
+
+        this.userBusinessRules.checkIfUserByIdExists(updateUserRequest.getId());
 
         this.userBusinessRules.checkIfUserByEmailExists(updateUserRequest.getEmail());
 
@@ -66,9 +70,9 @@ public class UserManager implements UserService {
     @Override
     public GetByIdUserResponse getById(int id) {
 
-        User user = userRepository.findById(id).orElseThrow();
+        this.userBusinessRules.checkIfUserByIdExists(id);
 
-        GetByIdUserResponse response = this.modelMapperService.forResponse().map(user, GetByIdUserResponse.class);
+        GetByIdUserResponse response = this.modelMapperService.forResponse().map(userRepository.findById(id), GetByIdUserResponse.class);
         return response;
     }
 
