@@ -24,11 +24,7 @@ public class UpdateRentalRequest {
 
     private LocalDate returnDate;
 
-    private int startKilometer;
-
     private int endKilometer;
-
-    private double totalPrice;
 
     @Positive(message = "Doğru Car Id girişi yapınız!")
     private int carId;

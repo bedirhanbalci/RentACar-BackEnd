@@ -21,4 +21,5 @@ public class BrandBusinessRules {
             throw new RuntimeException("Verilen Brand Id ile sistemde bir brand olmalıdır!");
         }
     }
+
 }

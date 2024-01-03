@@ -1,5 +1,7 @@
 package com.tobeto.pair6.rentACar.controllers;
 
+import com.tobeto.pair6.rentACar.core.utilities.results.DataResult;
+import com.tobeto.pair6.rentACar.core.utilities.results.Result;
 import com.tobeto.pair6.rentACar.services.abstracts.ModelService;
 import com.tobeto.pair6.rentACar.services.dtos.model.requests.AddModelRequest;
 import com.tobeto.pair6.rentACar.services.dtos.model.requests.DeleteModelRequest;
@@ -16,33 +18,45 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/models")
 @AllArgsConstructor
+@CrossOrigin
 public class ModelsController {
 
     private final ModelService modelService;
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public void add(@RequestBody @Valid AddModelRequest addModelRequest) {
-        modelService.add(addModelRequest);
+    public Result add(@RequestBody @Valid AddModelRequest addModelRequest) {
+
+        return this.modelService.add(addModelRequest);
+
     }
 
     @DeleteMapping("/delete")
-    public void delete(@RequestBody @Valid DeleteModelRequest deleteModelRequest) {
-        modelService.delete(deleteModelRequest);
+    public Result delete(@RequestBody @Valid DeleteModelRequest deleteModelRequest) {
+
+        return this.modelService.delete(deleteModelRequest);
+
     }
 
     @PutMapping("/update")
-    public void update(@RequestBody @Valid UpdateModelRequest updateModelRequest) {
-        modelService.update(updateModelRequest);
+    public Result update(@RequestBody @Valid UpdateModelRequest updateModelRequest) {
+
+        return this.modelService.update(updateModelRequest);
+
     }
 
     @GetMapping("/getAll")
-    public List<GetAllModelsResponse> getAll() {
-        return modelService.getAll();
+    public DataResult<List<GetAllModelsResponse>> getAll() {
+
+        return this.modelService.getAll();
+
     }
 
     @GetMapping("/getById/{id}")
-    public GetByIdModelResponse getById(@PathVariable int id) {
-        return modelService.getById(id);
+    public DataResult<GetByIdModelResponse> getById(@PathVariable int id) {
+
+        return this.modelService.getById(id);
+
     }
+
 }

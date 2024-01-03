@@ -1,6 +1,10 @@
 package com.tobeto.pair6.rentACar.services.concretes;
 
 import com.tobeto.pair6.rentACar.core.utilities.mappers.ModelMapperService;
+import com.tobeto.pair6.rentACar.core.utilities.results.DataResult;
+import com.tobeto.pair6.rentACar.core.utilities.results.Result;
+import com.tobeto.pair6.rentACar.core.utilities.results.SuccessDataResult;
+import com.tobeto.pair6.rentACar.core.utilities.results.SuccessResult;
 import com.tobeto.pair6.rentACar.entities.Car;
 import com.tobeto.pair6.rentACar.repositories.CarRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.CarService;
@@ -24,7 +28,7 @@ public class CarManager implements CarService {
     private final CarBusinessRules carBusinessRules;
 
     @Override
-    public void add(AddCarRequest addCarRequest) {
+    public Result add(AddCarRequest addCarRequest) {
 
         this.carBusinessRules.checkIfCarByPlateExists(addCarRequest.getPlate());
 
@@ -37,20 +41,25 @@ public class CarManager implements CarService {
 
         this.carRepository.save(car);
 
+        return new SuccessResult("Araç eklendi!");
+
     }
 
     @Override
-    public void delete(DeleteCarRequest deleteCarRequest) {
+    public Result delete(DeleteCarRequest deleteCarRequest) {
 
         this.carBusinessRules.checkIfCarByIdExists(deleteCarRequest.getId());
 
         Car car = this.modelMapperService.forRequest().map(deleteCarRequest, Car.class);
 
         this.carRepository.delete(car);
+
+        return new SuccessResult("Araç silindi!");
+
     }
 
     @Override
-    public void update(UpdateCarRequest updateCarRequest) {
+    public Result update(UpdateCarRequest updateCarRequest) {
 
         this.carBusinessRules.checkIfCarByIdExists(updateCarRequest.getId());
 
@@ -65,30 +74,39 @@ public class CarManager implements CarService {
 
         this.carRepository.save(car);
 
+        return new SuccessResult("Araç güncellendi!");
+
     }
 
     @Override
-    public List<GetAllCarsResponse> getAll() {
+    public DataResult<List<GetAllCarsResponse>> getAll() {
 
         List<Car> cars = carRepository.findAll();
 
         List<GetAllCarsResponse> carsResponse = cars.stream()
                 .map(car -> this.modelMapperService.forResponse().map(car, GetAllCarsResponse.class)).toList();
-        return carsResponse;
+
+        return new SuccessDataResult<>(carsResponse, "Tüm araçlar listelendi!");
+
     }
 
     @Override
-    public GetByIdCarResponse getById(int id) {
+    public DataResult<GetByIdCarResponse> getById(int id) {
 
         this.carBusinessRules.checkIfCarByIdExists(id);
 
         GetByIdCarResponse response = this.modelMapperService.forResponse().map(carRepository.findById(id), GetByIdCarResponse.class);
 
-        return response;
+        return new SuccessDataResult<>(response, "Araç listelendi!");
+
     }
 
     @Override
+
     public boolean getCarById(int id) {
+
         return this.carRepository.existsById(id);
+
     }
+
 }

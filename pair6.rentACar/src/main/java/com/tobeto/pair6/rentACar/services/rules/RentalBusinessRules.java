@@ -56,5 +56,6 @@ public class RentalBusinessRules {
         if (!this.rentalRepository.existsById(id)) {
             throw new RuntimeException("Verilen Rental Id ile sistemde bir rental olmalıdır!");
         }
+    }
 
 }

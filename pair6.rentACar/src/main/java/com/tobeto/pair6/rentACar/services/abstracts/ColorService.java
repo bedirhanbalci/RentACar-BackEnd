@@ -1,5 +1,7 @@
 package com.tobeto.pair6.rentACar.services.abstracts;
 
+import com.tobeto.pair6.rentACar.core.utilities.results.DataResult;
+import com.tobeto.pair6.rentACar.core.utilities.results.Result;
 import com.tobeto.pair6.rentACar.services.dtos.color.requests.AddColorRequest;
 import com.tobeto.pair6.rentACar.services.dtos.color.requests.DeleteColorRequest;
 import com.tobeto.pair6.rentACar.services.dtos.color.requests.UpdateColorRequest;
@@ -10,15 +12,16 @@ import java.util.List;
 
 public interface ColorService {
 
-    void add(AddColorRequest addColorRequest);
+    Result add(AddColorRequest addColorRequest);
 
-    void delete(DeleteColorRequest deleteColorRequest);
+    Result delete(DeleteColorRequest deleteColorRequest);
 
-    void update(UpdateColorRequest updateColorRequest);
+    Result update(UpdateColorRequest updateColorRequest);
 
-    List<GetAllColorsResponse> getAll();
+    DataResult<List<GetAllColorsResponse>> getAll();
 
-    GetByIdColorResponse getById(int id);
+    DataResult<GetByIdColorResponse> getById(int id);
 
     boolean getColorById(int id);
+
 }

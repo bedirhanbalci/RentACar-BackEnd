@@ -1,5 +1,7 @@
 package com.tobeto.pair6.rentACar.controllers;
 
+import com.tobeto.pair6.rentACar.core.utilities.results.DataResult;
+import com.tobeto.pair6.rentACar.core.utilities.results.Result;
 import com.tobeto.pair6.rentACar.services.abstracts.ColorService;
 import com.tobeto.pair6.rentACar.services.dtos.color.requests.AddColorRequest;
 import com.tobeto.pair6.rentACar.services.dtos.color.requests.DeleteColorRequest;
@@ -16,34 +18,45 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/colors")
 @AllArgsConstructor
+@CrossOrigin
 public class ColorsController {
 
     private final ColorService colorService;
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public void add(@RequestBody @Valid AddColorRequest addColorRequest) {
-        colorService.add(addColorRequest);
+    public Result add(@RequestBody @Valid AddColorRequest addColorRequest) {
+
+        return this.colorService.add(addColorRequest);
+
     }
 
     @DeleteMapping("/delete")
-    public void delete(@RequestBody @Valid DeleteColorRequest deleteColorRequest) {
-        colorService.delete(deleteColorRequest);
+    public Result delete(@RequestBody @Valid DeleteColorRequest deleteColorRequest) {
+
+        return this.colorService.delete(deleteColorRequest);
+
     }
 
     @PutMapping("/update")
-    public void update(@RequestBody @Valid UpdateColorRequest updateColorRequest) {
-        colorService.update(updateColorRequest);
+    public Result update(@RequestBody @Valid UpdateColorRequest updateColorRequest) {
+
+        return this.colorService.update(updateColorRequest);
+
     }
 
     @GetMapping("/getAll")
-    public List<GetAllColorsResponse> getAll() {
-        return colorService.getAll();
+    public DataResult<List<GetAllColorsResponse>> getAll() {
+
+        return this.colorService.getAll();
+
     }
 
     @GetMapping("/getById/{id}")
-    public GetByIdColorResponse getById(@PathVariable int id) {
-        return colorService.getById(id);
+    public DataResult<GetByIdColorResponse> getById(@PathVariable int id) {
+
+        return this.colorService.getById(id);
+
     }
 
 }

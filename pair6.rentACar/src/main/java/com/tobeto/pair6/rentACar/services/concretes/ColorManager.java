@@ -1,6 +1,10 @@
 package com.tobeto.pair6.rentACar.services.concretes;
 
 import com.tobeto.pair6.rentACar.core.utilities.mappers.ModelMapperService;
+import com.tobeto.pair6.rentACar.core.utilities.results.DataResult;
+import com.tobeto.pair6.rentACar.core.utilities.results.Result;
+import com.tobeto.pair6.rentACar.core.utilities.results.SuccessDataResult;
+import com.tobeto.pair6.rentACar.core.utilities.results.SuccessResult;
 import com.tobeto.pair6.rentACar.entities.Color;
 import com.tobeto.pair6.rentACar.repositories.ColorRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.ColorService;
@@ -24,27 +28,33 @@ public class ColorManager implements ColorService {
     private final ColorBusinessRules colorBusinessRules;
 
     @Override
-    public void add(AddColorRequest addColorRequest) {
+    public Result add(AddColorRequest addColorRequest) {
 
         this.colorBusinessRules.checkIfColorByNameExists(addColorRequest.getName());
 
         Color color = this.modelMapperService.forRequest().map(addColorRequest, Color.class);
 
         this.colorRepository.save(color);
+
+        return new SuccessResult("Renk eklendi!");
+
     }
 
     @Override
-    public void delete(DeleteColorRequest deleteColorRequest) {
+    public Result delete(DeleteColorRequest deleteColorRequest) {
 
         this.colorBusinessRules.checkIfColorByIdExists(deleteColorRequest.getId());
 
         Color color = this.modelMapperService.forRequest().map(deleteColorRequest, Color.class);
 
         this.colorRepository.delete(color);
+
+        return new SuccessResult("Renk silindi!");
+
     }
 
     @Override
-    public void update(UpdateColorRequest updateColorRequest) {
+    public Result update(UpdateColorRequest updateColorRequest) {
 
         this.colorBusinessRules.checkIfColorByIdExists(updateColorRequest.getId());
 
@@ -53,29 +63,39 @@ public class ColorManager implements ColorService {
         Color color = this.modelMapperService.forRequest().map(updateColorRequest, Color.class);
 
         this.colorRepository.save(color);
+
+        return new SuccessResult("Renk güncellendi!");
+
     }
 
     @Override
-    public List<GetAllColorsResponse> getAll() {
+    public DataResult<List<GetAllColorsResponse>> getAll() {
 
         List<Color> colors = colorRepository.findAll();
 
         List<GetAllColorsResponse> colorsResponse = colors.stream()
                 .map(color -> this.modelMapperService.forResponse().map(color, GetAllColorsResponse.class)).toList();
-        return colorsResponse;
+
+        return new SuccessDataResult<>(colorsResponse, "Tüm renkler listelendi!");
+
     }
 
     @Override
-    public GetByIdColorResponse getById(int id) {
+    public DataResult<GetByIdColorResponse> getById(int id) {
 
         this.colorBusinessRules.checkIfColorByIdExists(id);
 
         GetByIdColorResponse response = this.modelMapperService.forResponse().map(colorRepository.findById(id), GetByIdColorResponse.class);
-        return response;
+
+        return new SuccessDataResult<>(response, "Renk listelendi!");
+
     }
 
     @Override
     public boolean getColorById(int id) {
+
         return this.colorRepository.existsById(id);
+
     }
+
 }

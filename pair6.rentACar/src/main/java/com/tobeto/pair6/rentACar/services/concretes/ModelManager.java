@@ -1,6 +1,10 @@
 package com.tobeto.pair6.rentACar.services.concretes;
 
 import com.tobeto.pair6.rentACar.core.utilities.mappers.ModelMapperService;
+import com.tobeto.pair6.rentACar.core.utilities.results.DataResult;
+import com.tobeto.pair6.rentACar.core.utilities.results.Result;
+import com.tobeto.pair6.rentACar.core.utilities.results.SuccessDataResult;
+import com.tobeto.pair6.rentACar.core.utilities.results.SuccessResult;
 import com.tobeto.pair6.rentACar.entities.Model;
 import com.tobeto.pair6.rentACar.repositories.ModelRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.ModelService;
@@ -24,7 +28,7 @@ public class ModelManager implements ModelService {
     private final ModelBusinessRules modelBusinessRules;
 
     @Override
-    public void add(AddModelRequest addModelRequest) {
+    public Result add(AddModelRequest addModelRequest) {
 
         this.modelBusinessRules.checkIfModelByNameExists(addModelRequest.getName());
 
@@ -33,10 +37,13 @@ public class ModelManager implements ModelService {
         Model model = this.modelMapperService.forRequest().map(addModelRequest, Model.class);
 
         this.modelRepository.save(model);
+
+        return new SuccessResult("Model eklendi!");
+
     }
 
     @Override
-    public void delete(DeleteModelRequest deleteModelRequest) {
+    public Result delete(DeleteModelRequest deleteModelRequest) {
 
         this.modelBusinessRules.checkIfModelByIdExists(deleteModelRequest.getId());
 
@@ -44,10 +51,12 @@ public class ModelManager implements ModelService {
 
         this.modelRepository.delete(model);
 
+        return new SuccessResult("Model silindi!");
+
     }
 
     @Override
-    public void update(UpdateModelRequest updateModelRequest) {
+    public Result update(UpdateModelRequest updateModelRequest) {
 
         this.modelBusinessRules.checkIfModelByIdExists(updateModelRequest.getId());
 
@@ -59,31 +68,38 @@ public class ModelManager implements ModelService {
 
         this.modelRepository.save(model);
 
+        return new SuccessResult("Model güncellendi!");
+
     }
 
     @Override
-    public List<GetAllModelsResponse> getAll() {
+    public DataResult<List<GetAllModelsResponse>> getAll() {
 
         List<Model> models = modelRepository.findAll();
 
         List<GetAllModelsResponse> modelsResponse = models.stream()
                 .map(model -> this.modelMapperService.forResponse().map(model, GetAllModelsResponse.class)).toList();
 
-        return modelsResponse;
+        return new SuccessDataResult<>(modelsResponse, "Tüm modeller listelendi!");
+
     }
 
     @Override
-    public GetByIdModelResponse getById(int id) {
+    public DataResult<GetByIdModelResponse> getById(int id) {
 
         this.modelBusinessRules.checkIfModelByIdExists(id);
 
         GetByIdModelResponse response = this.modelMapperService.forResponse().map(modelRepository.findById(id), GetByIdModelResponse.class);
 
-        return response;
+        return new SuccessDataResult<>(response, "Model listelendi!");
+
     }
 
     @Override
     public boolean getModelById(int id) {
+
         return this.modelRepository.existsById(id);
+
     }
+
 }

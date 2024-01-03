@@ -1,5 +1,7 @@
 package com.tobeto.pair6.rentACar.controllers;
 
+import com.tobeto.pair6.rentACar.core.utilities.results.DataResult;
+import com.tobeto.pair6.rentACar.core.utilities.results.Result;
 import com.tobeto.pair6.rentACar.services.abstracts.UserService;
 import com.tobeto.pair6.rentACar.services.dtos.user.requests.AddUserRequest;
 import com.tobeto.pair6.rentACar.services.dtos.user.requests.DeleteUserRequest;
@@ -16,33 +18,45 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/users")
 @AllArgsConstructor
+@CrossOrigin
 public class UsersController {
 
     private final UserService userService;
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public void add(@RequestBody @Valid AddUserRequest addUserRequest) {
-        userService.add(addUserRequest);
+    public Result add(@RequestBody @Valid AddUserRequest addUserRequest) {
+
+        return this.userService.add(addUserRequest);
+
     }
 
     @DeleteMapping("/delete")
-    public void delete(@RequestBody @Valid DeleteUserRequest deleteUserRequest) {
-        userService.delete(deleteUserRequest);
+    public Result delete(@RequestBody @Valid DeleteUserRequest deleteUserRequest) {
+
+        return this.userService.delete(deleteUserRequest);
+
     }
 
     @PutMapping("/update")
-    public void update(@RequestBody @Valid UpdateUserRequest updateUserRequest) {
-        userService.update(updateUserRequest);
+    public Result update(@RequestBody @Valid UpdateUserRequest updateUserRequest) {
+
+        return this.userService.update(updateUserRequest);
+
     }
 
     @GetMapping("/getAll")
-    public List<GetAllUsersResponse> getAll() {
-        return userService.getAll();
+    public DataResult<List<GetAllUsersResponse>> getAll() {
+
+        return this.userService.getAll();
+
     }
 
     @GetMapping("/getById/{id}")
-    public GetByIdUserResponse getById(@PathVariable int id) {
-        return userService.getById(id);
+    public DataResult<GetByIdUserResponse> getById(@PathVariable int id) {
+
+        return this.userService.getById(id);
+
     }
+
 }

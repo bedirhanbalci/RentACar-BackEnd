@@ -20,4 +20,6 @@ public class UserBusinessRules {
         if (!this.userRepository.existsById(id)) {
             throw new RuntimeException("Verilen User Id ile sistemde bir user olmalıdır!");
         }
+    }
+
 }

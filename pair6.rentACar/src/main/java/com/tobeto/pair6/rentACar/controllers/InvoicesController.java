@@ -1,5 +1,7 @@
 package com.tobeto.pair6.rentACar.controllers;
 
+import com.tobeto.pair6.rentACar.core.utilities.results.DataResult;
+import com.tobeto.pair6.rentACar.core.utilities.results.Result;
 import com.tobeto.pair6.rentACar.services.abstracts.InvoiceService;
 import com.tobeto.pair6.rentACar.services.dtos.invoice.requests.AddInvoiceRequest;
 import com.tobeto.pair6.rentACar.services.dtos.invoice.requests.DeleteInvoiceRequest;
@@ -16,33 +18,45 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/invoices")
 @AllArgsConstructor
+@CrossOrigin
 public class InvoicesController {
 
     private final InvoiceService invoiceService;
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public void add(@RequestBody @Valid AddInvoiceRequest addInvoiceRequest) {
-        invoiceService.add(addInvoiceRequest);
+    public Result add(@RequestBody @Valid AddInvoiceRequest addInvoiceRequest) {
+
+        return this.invoiceService.add(addInvoiceRequest);
+
     }
 
     @DeleteMapping("/delete")
-    public void delete(@RequestBody @Valid DeleteInvoiceRequest deleteInvoiceRequest) {
-        invoiceService.delete(deleteInvoiceRequest);
+    public Result delete(@RequestBody @Valid DeleteInvoiceRequest deleteInvoiceRequest) {
+
+        return this.invoiceService.delete(deleteInvoiceRequest);
+
     }
 
     @PutMapping("/update")
-    public void update(@RequestBody @Valid UpdateInvoiceRequest updateInvoiceRequest) {
-        invoiceService.update(updateInvoiceRequest);
+    public Result update(@RequestBody @Valid UpdateInvoiceRequest updateInvoiceRequest) {
+
+        return this.invoiceService.update(updateInvoiceRequest);
+
     }
 
     @GetMapping("/getAll")
-    public List<GetAllInvoicesResponse> getAll() {
-        return invoiceService.getAll();
+    public DataResult<List<GetAllInvoicesResponse>> getAll() {
+
+        return this.invoiceService.getAll();
+
     }
 
     @GetMapping("/getById/{id}")
-    public GetByIdInvoiceResponse getById(@PathVariable int id) {
-        return invoiceService.getById(id);
+    public DataResult<GetByIdInvoiceResponse> getById(@PathVariable int id) {
+
+        return this.invoiceService.getById(id);
+
     }
+
 }

@@ -1,5 +1,7 @@
 package com.tobeto.pair6.rentACar.controllers;
 
+import com.tobeto.pair6.rentACar.core.utilities.results.DataResult;
+import com.tobeto.pair6.rentACar.core.utilities.results.Result;
 import com.tobeto.pair6.rentACar.services.abstracts.CarService;
 import com.tobeto.pair6.rentACar.services.dtos.car.requests.AddCarRequest;
 import com.tobeto.pair6.rentACar.services.dtos.car.requests.DeleteCarRequest;
@@ -16,33 +18,45 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/cars")
 @AllArgsConstructor
+@CrossOrigin
 public class CarsController {
 
     private final CarService carService;
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public void add(@RequestBody @Valid AddCarRequest addCarRequest) {
-        carService.add(addCarRequest);
+    public Result add(@RequestBody @Valid AddCarRequest addCarRequest) {
+
+        return this.carService.add(addCarRequest);
+
     }
 
     @DeleteMapping("/delete")
-    public void delete(@RequestBody @Valid DeleteCarRequest deleteCarRequest) {
-        carService.delete(deleteCarRequest);
+    public Result delete(@RequestBody @Valid DeleteCarRequest deleteCarRequest) {
+
+        return this.carService.delete(deleteCarRequest);
+
     }
 
     @PutMapping("/update")
-    public void update(@RequestBody @Valid UpdateCarRequest updateCarRequest) {
-        carService.update(updateCarRequest);
+    public Result update(@RequestBody @Valid UpdateCarRequest updateCarRequest) {
+
+        return this.carService.update(updateCarRequest);
+
     }
 
     @GetMapping("/getAll")
-    public List<GetAllCarsResponse> getAll() {
-        return carService.getAll();
+    public DataResult<List<GetAllCarsResponse>> getAll() {
+
+        return this.carService.getAll();
+
     }
 
     @GetMapping("/getById/{id}")
-    public GetByIdCarResponse getById(@PathVariable int id) {
-        return carService.getById(id);
+    public DataResult<GetByIdCarResponse> getById(@PathVariable int id) {
+
+        return this.carService.getById(id);
+
     }
+
 }

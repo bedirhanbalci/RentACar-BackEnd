@@ -1,5 +1,7 @@
 package com.tobeto.pair6.rentACar.controllers;
 
+import com.tobeto.pair6.rentACar.core.utilities.results.DataResult;
+import com.tobeto.pair6.rentACar.core.utilities.results.Result;
 import com.tobeto.pair6.rentACar.services.abstracts.BrandService;
 import com.tobeto.pair6.rentACar.services.dtos.brand.requests.AddBrandRequest;
 import com.tobeto.pair6.rentACar.services.dtos.brand.requests.DeleteBrandRequest;
@@ -16,33 +18,45 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/brands")
 @AllArgsConstructor
+@CrossOrigin
 public class BrandsController {
 
     private final BrandService brandService;
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public void add(@RequestBody @Valid AddBrandRequest addBrandRequest) {
-        brandService.add(addBrandRequest);
+    public Result add(@RequestBody @Valid AddBrandRequest addBrandRequest) {
+
+        return this.brandService.add(addBrandRequest);
+
     }
 
     @DeleteMapping("/delete")
-    public void delete(@RequestBody @Valid DeleteBrandRequest deleteBrandRequest) {
-        brandService.delete(deleteBrandRequest);
+    public Result delete(@RequestBody @Valid DeleteBrandRequest deleteBrandRequest) {
+
+        return this.brandService.delete(deleteBrandRequest);
+
     }
 
     @PutMapping("/update")
-    public void update(@RequestBody @Valid UpdateBrandRequest updateBrandRequest) {
-        brandService.update(updateBrandRequest);
+    public Result update(@RequestBody @Valid UpdateBrandRequest updateBrandRequest) {
+
+        return this.brandService.update(updateBrandRequest);
+
     }
 
     @GetMapping("/getAll")
-    public List<GetAllBrandsResponse> getAll() {
-        return brandService.getAll();
+    public DataResult<List<GetAllBrandsResponse>> getAll() {
+
+        return this.brandService.getAll();
+
     }
 
     @GetMapping("/getById/{id}")
-    public GetByIdBrandResponse getById(@PathVariable int id) {
-        return brandService.getById(id);
+    public DataResult<GetByIdBrandResponse> getById(@PathVariable int id) {
+
+        return this.brandService.getById(id);
+
     }
+
 }

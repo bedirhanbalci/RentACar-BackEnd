@@ -1,23 +1,26 @@
 package com.tobeto.pair6.rentACar.services.abstracts;
 
+import com.tobeto.pair6.rentACar.core.utilities.results.DataResult;
+import com.tobeto.pair6.rentACar.core.utilities.results.Result;
 import com.tobeto.pair6.rentACar.services.dtos.brand.requests.AddBrandRequest;
 import com.tobeto.pair6.rentACar.services.dtos.brand.requests.DeleteBrandRequest;
 import com.tobeto.pair6.rentACar.services.dtos.brand.requests.UpdateBrandRequest;
 import com.tobeto.pair6.rentACar.services.dtos.brand.responses.GetAllBrandsResponse;
 import com.tobeto.pair6.rentACar.services.dtos.brand.responses.GetByIdBrandResponse;
+
 import java.util.List;
 
 public interface BrandService {
 
-    void add(AddBrandRequest addBrandRequest);
+    Result add(AddBrandRequest addBrandRequest);
 
-    void delete(DeleteBrandRequest deleteBrandRequest);
+    Result delete(DeleteBrandRequest deleteBrandRequest);
 
-    void update(UpdateBrandRequest updateBrandRequest);
+    Result update(UpdateBrandRequest updateBrandRequest);
 
-    List<GetAllBrandsResponse> getAll();
+    DataResult<List<GetAllBrandsResponse>> getAll();
 
-    GetByIdBrandResponse getById(int id);
+    DataResult<GetByIdBrandResponse> getById(int id);
 
     boolean getBrandById(int id);
 

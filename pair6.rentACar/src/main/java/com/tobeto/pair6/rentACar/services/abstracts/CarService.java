@@ -1,5 +1,7 @@
 package com.tobeto.pair6.rentACar.services.abstracts;
 
+import com.tobeto.pair6.rentACar.core.utilities.results.DataResult;
+import com.tobeto.pair6.rentACar.core.utilities.results.Result;
 import com.tobeto.pair6.rentACar.services.dtos.car.requests.AddCarRequest;
 import com.tobeto.pair6.rentACar.services.dtos.car.requests.DeleteCarRequest;
 import com.tobeto.pair6.rentACar.services.dtos.car.requests.UpdateCarRequest;
@@ -9,15 +11,15 @@ import com.tobeto.pair6.rentACar.services.dtos.car.responses.GetByIdCarResponse;
 import java.util.List;
 
 public interface CarService {
-    void add(AddCarRequest addCarRequest);
+    Result add(AddCarRequest addCarRequest);
 
-    void delete(DeleteCarRequest deleteCarRequest);
+    Result delete(DeleteCarRequest deleteCarRequest);
 
-    void update(UpdateCarRequest updateCarRequest);
+    Result update(UpdateCarRequest updateCarRequest);
 
-    List<GetAllCarsResponse> getAll();
+    DataResult<List<GetAllCarsResponse>> getAll();
 
-    GetByIdCarResponse getById(int id);
+    DataResult<GetByIdCarResponse> getById(int id);
 
     boolean getCarById(int id);
 

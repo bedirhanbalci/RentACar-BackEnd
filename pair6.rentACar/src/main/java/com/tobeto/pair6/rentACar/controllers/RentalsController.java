@@ -1,5 +1,7 @@
 package com.tobeto.pair6.rentACar.controllers;
 
+import com.tobeto.pair6.rentACar.core.utilities.results.DataResult;
+import com.tobeto.pair6.rentACar.core.utilities.results.Result;
 import com.tobeto.pair6.rentACar.services.abstracts.RentalService;
 import com.tobeto.pair6.rentACar.services.dtos.rental.requests.AddRentalRequest;
 import com.tobeto.pair6.rentACar.services.dtos.rental.requests.DeleteRentalRequest;
@@ -16,34 +18,45 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/rentals")
 @AllArgsConstructor
+@CrossOrigin
 public class RentalsController {
 
     private final RentalService rentalService;
 
     @PostMapping("/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public void add(@RequestBody @Valid AddRentalRequest addRentalRequest) {
-        rentalService.add(addRentalRequest);
+    public Result add(@RequestBody @Valid AddRentalRequest addRentalRequest) {
+
+        return this.rentalService.add(addRentalRequest);
+
     }
 
     @DeleteMapping("/delete")
-    public void delete(@RequestBody @Valid DeleteRentalRequest deleteRentalRequest) {
-        rentalService.delete(deleteRentalRequest);
+    public Result delete(@RequestBody @Valid DeleteRentalRequest deleteRentalRequest) {
+
+        return this.rentalService.delete(deleteRentalRequest);
+
     }
 
     @PutMapping("/update")
-    public void update(@RequestBody @Valid UpdateRentalRequest updateRentalRequest) {
-        rentalService.update(updateRentalRequest);
+    public Result update(@RequestBody @Valid UpdateRentalRequest updateRentalRequest) {
+
+        return this.rentalService.update(updateRentalRequest);
+
     }
 
     @GetMapping("/getAll")
-    public List<GetAllRentalsResponse> getAll() {
-        return rentalService.getAll();
+    public DataResult<List<GetAllRentalsResponse>> getAll() {
+
+        return this.rentalService.getAll();
+
     }
 
     @GetMapping("/getById/{id}")
-    public GetByIdRentalResponse getById(@PathVariable int id) {
-        return rentalService.getById(id);
+    public DataResult<GetByIdRentalResponse> getById(@PathVariable int id) {
+
+        return this.rentalService.getById(id);
+
     }
 
 }

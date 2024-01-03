@@ -28,5 +28,6 @@ public class ModelBusinessRules {
         if (!this.modelRepository.existsById(id)) {
             throw new RuntimeException("Verilen Model Id ile sistemde bir model olmalıdır!");
         }
+    }
 
 }

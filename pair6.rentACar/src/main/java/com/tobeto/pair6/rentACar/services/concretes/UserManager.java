@@ -1,6 +1,10 @@
 package com.tobeto.pair6.rentACar.services.concretes;
 
 import com.tobeto.pair6.rentACar.core.utilities.mappers.ModelMapperService;
+import com.tobeto.pair6.rentACar.core.utilities.results.DataResult;
+import com.tobeto.pair6.rentACar.core.utilities.results.Result;
+import com.tobeto.pair6.rentACar.core.utilities.results.SuccessDataResult;
+import com.tobeto.pair6.rentACar.core.utilities.results.SuccessResult;
 import com.tobeto.pair6.rentACar.entities.User;
 import com.tobeto.pair6.rentACar.repositories.UserRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.UserService;
@@ -24,7 +28,7 @@ public class UserManager implements UserService {
     private final UserBusinessRules userBusinessRules;
 
     @Override
-    public void add(AddUserRequest addUserRequest) {
+    public Result add(AddUserRequest addUserRequest) {
 
         this.userBusinessRules.checkIfUserByEmailExists(addUserRequest.getEmail());
 
@@ -32,10 +36,12 @@ public class UserManager implements UserService {
 
         this.userRepository.save(user);
 
+        return new SuccessResult("Kullanıcı eklendi!");
+
     }
 
     @Override
-    public void delete(DeleteUserRequest deleteUserRequest) {
+    public Result delete(DeleteUserRequest deleteUserRequest) {
 
         this.userBusinessRules.checkIfUserByIdExists(deleteUserRequest.getId());
 
@@ -43,10 +49,12 @@ public class UserManager implements UserService {
 
         this.userRepository.delete(user);
 
+        return new SuccessResult("Kullanıcı silindi!");
+
     }
 
     @Override
-    public void update(UpdateUserRequest updateUserRequest) {
+    public Result update(UpdateUserRequest updateUserRequest) {
 
         this.userBusinessRules.checkIfUserByIdExists(updateUserRequest.getId());
 
@@ -55,29 +63,39 @@ public class UserManager implements UserService {
         User user = this.modelMapperService.forRequest().map(updateUserRequest, User.class);
 
         this.userRepository.save(user);
+
+        return new SuccessResult("Kullanıcı güncellendi!");
+
     }
 
     @Override
-    public List<GetAllUsersResponse> getAll() {
+    public DataResult<List<GetAllUsersResponse>> getAll() {
 
         List<User> users = userRepository.findAll();
 
         List<GetAllUsersResponse> usersResponse = users.stream()
                 .map(user -> this.modelMapperService.forResponse().map(user, GetAllUsersResponse.class)).toList();
-        return usersResponse;
+
+        return new SuccessDataResult<>(usersResponse, "Tüm kullanıcılar listelendi!");
+
     }
 
     @Override
-    public GetByIdUserResponse getById(int id) {
+    public DataResult<GetByIdUserResponse> getById(int id) {
 
         this.userBusinessRules.checkIfUserByIdExists(id);
 
         GetByIdUserResponse response = this.modelMapperService.forResponse().map(userRepository.findById(id), GetByIdUserResponse.class);
-        return response;
+
+        return new SuccessDataResult<>(response, "Kullanıcı listelendi!");
+
     }
 
     @Override
     public boolean getUserById(int id) {
+
         return this.userRepository.existsById(id);
+
     }
+
 }

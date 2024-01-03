@@ -26,4 +26,5 @@ public class Color {
 
     @OneToMany(mappedBy = "color")
     private List<Car> cars;
+
 }
