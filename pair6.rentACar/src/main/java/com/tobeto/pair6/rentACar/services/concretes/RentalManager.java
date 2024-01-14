@@ -3,7 +3,7 @@ package com.tobeto.pair6.rentACar.services.concretes;
 
 import com.tobeto.pair6.rentACar.core.utilities.mappers.ModelMapperService;
 import com.tobeto.pair6.rentACar.core.utilities.results.*;
-import com.tobeto.pair6.rentACar.entities.Rental;
+import com.tobeto.pair6.rentACar.entities.concretes.Rental;
 import com.tobeto.pair6.rentACar.repositories.RentalRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.CarService;
 import com.tobeto.pair6.rentACar.services.abstracts.RentalService;
@@ -119,5 +119,4 @@ public class RentalManager implements RentalService {
         return new SuccessDataResult<>(response, "Kiralama bilgisi listelendi!");
 
     }
-
 }

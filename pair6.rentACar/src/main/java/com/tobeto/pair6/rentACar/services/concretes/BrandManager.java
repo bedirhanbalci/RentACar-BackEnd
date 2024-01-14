@@ -5,7 +5,7 @@ import com.tobeto.pair6.rentACar.core.utilities.results.DataResult;
 import com.tobeto.pair6.rentACar.core.utilities.results.Result;
 import com.tobeto.pair6.rentACar.core.utilities.results.SuccessDataResult;
 import com.tobeto.pair6.rentACar.core.utilities.results.SuccessResult;
-import com.tobeto.pair6.rentACar.entities.Brand;
+import com.tobeto.pair6.rentACar.entities.concretes.Brand;
 import com.tobeto.pair6.rentACar.repositories.BrandRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.BrandService;
 import com.tobeto.pair6.rentACar.services.dtos.brand.requests.AddBrandRequest;

@@ -1,5 +1,6 @@
-package com.tobeto.pair6.rentACar.entities;
+package com.tobeto.pair6.rentACar.entities.concretes;
 
+import com.tobeto.pair6.rentACar.entities.abstracts.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,15 +15,13 @@ import java.time.LocalDate;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Invoice {
+public class Invoice extends BaseEntity {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+    @Column(name = "invoice_no")
+    private String invoiceNo;
 
-    @Column(name = "create_date")
-    private LocalDate createDate;
+    @Column(name = "tax_rate")
+    private double taxRate;
 
     @ManyToOne
     @JoinColumn(name = "rental_id")

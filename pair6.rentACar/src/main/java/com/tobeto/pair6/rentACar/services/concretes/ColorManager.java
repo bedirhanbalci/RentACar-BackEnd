@@ -5,7 +5,7 @@ import com.tobeto.pair6.rentACar.core.utilities.results.DataResult;
 import com.tobeto.pair6.rentACar.core.utilities.results.Result;
 import com.tobeto.pair6.rentACar.core.utilities.results.SuccessDataResult;
 import com.tobeto.pair6.rentACar.core.utilities.results.SuccessResult;
-import com.tobeto.pair6.rentACar.entities.Color;
+import com.tobeto.pair6.rentACar.entities.concretes.Color;
 import com.tobeto.pair6.rentACar.repositories.ColorRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.ColorService;
 import com.tobeto.pair6.rentACar.services.dtos.color.requests.AddColorRequest;

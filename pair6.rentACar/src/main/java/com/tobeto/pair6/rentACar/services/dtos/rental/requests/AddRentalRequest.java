@@ -24,4 +24,5 @@ public class AddRentalRequest {
 
     @Positive(message = "Doğru User Id girişi yapınız!")
     private int userId;
+
 }

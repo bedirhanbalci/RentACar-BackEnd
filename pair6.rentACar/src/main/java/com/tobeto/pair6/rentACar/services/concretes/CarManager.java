@@ -5,7 +5,7 @@ import com.tobeto.pair6.rentACar.core.utilities.results.DataResult;
 import com.tobeto.pair6.rentACar.core.utilities.results.Result;
 import com.tobeto.pair6.rentACar.core.utilities.results.SuccessDataResult;
 import com.tobeto.pair6.rentACar.core.utilities.results.SuccessResult;
-import com.tobeto.pair6.rentACar.entities.Car;
+import com.tobeto.pair6.rentACar.entities.concretes.Car;
 import com.tobeto.pair6.rentACar.repositories.CarRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.CarService;
 import com.tobeto.pair6.rentACar.services.dtos.car.requests.AddCarRequest;

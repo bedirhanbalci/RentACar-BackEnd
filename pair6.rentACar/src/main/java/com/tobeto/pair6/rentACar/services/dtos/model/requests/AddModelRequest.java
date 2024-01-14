@@ -11,9 +11,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AddModelRequest {
 
+    private int id;
+
     @Size(min = 2, message = "Eklenecek model en az 2 harften oluşmalıdır!")
     private String name;
 
     @Positive(message = "Doğru Brand Id girişi yapınız!")
     private int brandId;
+
 }

@@ -1,5 +1,6 @@
-package com.tobeto.pair6.rentACar.entities;
+package com.tobeto.pair6.rentACar.entities.concretes;
 
+import com.tobeto.pair6.rentACar.entities.abstracts.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,13 +16,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
-public class Rental {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+public class Rental extends BaseEntity {
 
     @Column(name = "start_date")
     private LocalDate startDate;
@@ -41,6 +36,12 @@ public class Rental {
     @Column(name = "total_price")
     private double totalPrice;
 
+    @Column(name = "discount_rate")
+    private double discountRate;
+
+    @Column(name = "general_price")
+    private double generalPrice;
+
     @OneToMany(mappedBy = "rental")
     private List<Invoice> invoices;
 
@@ -51,5 +52,17 @@ public class Rental {
     @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @ManyToOne
+    @JoinColumn(name = "branch_id")
+    private Branch branch;
+
+    @ManyToOne
+    @JoinColumn(name = "assurance_package_id")
+    private AssurancePackage assurancePackage;
+
+    @ManyToOne
+    @JoinColumn(name = "additional_service_id")
+    private AdditionalService additionalService;
 
 }

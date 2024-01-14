@@ -5,7 +5,7 @@ import com.tobeto.pair6.rentACar.core.utilities.results.DataResult;
 import com.tobeto.pair6.rentACar.core.utilities.results.Result;
 import com.tobeto.pair6.rentACar.core.utilities.results.SuccessDataResult;
 import com.tobeto.pair6.rentACar.core.utilities.results.SuccessResult;
-import com.tobeto.pair6.rentACar.entities.Model;
+import com.tobeto.pair6.rentACar.entities.concretes.Model;
 import com.tobeto.pair6.rentACar.repositories.ModelRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.ModelService;
 import com.tobeto.pair6.rentACar.services.dtos.model.requests.AddModelRequest;

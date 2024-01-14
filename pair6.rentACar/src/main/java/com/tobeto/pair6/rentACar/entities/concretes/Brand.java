@@ -1,5 +1,6 @@
-package com.tobeto.pair6.rentACar.entities;
+package com.tobeto.pair6.rentACar.entities.concretes;
 
+import com.tobeto.pair6.rentACar.entities.abstracts.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,12 +15,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class Brand {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+public class Brand extends BaseEntity {
 
     @Column(name = "name")
     private String name;

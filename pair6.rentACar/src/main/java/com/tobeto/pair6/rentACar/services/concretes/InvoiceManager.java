@@ -5,7 +5,7 @@ import com.tobeto.pair6.rentACar.core.utilities.results.DataResult;
 import com.tobeto.pair6.rentACar.core.utilities.results.Result;
 import com.tobeto.pair6.rentACar.core.utilities.results.SuccessDataResult;
 import com.tobeto.pair6.rentACar.core.utilities.results.SuccessResult;
-import com.tobeto.pair6.rentACar.entities.Invoice;
+import com.tobeto.pair6.rentACar.entities.concretes.Invoice;
 import com.tobeto.pair6.rentACar.repositories.InvoiceRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.InvoiceService;
 import com.tobeto.pair6.rentACar.services.dtos.invoice.requests.AddInvoiceRequest;
