@@ -62,7 +62,7 @@ public class Rental extends BaseEntity {
     private AssurancePackage assurancePackage;
 
     @ManyToOne
-    @JoinColumn(name = "additional_service_id")
-    private AdditionalService additionalService;
+    @JoinColumn(name = "additional_feature_id")
+    private AdditionalFeature additionalFeature;
 
 }

@@ -20,7 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 public class Branch extends BaseEntity {
 
-    @Column(name = "cityName")
+    @Column(name = "city_name")
     private String cityName;
 
     @Column(name = "address")

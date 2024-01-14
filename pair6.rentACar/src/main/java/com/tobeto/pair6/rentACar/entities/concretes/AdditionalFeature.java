@@ -12,13 +12,13 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Table(name = "additional_services")
+@Table(name = "additional_features")
 @Entity
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class AdditionalService extends BaseEntity {
+public class AdditionalFeature extends BaseEntity {
 
     @Column(name = "name")
     private String name;
@@ -32,7 +32,7 @@ public class AdditionalService extends BaseEntity {
     @Column(name = "quantity")
     private int quantity;
 
-    @OneToMany(mappedBy = "additionalService")
+    @OneToMany(mappedBy = "additionalFeature")
     private List<Rental> rentals;
 
 }
