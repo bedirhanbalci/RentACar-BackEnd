@@ -1,34 +1,29 @@
 package com.tobeto.pair6.rentACar.entities.concretes;
 
 import com.tobeto.pair6.rentACar.entities.abstracts.BaseEntity;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import java.util.Collection;
 import java.util.List;
 
 @Table(name = "users")
 @Entity
+@Builder
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class User extends BaseEntity implements UserDetails {
 
-    @Column(name = "username")
-    private String username;
+    @Column(name = "email")
+    private String email;
 
     @Column(name = "password")
     private String password;
-
-    @Column(name = "email")
-    private String email;
 
     @Column(name = "phone_number")
     private String phoneNumber;
