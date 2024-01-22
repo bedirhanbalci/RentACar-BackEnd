@@ -7,6 +7,4 @@ public interface ColorRepository extends JpaRepository<Color, Integer> {
 
     boolean existsByName(String name);
 
-    boolean existsById(int id);
-
 }

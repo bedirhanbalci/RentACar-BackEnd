@@ -27,7 +27,7 @@ public class AssurancePackage extends BaseEntity {
     private String detail;
 
     @Column(name = "daily_price")
-    private double dailyPrice;
+    private Double dailyPrice;
 
     @OneToMany(mappedBy = "assurancePackage")
     private List<Rental> rentals;

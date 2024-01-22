@@ -27,10 +27,10 @@ public class AdditionalFeature extends BaseEntity {
     private String detail;
 
     @Column(name = "daily_price")
-    private double dailyPrice;
+    private Double dailyPrice;
 
     @Column(name = "quantity")
-    private int quantity;
+    private Integer quantity;
 
     @OneToMany(mappedBy = "additionalFeature")
     private List<Rental> rentals;

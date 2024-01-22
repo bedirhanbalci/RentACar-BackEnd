@@ -12,8 +12,9 @@ import lombok.NoArgsConstructor;
 public class UpdateBrandRequest {
 
     @Positive(message = "Doğru Id girişi yapınız!")
-    private int id;
+    private Integer id;
 
     @Size(min = 2, message = "Eklenecek marka en az 2 harften oluşmalıdır!")
     private String name;
+
 }

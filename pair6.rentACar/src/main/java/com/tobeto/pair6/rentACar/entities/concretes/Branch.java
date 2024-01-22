@@ -12,7 +12,7 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Table(name = "branchs")
+@Table(name = "branches")
 @Entity
 @Getter
 @Setter
@@ -20,8 +20,8 @@ import java.util.List;
 @NoArgsConstructor
 public class Branch extends BaseEntity {
 
-    @Column(name = "city_name")
-    private String cityName;
+    @Column(name = "city")
+    private String city;
 
     @Column(name = "address")
     private String address;
@@ -29,13 +29,13 @@ public class Branch extends BaseEntity {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    @Column(name = "location")
-    private String location;
+    @Column(name = "latitude")
+    private Double latitude;
+
+    @Column(name = "longitude")
+    private Double longitude;
 
     @OneToMany(mappedBy = "branch")
     private List<Car> cars;
-
-    @OneToMany(mappedBy = "branch")
-    private List<Rental> rentals;
 
 }

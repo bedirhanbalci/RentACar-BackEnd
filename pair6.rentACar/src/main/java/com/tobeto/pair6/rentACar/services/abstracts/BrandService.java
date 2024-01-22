@@ -20,8 +20,8 @@ public interface BrandService {
 
     DataResult<List<GetAllBrandsResponse>> getAll();
 
-    DataResult<GetByIdBrandResponse> getById(int id);
+    DataResult<GetByIdBrandResponse> getById(Integer id);
 
-    boolean getBrandById(int id);
+    boolean getBrandById(Integer id);
 
 }

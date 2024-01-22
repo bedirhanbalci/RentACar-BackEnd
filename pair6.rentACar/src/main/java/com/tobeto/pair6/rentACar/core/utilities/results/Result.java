@@ -2,20 +2,20 @@ package com.tobeto.pair6.rentACar.core.utilities.results;
 
 public class Result {
 
-    private boolean success;
+    private Boolean success;
 
     private String message;
 
-    public Result(boolean success) {
+    public Result(Boolean success) {
         this.success = success;
     }
 
-    public Result(boolean success, String message) {
+    public Result(Boolean success, String message) {
         this(success);
         this.message = message;
     }
 
-    public boolean isSuccess() {
+    public Boolean isSuccess() {
         return this.success;
     }
 

@@ -24,7 +24,9 @@ import java.util.List;
 public class CarManager implements CarService {
 
     private final CarRepository carRepository;
+
     private final ModelMapperService modelMapperService;
+
     private final CarBusinessRules carBusinessRules;
 
     @Override
@@ -37,7 +39,9 @@ public class CarManager implements CarService {
         this.carBusinessRules.checkIfColorByIdExists(addCarRequest.getColorId());
 
 
-        Car car = this.modelMapperService.forRequest().map(addCarRequest, Car.class);
+        Car car = this.modelMapperService.forRequest()
+                .map(addCarRequest, Car.class);
+        car.setId(null);
 
         this.carRepository.save(car);
 
@@ -50,7 +54,8 @@ public class CarManager implements CarService {
 
         this.carBusinessRules.checkIfCarByIdExists(deleteCarRequest.getId());
 
-        Car car = this.modelMapperService.forRequest().map(deleteCarRequest, Car.class);
+        Car car = this.modelMapperService.forRequest()
+                .map(deleteCarRequest, Car.class);
 
         this.carRepository.delete(car);
 
@@ -70,7 +75,8 @@ public class CarManager implements CarService {
         this.carBusinessRules.checkIfColorByIdExists(updateCarRequest.getColorId());
 
 
-        Car car = this.modelMapperService.forRequest().map(updateCarRequest, Car.class);
+        Car car = this.modelMapperService.forRequest()
+                .map(updateCarRequest, Car.class);
 
         this.carRepository.save(car);
 
@@ -91,11 +97,12 @@ public class CarManager implements CarService {
     }
 
     @Override
-    public DataResult<GetByIdCarResponse> getById(int id) {
+    public DataResult<GetByIdCarResponse> getById(Integer id) {
 
         this.carBusinessRules.checkIfCarByIdExists(id);
 
-        GetByIdCarResponse response = this.modelMapperService.forResponse().map(carRepository.findById(id), GetByIdCarResponse.class);
+        GetByIdCarResponse response = this.modelMapperService.forResponse()
+                .map(carRepository.findById(id), GetByIdCarResponse.class);
 
         return new SuccessDataResult<>(response, "Araç listelendi!");
 
@@ -103,7 +110,7 @@ public class CarManager implements CarService {
 
     @Override
 
-    public boolean getCarById(int id) {
+    public boolean getCarById(Integer id) {
 
         return this.carRepository.existsById(id);
 

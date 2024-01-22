@@ -24,7 +24,9 @@ import java.util.List;
 public class ColorManager implements ColorService {
 
     private final ColorRepository colorRepository;
+
     private final ModelMapperService modelMapperService;
+
     private final ColorBusinessRules colorBusinessRules;
 
     @Override
@@ -32,7 +34,9 @@ public class ColorManager implements ColorService {
 
         this.colorBusinessRules.checkIfColorByNameExists(addColorRequest.getName());
 
-        Color color = this.modelMapperService.forRequest().map(addColorRequest, Color.class);
+        Color color = this.modelMapperService.forRequest()
+                .map(addColorRequest, Color.class);
+        color.setId(null);
 
         this.colorRepository.save(color);
 
@@ -45,7 +49,8 @@ public class ColorManager implements ColorService {
 
         this.colorBusinessRules.checkIfColorByIdExists(deleteColorRequest.getId());
 
-        Color color = this.modelMapperService.forRequest().map(deleteColorRequest, Color.class);
+        Color color = this.modelMapperService.forRequest()
+                .map(deleteColorRequest, Color.class);
 
         this.colorRepository.delete(color);
 
@@ -60,7 +65,8 @@ public class ColorManager implements ColorService {
 
         this.colorBusinessRules.checkIfColorByNameExists(updateColorRequest.getName());
 
-        Color color = this.modelMapperService.forRequest().map(updateColorRequest, Color.class);
+        Color color = this.modelMapperService.forRequest()
+                .map(updateColorRequest, Color.class);
 
         this.colorRepository.save(color);
 
@@ -81,18 +87,19 @@ public class ColorManager implements ColorService {
     }
 
     @Override
-    public DataResult<GetByIdColorResponse> getById(int id) {
+    public DataResult<GetByIdColorResponse> getById(Integer id) {
 
         this.colorBusinessRules.checkIfColorByIdExists(id);
 
-        GetByIdColorResponse response = this.modelMapperService.forResponse().map(colorRepository.findById(id), GetByIdColorResponse.class);
+        GetByIdColorResponse response = this.modelMapperService.forResponse()
+                .map(colorRepository.findById(id), GetByIdColorResponse.class);
 
         return new SuccessDataResult<>(response, "Renk listelendi!");
 
     }
 
     @Override
-    public boolean getColorById(int id) {
+    public boolean getColorById(Integer id) {
 
         return this.colorRepository.existsById(id);
 

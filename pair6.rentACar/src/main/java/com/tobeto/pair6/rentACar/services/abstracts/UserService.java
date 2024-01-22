@@ -20,8 +20,8 @@ public interface UserService {
 
     DataResult<List<GetAllUsersResponse>> getAll();
 
-    DataResult<GetByIdUserResponse> getById(int id);
+    DataResult<GetByIdUserResponse> getById(Integer id);
 
-    boolean getUserById(int id);
+    boolean getUserById(Integer id);
 
 }

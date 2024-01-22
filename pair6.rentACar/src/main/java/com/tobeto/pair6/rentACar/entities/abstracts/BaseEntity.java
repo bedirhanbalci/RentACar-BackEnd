@@ -9,41 +9,29 @@ import java.time.LocalDate;
 
 @MappedSuperclass
 @Data
-@NoArgsConstructor
 @AllArgsConstructor
+@NoArgsConstructor
 public abstract class BaseEntity {
 
     @Id
-    @GeneratedValue(strategy =  GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private int id;
+    private Integer id;
 
-    @Column(name = "is_active")
-    private boolean isActive;
-
-    @Column(name = "created_date")
+    @Column(name = "created_date", updatable = false)
     private LocalDate createdDate;
 
     @Column(name = "updated_date")
     private LocalDate updatedDate;
 
-    @Column(name = "deleted_date")
-    private LocalDate deletedDate;
-
     @PrePersist
-    public void beforeAdd(){
-        isActive = true;
+    private void beforeAdd() {
         createdDate = LocalDate.now();
     }
 
     @PreUpdate
-    public void beforeUpdate(){
+    private void beforeUpdate() {
         updatedDate = LocalDate.now();
-    }
-
-    @PreRemove
-    public void beforeRemove(){
-        deletedDate = LocalDate.now();
     }
 
 }

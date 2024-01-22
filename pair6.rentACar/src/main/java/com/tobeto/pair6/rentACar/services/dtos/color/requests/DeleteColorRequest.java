@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 public class DeleteColorRequest {
 
     @Positive(message = "Doğru Id girişi yapınız!")
-    private int id;
+    private Integer id;
+
 }

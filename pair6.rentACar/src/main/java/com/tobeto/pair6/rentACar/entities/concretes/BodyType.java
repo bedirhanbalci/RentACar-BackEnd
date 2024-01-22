@@ -3,7 +3,7 @@ package com.tobeto.pair6.rentACar.entities.concretes;
 import lombok.Getter;
 
 @Getter
-public enum VehicleType {
+public enum BodyType {
 
     SEDAN("Sedan"),
 
@@ -11,17 +11,14 @@ public enum VehicleType {
 
     HATCHBACK("Hatchback"),
 
-    TRUCK("Truck"),
-
     CROSSOVER("Crossover"),
-
-    MINIVAN("Minivan"),
 
     SPORTS("Sports");
 
-    private final String vehicleType;
+    private final String bodyType;
 
-    VehicleType(String vehicleType) {
-        this.vehicleType = vehicleType;
+    BodyType(String bodyType) {
+        this.bodyType = bodyType;
     }
+
 }

@@ -24,7 +24,9 @@ import java.util.List;
 public class ModelManager implements ModelService {
 
     private final ModelRepository modelRepository;
+
     private final ModelMapperService modelMapperService;
+
     private final ModelBusinessRules modelBusinessRules;
 
     @Override
@@ -34,7 +36,9 @@ public class ModelManager implements ModelService {
 
         this.modelBusinessRules.checkIfBrandByIdExists(addModelRequest.getBrandId());
 
-        Model model = this.modelMapperService.forRequest().map(addModelRequest, Model.class);
+        Model model = this.modelMapperService.forRequest()
+                .map(addModelRequest, Model.class);
+        model.setId(null);
 
         this.modelRepository.save(model);
 
@@ -47,7 +51,8 @@ public class ModelManager implements ModelService {
 
         this.modelBusinessRules.checkIfModelByIdExists(deleteModelRequest.getId());
 
-        Model model = this.modelMapperService.forRequest().map(deleteModelRequest, Model.class);
+        Model model = this.modelMapperService.forRequest()
+                .map(deleteModelRequest, Model.class);
 
         this.modelRepository.delete(model);
 
@@ -64,7 +69,8 @@ public class ModelManager implements ModelService {
 
         this.modelBusinessRules.checkIfBrandByIdExists(updateModelRequest.getBrandId());
 
-        Model model = this.modelMapperService.forRequest().map(updateModelRequest, Model.class);
+        Model model = this.modelMapperService.forRequest()
+                .map(updateModelRequest, Model.class);
 
         this.modelRepository.save(model);
 
@@ -85,18 +91,19 @@ public class ModelManager implements ModelService {
     }
 
     @Override
-    public DataResult<GetByIdModelResponse> getById(int id) {
+    public DataResult<GetByIdModelResponse> getById(Integer id) {
 
         this.modelBusinessRules.checkIfModelByIdExists(id);
 
-        GetByIdModelResponse response = this.modelMapperService.forResponse().map(modelRepository.findById(id), GetByIdModelResponse.class);
+        GetByIdModelResponse response = this.modelMapperService.forResponse()
+                .map(modelRepository.findById(id), GetByIdModelResponse.class);
 
         return new SuccessDataResult<>(response, "Model listelendi!");
 
     }
 
     @Override
-    public boolean getModelById(int id) {
+    public boolean getModelById(Integer id) {
 
         return this.modelRepository.existsById(id);
 

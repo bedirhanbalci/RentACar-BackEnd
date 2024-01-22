@@ -10,9 +10,9 @@ public class InvoiceBusinessRules {
 
     private final InvoiceRepository invoiceRepository;
 
-    public void checkIfInvoiceByIdExists(int id) {
+    public void checkIfInvoiceByIdExists(Integer id) {
         if (!this.invoiceRepository.existsById(id)) {
-            throw new RuntimeException("Verilen İnvoice Id ile sistemde bir invoice olmalıdır!");
+            throw new RuntimeException("Verilen Invoice Id ile sistemde bir Invoice olmalıdır!");
         }
     }
 

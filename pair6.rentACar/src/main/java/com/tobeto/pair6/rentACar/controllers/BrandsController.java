@@ -53,7 +53,7 @@ public class BrandsController {
     }
 
     @GetMapping("/getById/{id}")
-    public DataResult<GetByIdBrandResponse> getById(@PathVariable int id) {
+    public DataResult<GetByIdBrandResponse> getById(@PathVariable Integer id) {
 
         return this.brandService.getById(id);
 

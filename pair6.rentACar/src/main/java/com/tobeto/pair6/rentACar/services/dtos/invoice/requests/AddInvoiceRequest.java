@@ -6,16 +6,17 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.time.LocalDate;
-
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class AddInvoiceRequest {
 
-    @NotNull(message = "Fatura oluşturma tarihi boş olamaz!")
-    private LocalDate createDate;
+    @NotNull(message = "Fatura oluşturma numarası boş olamaz!")
+    private String invoiceNo;
+
+    private Double taxRate;
 
     @Positive(message = "Doğru Rental Id girişi yapınız!")
-    private int rentalId;
+    private Integer rentalId;
+
 }

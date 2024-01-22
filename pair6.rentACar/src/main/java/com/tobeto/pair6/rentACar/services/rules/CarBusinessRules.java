@@ -20,22 +20,21 @@ public class CarBusinessRules {
         }
     }
 
-    public void checkIfModelByIdExists(int id) {
+    public void checkIfModelByIdExists(Integer id) {
         if (!modelService.getModelById(id)) {
             throw new RuntimeException("Verilen Model Id bir model db'de bulunmalıdır!");
         }
-
     }
 
-    public void checkIfColorByIdExists(int id) {
+    public void checkIfColorByIdExists(Integer id) {
         if (!colorService.getColorById(id)) {
             throw new RuntimeException("Verilen Color Id bir color db'de bulunmalıdır!");
         }
     }
 
-    public void checkIfCarByIdExists(int id) {
+    public void checkIfCarByIdExists(Integer id) {
         if (!this.carRepository.existsById(id)) {
-            throw new RuntimeException("Verilen Car Id ile sistemde bir car olmalıdır!");
+            throw new RuntimeException("Verilen Car Id ile sistemde bir Car olmalıdır!");
         }
     }
 

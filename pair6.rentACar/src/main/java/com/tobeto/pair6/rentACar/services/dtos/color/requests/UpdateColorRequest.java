@@ -12,8 +12,9 @@ import lombok.NoArgsConstructor;
 public class UpdateColorRequest {
 
     @Positive(message = "Doğru Id girişi yapınız!")
-    private int id;
+    private Integer id;
 
     @Size(min = 2, message = "Eklenecek renk en az 2 harften oluşmalıdır!")
     private String name;
+
 }

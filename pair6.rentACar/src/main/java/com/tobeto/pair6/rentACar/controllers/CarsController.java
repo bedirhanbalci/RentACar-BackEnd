@@ -53,7 +53,7 @@ public class CarsController {
     }
 
     @GetMapping("/getById/{id}")
-    public DataResult<GetByIdCarResponse> getById(@PathVariable int id) {
+    public DataResult<GetByIdCarResponse> getById(@PathVariable Integer id) {
 
         return this.carService.getById(id);
 

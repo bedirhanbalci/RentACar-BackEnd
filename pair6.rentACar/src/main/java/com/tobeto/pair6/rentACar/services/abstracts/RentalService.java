@@ -20,6 +20,6 @@ public interface RentalService {
 
     DataResult<List<GetAllRentalsResponse>> getAll();
 
-    DataResult<GetByIdRentalResponse> getById(int id);
+    DataResult<GetByIdRentalResponse> getById(Integer id);
 
 }

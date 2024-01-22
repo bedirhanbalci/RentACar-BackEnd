@@ -28,22 +28,19 @@ public class Rental extends BaseEntity {
     private LocalDate returnDate;
 
     @Column(name = "start_kilometer")
-    private int startKilometer;
+    private Integer startKilometer;
 
     @Column(name = "end_kilometer")
-    private int endKilometer;
+    private Integer endKilometer;
 
     @Column(name = "total_price")
-    private double totalPrice;
+    private Double totalPrice;
 
     @Column(name = "discount_rate")
-    private double discountRate;
+    private Double discountRate;
 
     @Column(name = "general_price")
-    private double generalPrice;
-
-    @OneToMany(mappedBy = "rental")
-    private List<Invoice> invoices;
+    private Double generalPrice;
 
     @ManyToOne
     @JoinColumn(name = "car_id")
@@ -54,15 +51,14 @@ public class Rental extends BaseEntity {
     private User user;
 
     @ManyToOne
-    @JoinColumn(name = "branch_id")
-    private Branch branch;
-
-    @ManyToOne
     @JoinColumn(name = "assurance_package_id")
     private AssurancePackage assurancePackage;
 
     @ManyToOne
     @JoinColumn(name = "additional_feature_id")
     private AdditionalFeature additionalFeature;
+
+    @OneToMany(mappedBy = "rental")
+    private List<Invoice> invoices;
 
 }

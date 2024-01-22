@@ -20,8 +20,8 @@ public interface ModelService {
 
     DataResult<List<GetAllModelsResponse>> getAll();
 
-    DataResult<GetByIdModelResponse> getById(int id);
+    DataResult<GetByIdModelResponse> getById(Integer id);
 
-    boolean getModelById(int id);
+    boolean getModelById(Integer id);
 
 }

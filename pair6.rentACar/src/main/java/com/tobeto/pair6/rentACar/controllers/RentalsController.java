@@ -53,7 +53,7 @@ public class RentalsController {
     }
 
     @GetMapping("/getById/{id}")
-    public DataResult<GetByIdRentalResponse> getById(@PathVariable int id) {
+    public DataResult<GetByIdRentalResponse> getById(@PathVariable Integer id) {
 
         return this.rentalService.getById(id);
 

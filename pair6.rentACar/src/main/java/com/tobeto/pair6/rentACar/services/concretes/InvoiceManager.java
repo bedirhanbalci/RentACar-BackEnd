@@ -24,13 +24,17 @@ import java.util.List;
 public class InvoiceManager implements InvoiceService {
 
     private final InvoiceRepository invoiceRepository;
+
     private final ModelMapperService modelMapperService;
+
     private final InvoiceBusinessRules invoiceBusinessRules;
 
     @Override
     public Result add(AddInvoiceRequest addInvoiceRequest) {
 
-        Invoice invoice = this.modelMapperService.forRequest().map(addInvoiceRequest, Invoice.class);
+        Invoice invoice = this.modelMapperService.forRequest()
+                .map(addInvoiceRequest, Invoice.class);
+        invoice.setId(null);
 
         this.invoiceRepository.save(invoice);
 
@@ -43,7 +47,8 @@ public class InvoiceManager implements InvoiceService {
 
         this.invoiceBusinessRules.checkIfInvoiceByIdExists(deleteInvoiceRequest.getId());
 
-        Invoice invoice = this.modelMapperService.forRequest().map(deleteInvoiceRequest, Invoice.class);
+        Invoice invoice = this.modelMapperService.forRequest()
+                .map(deleteInvoiceRequest, Invoice.class);
 
         this.invoiceRepository.delete(invoice);
 
@@ -56,7 +61,8 @@ public class InvoiceManager implements InvoiceService {
 
         this.invoiceBusinessRules.checkIfInvoiceByIdExists(updateInvoiceRequest.getId());
 
-        Invoice invoice = this.modelMapperService.forRequest().map(updateInvoiceRequest, Invoice.class);
+        Invoice invoice = this.modelMapperService.forRequest()
+                .map(updateInvoiceRequest, Invoice.class);
 
         this.invoiceRepository.save(invoice);
 
@@ -77,11 +83,12 @@ public class InvoiceManager implements InvoiceService {
     }
 
     @Override
-    public DataResult<GetByIdInvoiceResponse> getById(int id) {
+    public DataResult<GetByIdInvoiceResponse> getById(Integer id) {
 
         this.invoiceBusinessRules.checkIfInvoiceByIdExists(id);
 
-        GetByIdInvoiceResponse response = this.modelMapperService.forResponse().map(invoiceRepository.findById(id), GetByIdInvoiceResponse.class);
+        GetByIdInvoiceResponse response = this.modelMapperService.forResponse()
+                .map(invoiceRepository.findById(id), GetByIdInvoiceResponse.class);
 
         return new SuccessDataResult<>(response, "Fatura listelendi!");
 

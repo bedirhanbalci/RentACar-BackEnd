@@ -20,6 +20,6 @@ public interface InvoiceService {
 
     DataResult<List<GetAllInvoicesResponse>> getAll();
 
-    DataResult<GetByIdInvoiceResponse> getById(int id);
+    DataResult<GetByIdInvoiceResponse> getById(Integer id);
 
 }

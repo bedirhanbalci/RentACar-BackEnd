@@ -18,15 +18,15 @@ public class ModelBusinessRules {
         }
     }
 
-    public void checkIfBrandByIdExists(int id) {
+    public void checkIfBrandByIdExists(Integer id) {
         if (!brandService.getBrandById(id)) {
-            throw new RuntimeException("Verilen Brand Id ile veritabanında bir kayıt bulunmalıdır!");
+            throw new RuntimeException("Verilen Brand Id ile veritabanında bir Brand bulunmalıdır!");
         }
     }
 
-    public void checkIfModelByIdExists(int id) {
+    public void checkIfModelByIdExists(Integer id) {
         if (!this.modelRepository.existsById(id)) {
-            throw new RuntimeException("Verilen Model Id ile sistemde bir model olmalıdır!");
+            throw new RuntimeException("Verilen Model Id ile sistemde bir Model olmalıdır!");
         }
     }
 

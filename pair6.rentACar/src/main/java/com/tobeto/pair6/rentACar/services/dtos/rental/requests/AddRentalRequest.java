@@ -20,9 +20,15 @@ public class AddRentalRequest {
     private LocalDate endDate;
 
     @Positive(message = "Doğru Car Id girişi yapınız!")
-    private int carId;
+    private Integer carId;
 
     @Positive(message = "Doğru User Id girişi yapınız!")
-    private int userId;
+    private Integer userId;
+
+    @Positive(message = "Doğru Assurance Package Id girişi yapınız!")
+    private Integer assurancePackageId;
+
+    @Positive(message = "Doğru Additional Feature Id girişi yapınız!")
+    private Integer additionalFeatureId;
 
 }

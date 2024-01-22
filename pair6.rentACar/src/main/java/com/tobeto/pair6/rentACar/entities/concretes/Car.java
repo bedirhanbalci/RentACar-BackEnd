@@ -18,16 +18,19 @@ import java.util.List;
 public class Car extends BaseEntity {
 
     @Column(name = "kilometer")
-    private int kilometer;
+    private Integer kilometer;
 
     @Column(name = "plate")
     private String plate;
 
     @Column(name = "year")
-    private int year;
+    private Integer year;
 
     @Column(name = "daily_price")
-    private double dailyPrice;
+    private Double dailyPrice;
+
+    @Column(name = "image_path")
+    private String imagePath;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "gear_type")
@@ -38,8 +41,8 @@ public class Car extends BaseEntity {
     private FuelType fuelType;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "vehicle_type")
-    private VehicleType vehicleType;
+    @Column(name = "body_type")
+    private BodyType bodyType;
 
     @ManyToOne
     @JoinColumn(name = "model_id")

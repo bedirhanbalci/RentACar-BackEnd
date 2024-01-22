@@ -14,5 +14,6 @@ public enum GearType {
     GearType(String gearType) {
         this.gearType = gearType;
     }
+
 }
 

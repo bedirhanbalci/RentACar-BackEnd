@@ -20,8 +20,8 @@ public interface ColorService {
 
     DataResult<List<GetAllColorsResponse>> getAll();
 
-    DataResult<GetByIdColorResponse> getById(int id);
+    DataResult<GetByIdColorResponse> getById(Integer id);
 
-    boolean getColorById(int id);
+    boolean getColorById(Integer id);
 
 }

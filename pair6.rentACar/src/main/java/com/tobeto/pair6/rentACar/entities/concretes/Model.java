@@ -20,11 +20,11 @@ public class Model extends BaseEntity {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "model")
-    private List<Car> cars;
-
     @ManyToOne
     @JoinColumn(name = "brand_id")
     private Brand brand;
+
+    @OneToMany(mappedBy = "model")
+    private List<Car> cars;
 
 }

@@ -13,10 +13,10 @@ public enum FuelType {
 
     HYBRID("Hybrid");
 
-
     private final String fuelType;
 
     FuelType(String fuelType) {
         this.fuelType = fuelType;
     }
+
 }

@@ -24,7 +24,9 @@ import java.util.List;
 public class UserManager implements UserService {
 
     private final UserRepository userRepository;
+
     private final ModelMapperService modelMapperService;
+
     private final UserBusinessRules userBusinessRules;
 
     @Override
@@ -32,7 +34,9 @@ public class UserManager implements UserService {
 
         this.userBusinessRules.checkIfUserByEmailExists(addUserRequest.getEmail());
 
-        User user = this.modelMapperService.forRequest().map(addUserRequest, User.class);
+        User user = this.modelMapperService.forRequest()
+                .map(addUserRequest, User.class);
+        user.setId(null);
 
         this.userRepository.save(user);
 
@@ -45,7 +49,8 @@ public class UserManager implements UserService {
 
         this.userBusinessRules.checkIfUserByIdExists(deleteUserRequest.getId());
 
-        User user = this.modelMapperService.forRequest().map(deleteUserRequest, User.class);
+        User user = this.modelMapperService.forRequest()
+                .map(deleteUserRequest, User.class);
 
         this.userRepository.delete(user);
 
@@ -60,7 +65,8 @@ public class UserManager implements UserService {
 
         this.userBusinessRules.checkIfUserByEmailExists(updateUserRequest.getEmail());
 
-        User user = this.modelMapperService.forRequest().map(updateUserRequest, User.class);
+        User user = this.modelMapperService.forRequest()
+                .map(updateUserRequest, User.class);
 
         this.userRepository.save(user);
 
@@ -81,18 +87,19 @@ public class UserManager implements UserService {
     }
 
     @Override
-    public DataResult<GetByIdUserResponse> getById(int id) {
+    public DataResult<GetByIdUserResponse> getById(Integer id) {
 
         this.userBusinessRules.checkIfUserByIdExists(id);
 
-        GetByIdUserResponse response = this.modelMapperService.forResponse().map(userRepository.findById(id), GetByIdUserResponse.class);
+        GetByIdUserResponse response = this.modelMapperService.forResponse()
+                .map(userRepository.findById(id), GetByIdUserResponse.class);
 
         return new SuccessDataResult<>(response, "Kullanıcı listelendi!");
 
     }
 
     @Override
-    public boolean getUserById(int id) {
+    public boolean getUserById(Integer id) {
 
         return this.userRepository.existsById(id);
 

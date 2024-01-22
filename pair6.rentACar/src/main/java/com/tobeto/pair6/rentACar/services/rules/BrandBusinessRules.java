@@ -16,9 +16,9 @@ public class BrandBusinessRules {
         }
     }
 
-    public void checkIfBrandByIdExists(int id) {
+    public void checkIfBrandByIdExists(Integer id) {
         if (!this.brandRepository.existsById(id)) {
-            throw new RuntimeException("Verilen Brand Id ile sistemde bir brand olmalıdır!");
+            throw new RuntimeException("Verilen Brand Id ile sistemde bir Brand olmalıdır!");
         }
     }
 

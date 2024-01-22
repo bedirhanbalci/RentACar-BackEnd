@@ -19,8 +19,8 @@ public interface CarService {
 
     DataResult<List<GetAllCarsResponse>> getAll();
 
-    DataResult<GetByIdCarResponse> getById(int id);
+    DataResult<GetByIdCarResponse> getById(Integer id);
 
-    boolean getCarById(int id);
+    boolean getCarById(Integer id);
 
 }

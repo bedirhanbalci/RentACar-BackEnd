@@ -26,9 +26,6 @@ public class IndividualCustomer extends BaseEntity {
     @Column(name = "nationality_no")
     private String nationalityNo;
 
-    @Column(name = "driver_license")
-    private boolean driverLicense;
-
     @Column(name = "birth_date")
     private LocalDate birthDate;
 

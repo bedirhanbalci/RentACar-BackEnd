@@ -1,6 +1,5 @@
 package com.tobeto.pair6.rentACar.services.concretes;
 
-
 import com.tobeto.pair6.rentACar.core.utilities.mappers.ModelMapperService;
 import com.tobeto.pair6.rentACar.core.utilities.results.*;
 import com.tobeto.pair6.rentACar.entities.concretes.Rental;
@@ -24,8 +23,11 @@ import java.util.List;
 public class RentalManager implements RentalService {
 
     private final RentalRepository rentalRepository;
-    private final ModelMapperService modelMapperService;
+
     private final CarService carService;
+
+    private final ModelMapperService modelMapperService;
+
     private final RentalBusinessRules rentalBusinessRules;
 
     @Override
@@ -41,7 +43,9 @@ public class RentalManager implements RentalService {
 
         this.rentalBusinessRules.checkIfRentalByDateValid(addRentalRequest.getStartDate(), addRentalRequest.getEndDate());
 
-        Rental rental = this.modelMapperService.forRequest().map(addRentalRequest, Rental.class);
+        Rental rental = this.modelMapperService.forRequest()
+                .map(addRentalRequest, Rental.class);
+        rental.setId(null);
 
         DataResult<GetByIdCarResponse> carResponse = carService.getById(addRentalRequest.getCarId());
 
@@ -60,7 +64,8 @@ public class RentalManager implements RentalService {
 
         this.rentalBusinessRules.checkIfRentalByIdExists(deleteRentalRequest.getId());
 
-        Rental rental = this.modelMapperService.forRequest().map(deleteRentalRequest, Rental.class);
+        Rental rental = this.modelMapperService.forRequest()
+                .map(deleteRentalRequest, Rental.class);
 
         this.rentalRepository.delete(rental);
 
@@ -83,7 +88,8 @@ public class RentalManager implements RentalService {
 
         this.rentalBusinessRules.checkIfRentalByDateValid(updateRentalRequest.getStartDate(), updateRentalRequest.getEndDate());
 
-        Rental rental = this.modelMapperService.forRequest().map(updateRentalRequest, Rental.class);
+        Rental rental = this.modelMapperService.forRequest()
+                .map(updateRentalRequest, Rental.class);
 
         DataResult<GetByIdCarResponse> carResponse = carService.getById(updateRentalRequest.getCarId());
 
@@ -110,13 +116,15 @@ public class RentalManager implements RentalService {
     }
 
     @Override
-    public DataResult<GetByIdRentalResponse> getById(int id) {
+    public DataResult<GetByIdRentalResponse> getById(Integer id) {
 
         this.rentalBusinessRules.checkIfRentalByIdExists(id);
 
-        GetByIdRentalResponse response = this.modelMapperService.forResponse().map(rentalRepository.findById(id), GetByIdRentalResponse.class);
+        GetByIdRentalResponse response = this.modelMapperService.forResponse()
+                .map(rentalRepository.findById(id), GetByIdRentalResponse.class);
 
         return new SuccessDataResult<>(response, "Kiralama bilgisi listelendi!");
 
     }
+
 }

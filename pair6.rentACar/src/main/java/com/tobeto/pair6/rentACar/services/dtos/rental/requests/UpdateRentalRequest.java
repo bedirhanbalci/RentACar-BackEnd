@@ -14,7 +14,7 @@ import java.time.LocalDate;
 public class UpdateRentalRequest {
 
     @Positive(message = "Doğru Id girişi yapınız!")
-    private int id;
+    private Integer id;
 
     @NotNull(message = "Başlangıç tarihi boş olamaz!")
     private LocalDate startDate;
@@ -24,11 +24,18 @@ public class UpdateRentalRequest {
 
     private LocalDate returnDate;
 
-    private int endKilometer;
+    private Integer endKilometer;
 
     @Positive(message = "Doğru Car Id girişi yapınız!")
-    private int carId;
+    private Integer carId;
 
     @Positive(message = "Doğru User Id girişi yapınız!")
-    private int userId;
+    private Integer userId;
+
+    @Positive(message = "Doğru Assurance Package Id girişi yapınız!")
+    private Integer assurancePackageId;
+
+    @Positive(message = "Doğru Additional Feature Id girişi yapınız!")
+    private Integer additionalFeatureId;
+
 }

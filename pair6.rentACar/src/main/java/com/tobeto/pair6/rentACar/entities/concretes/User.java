@@ -29,11 +29,8 @@ public class User extends BaseEntity {
     @Column(name = "address")
     private String address;
 
-    @Column(name = "image_url")
-    private String imageUrl;
-
-    @Column(name = "credit_note")
-    private String creditNote;
+    @Column(name = "image_path")
+    private String imagePath;
 
     @OneToMany(mappedBy = "user")
     private List<Rental> rentals;

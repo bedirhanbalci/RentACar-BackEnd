@@ -53,7 +53,7 @@ public class InvoicesController {
     }
 
     @GetMapping("/getById/{id}")
-    public DataResult<GetByIdInvoiceResponse> getById(@PathVariable int id) {
+    public DataResult<GetByIdInvoiceResponse> getById(@PathVariable Integer id) {
 
         return this.invoiceService.getById(id);
 

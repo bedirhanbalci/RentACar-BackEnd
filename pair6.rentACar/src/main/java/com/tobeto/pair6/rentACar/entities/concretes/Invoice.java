@@ -7,7 +7,6 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 @Table(name = "invoices")
 @Entity
 @Getter
@@ -20,7 +19,7 @@ public class Invoice extends BaseEntity {
     private String invoiceNo;
 
     @Column(name = "tax_rate")
-    private double taxRate;
+    private Double taxRate;
 
     @ManyToOne
     @JoinColumn(name = "rental_id")

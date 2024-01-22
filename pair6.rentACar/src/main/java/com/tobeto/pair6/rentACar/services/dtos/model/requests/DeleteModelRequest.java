@@ -11,5 +11,6 @@ import lombok.NoArgsConstructor;
 public class DeleteModelRequest {
 
     @Positive(message = "Doğru Id girişi yapınız!")
-    private int id;
+    private Integer id;
+
 }

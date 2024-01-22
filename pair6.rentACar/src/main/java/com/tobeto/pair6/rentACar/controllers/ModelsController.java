@@ -53,7 +53,7 @@ public class ModelsController {
     }
 
     @GetMapping("/getById/{id}")
-    public DataResult<GetByIdModelResponse> getById(@PathVariable int id) {
+    public DataResult<GetByIdModelResponse> getById(@PathVariable Integer id) {
 
         return this.modelService.getById(id);
 

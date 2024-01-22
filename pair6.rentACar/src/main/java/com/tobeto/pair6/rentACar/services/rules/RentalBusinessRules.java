@@ -17,15 +17,15 @@ public class RentalBusinessRules {
     private final CarService carService;
     private final UserService userService;
 
-    public void checkIfCarByIdExists(int id) {
+    public void checkIfCarByIdExists(Integer id) {
         if (!carService.getCarById(id)) {
-            throw new RuntimeException("Verilen Car Id ile sistemde bir araba olmalıdır!");
+            throw new RuntimeException("Verilen Car Id ile sistemde bir Car olmalıdır!");
         }
     }
 
-    public void checkIfUserByIdExists(int id) {
+    public void checkIfUserByIdExists(Integer id) {
         if (!userService.getUserById(id)) {
-            throw new RuntimeException("Verilen User Id ile sistemde bir kullanıcı olmalıdır!");
+            throw new RuntimeException("Verilen User Id ile sistemde bir User olmalıdır!");
         }
     }
 
@@ -47,14 +47,14 @@ public class RentalBusinessRules {
         }
     }
 
-    public double calculateTotalPrice(LocalDate startDate, LocalDate endDate, double dailyPrice) {
+    public double calculateTotalPrice(LocalDate startDate, LocalDate endDate, Double dailyPrice) {
         long rentalTime = ChronoUnit.DAYS.between(startDate, endDate);
         return rentalTime * dailyPrice;
     }
 
-    public void checkIfRentalByIdExists(int id) {
+    public void checkIfRentalByIdExists(Integer id) {
         if (!this.rentalRepository.existsById(id)) {
-            throw new RuntimeException("Verilen Rental Id ile sistemde bir rental olmalıdır!");
+            throw new RuntimeException("Verilen Rental Id ile sistemde bir Rental olmalıdır!");
         }
     }
 

@@ -24,7 +24,9 @@ import java.util.List;
 public class BrandManager implements BrandService {
 
     private final BrandRepository brandRepository;
+
     private final ModelMapperService modelMapperService;
+
     private final BrandBusinessRules brandBusinessRules;
 
     @Override
@@ -32,7 +34,9 @@ public class BrandManager implements BrandService {
 
         this.brandBusinessRules.checkIfBrandByNameExists(addBrandRequest.getName());
 
-        Brand brand = this.modelMapperService.forRequest().map(addBrandRequest, Brand.class);
+        Brand brand = this.modelMapperService.forRequest()
+                .map(addBrandRequest, Brand.class);
+        brand.setId(null);
 
         this.brandRepository.save(brand);
 
@@ -45,7 +49,8 @@ public class BrandManager implements BrandService {
 
         this.brandBusinessRules.checkIfBrandByIdExists(deleteBrandRequest.getId());
 
-        Brand brand = this.modelMapperService.forRequest().map(deleteBrandRequest, Brand.class);
+        Brand brand = this.modelMapperService.forRequest()
+                .map(deleteBrandRequest, Brand.class);
 
         this.brandRepository.delete(brand);
 
@@ -60,7 +65,8 @@ public class BrandManager implements BrandService {
 
         this.brandBusinessRules.checkIfBrandByNameExists(updateBrandRequest.getName());
 
-        Brand brand = this.modelMapperService.forRequest().map(updateBrandRequest, Brand.class);
+        Brand brand = this.modelMapperService.forRequest()
+                .map(updateBrandRequest, Brand.class);
 
         this.brandRepository.save(brand);
 
@@ -81,18 +87,19 @@ public class BrandManager implements BrandService {
     }
 
     @Override
-    public DataResult<GetByIdBrandResponse> getById(int id) {
+    public DataResult<GetByIdBrandResponse> getById(Integer id) {
 
         this.brandBusinessRules.checkIfBrandByIdExists(id);
 
-        GetByIdBrandResponse response = this.modelMapperService.forResponse().map(brandRepository.findById(id), GetByIdBrandResponse.class);
+        GetByIdBrandResponse response = this.modelMapperService.forResponse()
+                .map(brandRepository.findById(id), GetByIdBrandResponse.class);
 
         return new SuccessDataResult<>(response, "Marka listelendi!");
 
     }
 
     @Override
-    public boolean getBrandById(int id) {
+    public boolean getBrandById(Integer id) {
 
         return this.brandRepository.existsById(id);
 
