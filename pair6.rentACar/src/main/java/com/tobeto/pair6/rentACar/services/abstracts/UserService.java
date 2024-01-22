@@ -7,10 +7,11 @@ import com.tobeto.pair6.rentACar.services.dtos.user.requests.DeleteUserRequest;
 import com.tobeto.pair6.rentACar.services.dtos.user.requests.UpdateUserRequest;
 import com.tobeto.pair6.rentACar.services.dtos.user.responses.GetAllUsersResponse;
 import com.tobeto.pair6.rentACar.services.dtos.user.responses.GetByIdUserResponse;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
 
-public interface UserService {
+public interface UserService extends UserDetailsService {
 
     Result add(AddUserRequest addUserRequest);
 
