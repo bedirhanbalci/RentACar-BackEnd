@@ -15,6 +15,8 @@ import com.tobeto.pair6.rentACar.services.dtos.user.responses.GetAllUsersRespons
 import com.tobeto.pair6.rentACar.services.dtos.user.responses.GetByIdUserResponse;
 import com.tobeto.pair6.rentACar.services.rules.UserBusinessRules;
 import lombok.AllArgsConstructor;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -105,4 +107,8 @@ public class UserManager implements UserService {
 
     }
 
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("No user found!"));
+    }
 }
