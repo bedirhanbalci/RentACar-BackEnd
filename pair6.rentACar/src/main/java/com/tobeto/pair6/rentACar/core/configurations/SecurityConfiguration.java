@@ -16,9 +16,11 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.LogoutHandler;
 
 @Configuration
 @EnableWebSecurity
@@ -32,6 +34,8 @@ public class SecurityConfiguration {
 
     private final UserService userService;
 
+    private final LogoutHandler logoutHandler;
+
     private static final String[] WHITE_LIST_URLS = {
             "/v2/api-docs",
             "/v3/api-docs",
@@ -42,37 +46,49 @@ public class SecurityConfiguration {
             "/configuration/security",
             "/swagger-ui/**",
             "/webjars/**",
-            "/swagger-ui.html"
+            "/swagger-ui.html",
+            "/api/**"
     };
 
     @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+
+        httpSecurity
                 .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests((req) -> req
-                        .requestMatchers(WHITE_LIST_URLS).permitAll()
-                        .requestMatchers(HttpMethod.POST, "/api/users/**").hasAnyAuthority(Role.USER.name())
-                        .requestMatchers(HttpMethod.POST, "/api/brands/**").hasAnyAuthority(Role.MODERATOR.name())
-                        .requestMatchers(HttpMethod.GET, "/api/brands/**").permitAll()
-                        .anyRequest().authenticated()
-                )
+                .authorizeHttpRequests(x ->
+                        x.requestMatchers(WHITE_LIST_URLS).permitAll()
+                                .requestMatchers("/api/auth/register", "/api/auth/login", "/api/auth/refreshToken").permitAll()
+                                .requestMatchers(HttpMethod.GET, "/api/users/**").hasAnyAuthority(Role.USER.name(), Role.ADMIN.name())
+                                .requestMatchers(HttpMethod.GET, "/api/admins/**").hasAuthority(Role.ADMIN.name())
+                                .requestMatchers(HttpMethod.POST, "/api/admins/**").hasAuthority(Role.ADMIN.name())
+                                .requestMatchers(HttpMethod.PUT, "/api/admins/**").hasAuthority(Role.ADMIN.name())
+                                .requestMatchers(HttpMethod.DELETE, "/api/admins/**").hasAuthority(Role.ADMIN.name())
+                                .anyRequest().authenticated())
+                .httpBasic(AbstractHttpConfigurer::disable)
+                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-        return http.build();
+                .logout(logout ->
+                        logout.logoutUrl("/api/auth/logout")
+                                .addLogoutHandler(logoutHandler)
+                                .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext()));
+        return httpSecurity.build();
+
     }
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
-        DaoAuthenticationProvider authenticationProvider = new DaoAuthenticationProvider();
-        authenticationProvider.setPasswordEncoder(passwordEncoder);
-        authenticationProvider.setUserDetailsService(userService);
-        return authenticationProvider;
+
+        DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
+        daoAuthenticationProvider.setUserDetailsService(userService);
+        daoAuthenticationProvider.setPasswordEncoder(passwordEncoder);
+        return daoAuthenticationProvider;
+
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
-        return configuration.getAuthenticationManager();
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+        return authenticationConfiguration.getAuthenticationManager();
     }
 
 }
