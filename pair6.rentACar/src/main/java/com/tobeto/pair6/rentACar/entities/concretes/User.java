@@ -39,6 +39,9 @@ public class User extends BaseEntity implements UserDetails {
     private Role role;
 
     @OneToMany(mappedBy = "user")
+    private List<Token> tokens;
+
+    @OneToMany(mappedBy = "user")
     private List<Rental> rentals;
 
     @OneToMany(mappedBy = "user")
