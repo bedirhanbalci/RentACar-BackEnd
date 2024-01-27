@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GetAllBranchesResponse {
 
+    private Integer id;
+
     private String city;
 
     private String address;

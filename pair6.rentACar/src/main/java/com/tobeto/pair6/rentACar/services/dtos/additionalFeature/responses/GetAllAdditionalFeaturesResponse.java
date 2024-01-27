@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GetAllAdditionalFeaturesResponse {
 
+    private Integer id;
+
     private String name;
 
     private String detail;

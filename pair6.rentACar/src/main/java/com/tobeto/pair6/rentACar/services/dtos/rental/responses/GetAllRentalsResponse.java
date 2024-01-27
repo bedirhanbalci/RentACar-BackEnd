@@ -11,6 +11,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class GetAllRentalsResponse {
 
+    private Integer id;
+
     private LocalDate startDate;
 
     private LocalDate endDate;

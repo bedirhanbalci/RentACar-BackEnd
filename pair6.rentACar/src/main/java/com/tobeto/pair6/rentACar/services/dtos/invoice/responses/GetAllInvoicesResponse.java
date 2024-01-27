@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GetAllInvoicesResponse {
 
+    private Integer id;
+
     private String invoiceNo;
 
     private Double taxRate;

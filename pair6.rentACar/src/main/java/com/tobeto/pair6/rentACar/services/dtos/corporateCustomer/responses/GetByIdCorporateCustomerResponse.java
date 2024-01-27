@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class GetByIdCorporateCustomerResponse {
 
+    private Integer id;
+
     private String companyName;
 
     private String contactName;
