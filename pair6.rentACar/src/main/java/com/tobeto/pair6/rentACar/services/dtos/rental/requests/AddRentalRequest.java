@@ -25,10 +25,10 @@ public class AddRentalRequest {
     @Positive(message = "Doğru User Id girişi yapınız!")
     private Integer userId;
 
-    @Positive(message = "Doğru Assurance Package Id girişi yapınız!")
+//    @Positive(message = "Doğru Assurance Package Id girişi yapınız!")
     private Integer assurancePackageId;
 
-    @Positive(message = "Doğru Additional Feature Id girişi yapınız!")
+//    @Positive(message = "Doğru Additional Feature Id girişi yapınız!")
     private Integer additionalFeatureId;
 
 }
