@@ -67,6 +67,8 @@ public class AuthManager implements AuthService {
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
+                .role(user.getRole())
+                .id(user.getId())
                 .build();
 
     }

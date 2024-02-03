@@ -1,5 +1,6 @@
 package com.tobeto.pair6.rentACar.services.rules;
 
+import com.tobeto.pair6.rentACar.core.utilities.exceptions.BusinessException;
 import com.tobeto.pair6.rentACar.repositories.RentalRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.CarService;
 import com.tobeto.pair6.rentACar.services.abstracts.UserService;
@@ -19,31 +20,31 @@ public class RentalBusinessRules {
 
     public void checkIfCarByIdExists(Integer id) {
         if (!carService.getCarById(id)) {
-            throw new RuntimeException("Verilen Car Id ile sistemde bir Car olmalıdır!");
+            throw new BusinessException("Verilen Car Id ile sistemde bir Car olmalıdır!");
         }
     }
 
     public void checkIfUserByIdExists(Integer id) {
         if (!userService.getUserById(id)) {
-            throw new RuntimeException("Verilen User Id ile sistemde bir User olmalıdır!");
+            throw new BusinessException("Verilen User Id ile sistemde bir User olmalıdır!");
         }
     }
 
     public void checkIfRentalByStartDate(LocalDate startDate) {
         if (startDate.isBefore(LocalDate.now())) {
-            throw new RuntimeException("Araç kiralarken verilen başlangıç tarihi bugünden daha geçmiş bir tarih olamaz!");
+            throw new BusinessException("Araç kiralarken verilen başlangıç tarihi bugünden daha geçmiş bir tarih olamaz!");
         }
     }
 
     public void checkIfRentalByEndDate(LocalDate endDate, LocalDate startDate) {
         if (endDate.isBefore(startDate)) {
-            throw new RuntimeException("Araç kiralarken verilen bitiş tarihi başlangıç tarihinden daha geçmiş bi tarih olamaz!");
+            throw new BusinessException("Araç kiralarken verilen bitiş tarihi başlangıç tarihinden daha geçmiş bi tarih olamaz!");
         }
     }
 
     public void checkIfRentalByDateValid(LocalDate startDate, LocalDate endDate) {
         if (ChronoUnit.DAYS.between(startDate, endDate) > 25) {
-            throw new RuntimeException("Bir araç maksimum 25 gün kiralanabilir!");
+            throw new BusinessException("Bir araç maksimum 25 gün kiralanabilir!");
         }
     }
 
@@ -54,7 +55,7 @@ public class RentalBusinessRules {
 
     public void checkIfRentalByIdExists(Integer id) {
         if (!this.rentalRepository.existsById(id)) {
-            throw new RuntimeException("Verilen Rental Id ile sistemde bir Rental olmalıdır!");
+            throw new BusinessException("Verilen Rental Id ile sistemde bir Rental olmalıdır!");
         }
     }
 

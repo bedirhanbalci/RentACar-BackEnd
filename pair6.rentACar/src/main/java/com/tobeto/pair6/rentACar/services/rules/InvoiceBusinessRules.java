@@ -1,5 +1,6 @@
 package com.tobeto.pair6.rentACar.services.rules;
 
+import com.tobeto.pair6.rentACar.core.utilities.exceptions.BusinessException;
 import com.tobeto.pair6.rentACar.repositories.InvoiceRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,7 @@ public class InvoiceBusinessRules {
 
     public void checkIfInvoiceByIdExists(Integer id) {
         if (!this.invoiceRepository.existsById(id)) {
-            throw new RuntimeException("Verilen Invoice Id ile sistemde bir Invoice olmalıdır!");
+            throw new BusinessException("Verilen Invoice Id ile sistemde bir Invoice olmalıdır!");
         }
     }
 
