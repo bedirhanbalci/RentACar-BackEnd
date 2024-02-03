@@ -1,5 +1,6 @@
 package com.tobeto.pair6.rentACar.services.rules;
 
+import com.tobeto.pair6.rentACar.core.utilities.exceptions.BusinessException;
 import com.tobeto.pair6.rentACar.repositories.UserRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,13 +13,13 @@ public class UserBusinessRules {
 
     public void checkIfUserByEmailExists(String email) {
         if (this.userRepository.existsByEmail(email)) {
-            throw new RuntimeException("Aynı email ile 2. kullanıcı eklenemez!");
+            throw new BusinessException("Aynı email ile 2. kullanıcı eklenemez!");
         }
     }
 
     public void checkIfUserByIdExists(Integer id) {
         if (!this.userRepository.existsById(id)) {
-            throw new RuntimeException("Verilen User Id ile sistemde bir User olmalıdır!");
+            throw new BusinessException("Verilen User Id ile sistemde bir User olmalıdır!");
         }
     }
 

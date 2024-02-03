@@ -1,5 +1,6 @@
 package com.tobeto.pair6.rentACar.services.rules;
 
+import com.tobeto.pair6.rentACar.core.utilities.exceptions.BusinessException;
 import com.tobeto.pair6.rentACar.repositories.BrandRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,13 +13,13 @@ public class BrandBusinessRules {
 
     public void checkIfBrandByNameExists(String name) {
         if (this.brandRepository.existsByName(name)) {
-            throw new RuntimeException("Aynı marka 2. kez eklenemez!");
+            throw new BusinessException("Aynı marka 2. kez eklenemez!");
         }
     }
 
     public void checkIfBrandByIdExists(Integer id) {
         if (!this.brandRepository.existsById(id)) {
-            throw new RuntimeException("Verilen Brand Id ile sistemde bir Brand olmalıdır!");
+            throw new BusinessException("Verilen Brand Id ile sistemde bir Brand olmalıdır!");
         }
     }
 

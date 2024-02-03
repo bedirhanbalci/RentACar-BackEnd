@@ -1,5 +1,6 @@
 package com.tobeto.pair6.rentACar.services.dtos.auth.responses;
 
+import com.tobeto.pair6.rentACar.entities.concretes.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,8 +12,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AuthenticationResponse {
 
+    private Integer id;
+
     private String accessToken;
 
     private String refreshToken;
+
+    private Role role;
 
 }
