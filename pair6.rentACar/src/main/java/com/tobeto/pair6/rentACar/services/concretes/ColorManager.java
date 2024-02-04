@@ -8,6 +8,7 @@ import com.tobeto.pair6.rentACar.core.utilities.results.SuccessResult;
 import com.tobeto.pair6.rentACar.entities.concretes.Color;
 import com.tobeto.pair6.rentACar.repositories.ColorRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.ColorService;
+import com.tobeto.pair6.rentACar.services.constants.Messages;
 import com.tobeto.pair6.rentACar.services.dtos.color.requests.AddColorRequest;
 import com.tobeto.pair6.rentACar.services.dtos.color.requests.DeleteColorRequest;
 import com.tobeto.pair6.rentACar.services.dtos.color.requests.UpdateColorRequest;
@@ -40,7 +41,7 @@ public class ColorManager implements ColorService {
 
         this.colorRepository.save(color);
 
-        return new SuccessResult("Renk eklendi!");
+        return new SuccessResult(Messages.ADD);
 
     }
 
@@ -54,7 +55,7 @@ public class ColorManager implements ColorService {
 
         this.colorRepository.delete(color);
 
-        return new SuccessResult("Renk silindi!");
+        return new SuccessResult(Messages.DELETE);
 
     }
 
@@ -70,7 +71,7 @@ public class ColorManager implements ColorService {
 
         this.colorRepository.save(color);
 
-        return new SuccessResult("Renk güncellendi!");
+        return new SuccessResult(Messages.UPDATE);
 
     }
 
@@ -82,7 +83,7 @@ public class ColorManager implements ColorService {
         List<GetAllColorsResponse> colorsResponse = colors.stream()
                 .map(color -> this.modelMapperService.forResponse().map(color, GetAllColorsResponse.class)).toList();
 
-        return new SuccessDataResult<>(colorsResponse, "Tüm renkler listelendi!");
+        return new SuccessDataResult<>(colorsResponse, Messages.GET_ALL);
 
     }
 
@@ -94,7 +95,7 @@ public class ColorManager implements ColorService {
         GetByIdColorResponse response = this.modelMapperService.forResponse()
                 .map(colorRepository.findById(id), GetByIdColorResponse.class);
 
-        return new SuccessDataResult<>(response, "Renk listelendi!");
+        return new SuccessDataResult<>(response, Messages.GET);
 
     }
 

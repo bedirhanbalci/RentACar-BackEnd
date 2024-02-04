@@ -2,6 +2,7 @@ package com.tobeto.pair6.rentACar.services.rules;
 
 import com.tobeto.pair6.rentACar.core.utilities.exceptions.BusinessException;
 import com.tobeto.pair6.rentACar.repositories.IndividualCustomerRepository;
+import com.tobeto.pair6.rentACar.services.constants.Messages;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ public class IndividualCustomerBusinessRules {
 
     public void checkIfIndividualCustomerByIdExists(Integer id) {
         if (!this.individualCustomerRepository.existsById(id)) {
-            throw new BusinessException("Verilen Individual Customer Id ile sistemde bir Individual Customer olmalıdır!");
+            throw new BusinessException(Messages.ID_NOT_FOUND);
         }
     }
 

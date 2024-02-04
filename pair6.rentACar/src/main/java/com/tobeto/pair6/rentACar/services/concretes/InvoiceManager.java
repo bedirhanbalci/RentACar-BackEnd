@@ -8,6 +8,7 @@ import com.tobeto.pair6.rentACar.core.utilities.results.SuccessResult;
 import com.tobeto.pair6.rentACar.entities.concretes.Invoice;
 import com.tobeto.pair6.rentACar.repositories.InvoiceRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.InvoiceService;
+import com.tobeto.pair6.rentACar.services.constants.Messages;
 import com.tobeto.pair6.rentACar.services.dtos.invoice.requests.AddInvoiceRequest;
 import com.tobeto.pair6.rentACar.services.dtos.invoice.requests.DeleteInvoiceRequest;
 import com.tobeto.pair6.rentACar.services.dtos.invoice.requests.UpdateInvoiceRequest;
@@ -38,7 +39,7 @@ public class InvoiceManager implements InvoiceService {
 
         this.invoiceRepository.save(invoice);
 
-        return new SuccessResult("Fatura eklendi!");
+        return new SuccessResult(Messages.ADD);
 
     }
 
@@ -52,7 +53,7 @@ public class InvoiceManager implements InvoiceService {
 
         this.invoiceRepository.delete(invoice);
 
-        return new SuccessResult("Fatura silindi!");
+        return new SuccessResult(Messages.DELETE);
 
     }
 
@@ -66,7 +67,7 @@ public class InvoiceManager implements InvoiceService {
 
         this.invoiceRepository.save(invoice);
 
-        return new SuccessResult("Fatura güncellendi!");
+        return new SuccessResult(Messages.UPDATE);
 
     }
 
@@ -78,7 +79,7 @@ public class InvoiceManager implements InvoiceService {
         List<GetAllInvoicesResponse> invoicesResponse = invoices.stream()
                 .map(invoice -> this.modelMapperService.forResponse().map(invoice, GetAllInvoicesResponse.class)).toList();
 
-        return new SuccessDataResult<>(invoicesResponse, "Tüm faturalar listelendi!");
+        return new SuccessDataResult<>(invoicesResponse, Messages.GET_ALL);
 
     }
 
@@ -90,7 +91,7 @@ public class InvoiceManager implements InvoiceService {
         GetByIdInvoiceResponse response = this.modelMapperService.forResponse()
                 .map(invoiceRepository.findById(id), GetByIdInvoiceResponse.class);
 
-        return new SuccessDataResult<>(response, "Fatura listelendi!");
+        return new SuccessDataResult<>(response, Messages.GET);
 
     }
 

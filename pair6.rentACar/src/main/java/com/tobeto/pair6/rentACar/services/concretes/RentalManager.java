@@ -6,6 +6,7 @@ import com.tobeto.pair6.rentACar.entities.concretes.Rental;
 import com.tobeto.pair6.rentACar.repositories.RentalRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.CarService;
 import com.tobeto.pair6.rentACar.services.abstracts.RentalService;
+import com.tobeto.pair6.rentACar.services.constants.Messages;
 import com.tobeto.pair6.rentACar.services.dtos.car.responses.GetByIdCarResponse;
 import com.tobeto.pair6.rentACar.services.dtos.rental.requests.AddRentalRequest;
 import com.tobeto.pair6.rentACar.services.dtos.rental.requests.DeleteRentalRequest;
@@ -55,7 +56,7 @@ public class RentalManager implements RentalService {
 
         this.rentalRepository.save(rental);
 
-        return new SuccessResult("Kiralama bilgisi eklendi!");
+        return new SuccessResult(Messages.ADD);
 
     }
 
@@ -69,7 +70,7 @@ public class RentalManager implements RentalService {
 
         this.rentalRepository.delete(rental);
 
-        return new SuccessResult("Kiralama bilgisi silindi!");
+        return new SuccessResult(Messages.DELETE);
 
     }
 
@@ -99,7 +100,7 @@ public class RentalManager implements RentalService {
 
         this.rentalRepository.save(rental);
 
-        return new SuccessResult("Kiralama bilgisi güncellendi!");
+        return new SuccessResult(Messages.UPDATE);
 
     }
 
@@ -111,7 +112,7 @@ public class RentalManager implements RentalService {
         List<GetAllRentalsResponse> rentalsResponse = rentals.stream()
                 .map(rental -> this.modelMapperService.forResponse().map(rental, GetAllRentalsResponse.class)).toList();
 
-        return new SuccessDataResult<>(rentalsResponse, "Tüm kiralama bilgileri listelendi!");
+        return new SuccessDataResult<>(rentalsResponse, Messages.GET_ALL);
 
     }
 
@@ -123,7 +124,7 @@ public class RentalManager implements RentalService {
         GetByIdRentalResponse response = this.modelMapperService.forResponse()
                 .map(rentalRepository.findById(id), GetByIdRentalResponse.class);
 
-        return new SuccessDataResult<>(response, "Kiralama bilgisi listelendi!");
+        return new SuccessDataResult<>(response, Messages.GET);
 
     }
 

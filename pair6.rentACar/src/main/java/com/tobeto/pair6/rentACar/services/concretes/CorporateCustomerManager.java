@@ -8,6 +8,7 @@ import com.tobeto.pair6.rentACar.core.utilities.results.SuccessResult;
 import com.tobeto.pair6.rentACar.entities.concretes.CorporateCustomer;
 import com.tobeto.pair6.rentACar.repositories.CorporateCustomerRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.CorporateCustomerService;
+import com.tobeto.pair6.rentACar.services.constants.Messages;
 import com.tobeto.pair6.rentACar.services.dtos.corporateCustomer.requests.AddCorporateCustomerRequest;
 import com.tobeto.pair6.rentACar.services.dtos.corporateCustomer.requests.DeleteCorporateCustomerRequest;
 import com.tobeto.pair6.rentACar.services.dtos.corporateCustomer.requests.UpdateCorporateCustomerRequest;
@@ -38,7 +39,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
 
         this.corporateCustomerRepository.save(corporateCustomer);
 
-        return new SuccessResult("Kurumsal müşteri eklendi!");
+        return new SuccessResult(Messages.ADD);
 
     }
 
@@ -52,7 +53,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
 
         this.corporateCustomerRepository.delete(corporateCustomer);
 
-        return new SuccessResult("Kurumsal müşteri silindi!");
+        return new SuccessResult(Messages.DELETE);
 
     }
 
@@ -66,7 +67,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
 
         this.corporateCustomerRepository.save(corporateCustomer);
 
-        return new SuccessResult("Kurumsal müşteri güncellendi!");
+        return new SuccessResult(Messages.UPDATE);
 
     }
 
@@ -78,7 +79,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
         List<GetAllCorporateCustomersResponse> corporateCustomersResponse = corporateCustomers.stream()
                 .map(corporateCustomer -> this.modelMapperService.forResponse().map(corporateCustomer, GetAllCorporateCustomersResponse.class)).toList();
 
-        return new SuccessDataResult<>(corporateCustomersResponse, "Tüm kurumsal müşteriler listelendi!");
+        return new SuccessDataResult<>(corporateCustomersResponse, Messages.GET_ALL);
 
     }
 
@@ -90,7 +91,7 @@ public class CorporateCustomerManager implements CorporateCustomerService {
         GetByIdCorporateCustomerResponse response = this.modelMapperService.forResponse()
                 .map(corporateCustomerRepository.findById(id), GetByIdCorporateCustomerResponse.class);
 
-        return new SuccessDataResult<>(response, "Kurumsal müşteri listelendi!");
+        return new SuccessDataResult<>(response, Messages.GET);
 
     }
 

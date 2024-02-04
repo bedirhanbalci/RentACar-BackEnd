@@ -8,6 +8,7 @@ import com.tobeto.pair6.rentACar.core.utilities.results.SuccessResult;
 import com.tobeto.pair6.rentACar.entities.concretes.AdditionalFeature;
 import com.tobeto.pair6.rentACar.repositories.AdditionalFeatureRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.AdditionalFeatureService;
+import com.tobeto.pair6.rentACar.services.constants.Messages;
 import com.tobeto.pair6.rentACar.services.dtos.additionalFeature.requests.AddAdditionalFeatureRequest;
 import com.tobeto.pair6.rentACar.services.dtos.additionalFeature.requests.DeleteAdditionalFeatureRequest;
 import com.tobeto.pair6.rentACar.services.dtos.additionalFeature.requests.UpdateAdditionalFeatureRequest;
@@ -38,7 +39,7 @@ public class AdditionalFeatureManager implements AdditionalFeatureService {
 
         this.additionalFeatureRepository.save(additionalFeature);
 
-        return new SuccessResult("Ek özellik eklendi!");
+        return new SuccessResult(Messages.ADD);
 
     }
 
@@ -52,7 +53,7 @@ public class AdditionalFeatureManager implements AdditionalFeatureService {
 
         this.additionalFeatureRepository.delete(additionalFeature);
 
-        return new SuccessResult("Ek özellik silindi!");
+        return new SuccessResult(Messages.DELETE);
 
     }
 
@@ -66,7 +67,7 @@ public class AdditionalFeatureManager implements AdditionalFeatureService {
 
         this.additionalFeatureRepository.save(additionalFeature);
 
-        return new SuccessResult("Ek özellik güncellendi!");
+        return new SuccessResult(Messages.UPDATE);
 
     }
 
@@ -78,7 +79,7 @@ public class AdditionalFeatureManager implements AdditionalFeatureService {
         List<GetAllAdditionalFeaturesResponse> additionalFeaturesResponse = additionalFeatures.stream()
                 .map(additionalFeature -> this.modelMapperService.forResponse().map(additionalFeature, GetAllAdditionalFeaturesResponse.class)).toList();
 
-        return new SuccessDataResult<>(additionalFeaturesResponse, "Tüm ek özellikler listelendi!");
+        return new SuccessDataResult<>(additionalFeaturesResponse, Messages.GET_ALL);
 
     }
 
@@ -90,7 +91,7 @@ public class AdditionalFeatureManager implements AdditionalFeatureService {
         GetByIdAdditionalFeatureResponse response = this.modelMapperService.forResponse()
                 .map(additionalFeatureRepository.findById(id), GetByIdAdditionalFeatureResponse.class);
 
-        return new SuccessDataResult<>(response, "Ek özellik listelendi!");
+        return new SuccessDataResult<>(response, Messages.GET);
 
     }
 

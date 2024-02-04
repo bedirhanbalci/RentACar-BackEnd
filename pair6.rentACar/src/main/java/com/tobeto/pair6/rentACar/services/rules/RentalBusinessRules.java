@@ -4,6 +4,7 @@ import com.tobeto.pair6.rentACar.core.utilities.exceptions.BusinessException;
 import com.tobeto.pair6.rentACar.repositories.RentalRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.CarService;
 import com.tobeto.pair6.rentACar.services.abstracts.UserService;
+import com.tobeto.pair6.rentACar.services.constants.Messages;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -20,31 +21,31 @@ public class RentalBusinessRules {
 
     public void checkIfCarByIdExists(Integer id) {
         if (!carService.getCarById(id)) {
-            throw new BusinessException("Verilen Car Id ile sistemde bir Car olmalıdır!");
+            throw new BusinessException(Messages.CAR_NOT_EXIST);
         }
     }
 
     public void checkIfUserByIdExists(Integer id) {
         if (!userService.getUserById(id)) {
-            throw new BusinessException("Verilen User Id ile sistemde bir User olmalıdır!");
+            throw new BusinessException(Messages.USER_NOT_EXIST);
         }
     }
 
     public void checkIfRentalByStartDate(LocalDate startDate) {
         if (startDate.isBefore(LocalDate.now())) {
-            throw new BusinessException("Araç kiralarken verilen başlangıç tarihi bugünden daha geçmiş bir tarih olamaz!");
+            throw new BusinessException(Messages.START_DATE_ERROR);
         }
     }
 
     public void checkIfRentalByEndDate(LocalDate endDate, LocalDate startDate) {
         if (endDate.isBefore(startDate)) {
-            throw new BusinessException("Araç kiralarken verilen bitiş tarihi başlangıç tarihinden daha geçmiş bi tarih olamaz!");
+            throw new BusinessException(Messages.END_DATE_ERROR);
         }
     }
 
     public void checkIfRentalByDateValid(LocalDate startDate, LocalDate endDate) {
         if (ChronoUnit.DAYS.between(startDate, endDate) > 25) {
-            throw new BusinessException("Bir araç maksimum 25 gün kiralanabilir!");
+            throw new BusinessException(Messages.MAX_DAYS_ERROR);
         }
     }
 
@@ -55,7 +56,7 @@ public class RentalBusinessRules {
 
     public void checkIfRentalByIdExists(Integer id) {
         if (!this.rentalRepository.existsById(id)) {
-            throw new BusinessException("Verilen Rental Id ile sistemde bir Rental olmalıdır!");
+            throw new BusinessException(Messages.ID_NOT_FOUND);
         }
     }
 

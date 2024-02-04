@@ -3,6 +3,7 @@ package com.tobeto.pair6.rentACar.services.rules;
 import com.tobeto.pair6.rentACar.core.utilities.exceptions.BusinessException;
 import com.tobeto.pair6.rentACar.repositories.ModelRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.BrandService;
+import com.tobeto.pair6.rentACar.services.constants.Messages;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -15,19 +16,19 @@ public class ModelBusinessRules {
 
     public void checkIfModelByNameExists(String name) {
         if (this.modelRepository.existsByName(name)) {
-            throw new BusinessException("Aynı Model 2. kez eklenemez!");
+            throw new BusinessException(Messages.MODEL_ALREADY_EXISTS);
         }
     }
 
     public void checkIfBrandByIdExists(Integer id) {
         if (!brandService.getBrandById(id)) {
-            throw new BusinessException("Verilen Brand Id ile veritabanında bir Brand bulunmalıdır!");
+            throw new BusinessException(Messages.BRAND_NOT_EXIST);
         }
     }
 
     public void checkIfModelByIdExists(Integer id) {
         if (!this.modelRepository.existsById(id)) {
-            throw new BusinessException("Verilen Model Id ile sistemde bir Model olmalıdır!");
+            throw new BusinessException(Messages.ID_NOT_FOUND);
         }
     }
 
