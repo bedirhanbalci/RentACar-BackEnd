@@ -57,19 +57,19 @@ public class SecurityConfiguration {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(x ->
                         x.requestMatchers(WHITE_LIST_URLS).permitAll()
-                                .requestMatchers("/api/auth/register", "/api/auth/login", "/api/auth/refreshToken").permitAll()
-                                .requestMatchers(HttpMethod.GET, "/api/users/**").hasAnyAuthority(Role.USER.name(), Role.ADMIN.name())
-                                .requestMatchers(HttpMethod.GET, "/api/admins/**").hasAuthority(Role.ADMIN.name())
-                                .requestMatchers(HttpMethod.POST, "/api/admins/**").hasAuthority(Role.ADMIN.name())
-                                .requestMatchers(HttpMethod.PUT, "/api/admins/**").hasAuthority(Role.ADMIN.name())
-                                .requestMatchers(HttpMethod.DELETE, "/api/admins/**").hasAuthority(Role.ADMIN.name())
+                                .requestMatchers("api/auth/register", "api/auth/login", "api/auth/refreshToken").permitAll()
+                                .requestMatchers(HttpMethod.GET, "api/users/**").hasAnyAuthority(Role.USER.name(), Role.ADMIN.name())
+                                .requestMatchers(HttpMethod.GET, "api/admins/**").hasAuthority(Role.ADMIN.name())
+                                .requestMatchers(HttpMethod.POST, "api/admins/**").hasAuthority(Role.ADMIN.name())
+                                .requestMatchers(HttpMethod.PUT, "api/admins/**").hasAuthority(Role.ADMIN.name())
+                                .requestMatchers(HttpMethod.DELETE, "api/admins/**").hasAuthority(Role.ADMIN.name())
                                 .anyRequest().authenticated())
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .logout(logout ->
-                        logout.logoutUrl("/api/auth/logout")
+                        logout.logoutUrl("api/auth/logout")
                                 .addLogoutHandler(logoutHandler)
                                 .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext()));
         return httpSecurity.build();
