@@ -8,6 +8,7 @@ import com.tobeto.pair6.rentACar.core.utilities.results.SuccessResult;
 import com.tobeto.pair6.rentACar.entities.concretes.Brand;
 import com.tobeto.pair6.rentACar.repositories.BrandRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.BrandService;
+import com.tobeto.pair6.rentACar.services.constants.Messages;
 import com.tobeto.pair6.rentACar.services.dtos.brand.requests.AddBrandRequest;
 import com.tobeto.pair6.rentACar.services.dtos.brand.requests.DeleteBrandRequest;
 import com.tobeto.pair6.rentACar.services.dtos.brand.requests.UpdateBrandRequest;
@@ -40,7 +41,7 @@ public class BrandManager implements BrandService {
 
         this.brandRepository.save(brand);
 
-        return new SuccessResult("Marka eklendi!");
+        return new SuccessResult(Messages.ADD);
 
     }
 
@@ -54,7 +55,7 @@ public class BrandManager implements BrandService {
 
         this.brandRepository.delete(brand);
 
-        return new SuccessResult("Marka silindi!");
+        return new SuccessResult(Messages.DELETE);
 
     }
 
@@ -70,7 +71,7 @@ public class BrandManager implements BrandService {
 
         this.brandRepository.save(brand);
 
-        return new SuccessResult("Marka güncellendi!");
+        return new SuccessResult(Messages.UPDATE);
 
     }
 
@@ -82,7 +83,7 @@ public class BrandManager implements BrandService {
         List<GetAllBrandsResponse> brandsResponse = brands.stream()
                 .map(brand -> this.modelMapperService.forResponse().map(brand, GetAllBrandsResponse.class)).toList();
 
-        return new SuccessDataResult<>(brandsResponse, "Tüm markalar listelendi!");
+        return new SuccessDataResult<>(brandsResponse, Messages.GET_ALL);
 
     }
 
@@ -94,7 +95,7 @@ public class BrandManager implements BrandService {
         GetByIdBrandResponse response = this.modelMapperService.forResponse()
                 .map(brandRepository.findById(id), GetByIdBrandResponse.class);
 
-        return new SuccessDataResult<>(response, "Marka listelendi!");
+        return new SuccessDataResult<>(response, Messages.GET);
 
     }
 

@@ -8,6 +8,7 @@ import com.tobeto.pair6.rentACar.core.utilities.results.SuccessResult;
 import com.tobeto.pair6.rentACar.entities.concretes.AssurancePackage;
 import com.tobeto.pair6.rentACar.repositories.AssurancePackageRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.AssurancePackageService;
+import com.tobeto.pair6.rentACar.services.constants.Messages;
 import com.tobeto.pair6.rentACar.services.dtos.assurancePackage.requests.AddAssurancePackageRequest;
 import com.tobeto.pair6.rentACar.services.dtos.assurancePackage.requests.DeleteAssurancePackageRequest;
 import com.tobeto.pair6.rentACar.services.dtos.assurancePackage.requests.UpdateAssurancePackageRequest;
@@ -39,7 +40,7 @@ public class AssurancePackageManager implements AssurancePackageService {
 
         this.assurancePackageRepository.save(assurancePackage);
 
-        return new SuccessResult("Güvence paketi eklendi!");
+        return new SuccessResult(Messages.ADD);
 
     }
 
@@ -53,7 +54,7 @@ public class AssurancePackageManager implements AssurancePackageService {
 
         this.assurancePackageRepository.delete(assurancePackage);
 
-        return new SuccessResult("Güvence paketi silindi!");
+        return new SuccessResult(Messages.DELETE);
 
     }
 
@@ -67,7 +68,7 @@ public class AssurancePackageManager implements AssurancePackageService {
 
         this.assurancePackageRepository.save(assurancePackage);
 
-        return new SuccessResult("Güvence paketi güncellendi!");
+        return new SuccessResult(Messages.UPDATE);
 
     }
 
@@ -79,7 +80,7 @@ public class AssurancePackageManager implements AssurancePackageService {
         List<GetAllAssurancePackagesResponse> assurancePackagesResponse = assurancePackages.stream()
                 .map(assurancePackage -> this.modelMapperService.forResponse().map(assurancePackage, GetAllAssurancePackagesResponse.class)).toList();
 
-        return new SuccessDataResult<>(assurancePackagesResponse, "Tüm güvence paketleri listelendi!");
+        return new SuccessDataResult<>(assurancePackagesResponse, Messages.GET_ALL);
 
     }
 
@@ -91,7 +92,7 @@ public class AssurancePackageManager implements AssurancePackageService {
         GetByIdAssurancePackageResponse response = this.modelMapperService.forResponse()
                 .map(assurancePackageRepository.findById(id), GetByIdAssurancePackageResponse.class);
 
-        return new SuccessDataResult<>(response, "Güvence paketi listelendi!");
+        return new SuccessDataResult<>(response, Messages.GET);
 
     }
 

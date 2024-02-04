@@ -2,6 +2,7 @@ package com.tobeto.pair6.rentACar.services.rules;
 
 import com.tobeto.pair6.rentACar.core.utilities.exceptions.BusinessException;
 import com.tobeto.pair6.rentACar.repositories.AssurancePackageRepository;
+import com.tobeto.pair6.rentACar.services.constants.Messages;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -13,7 +14,7 @@ public class AssurancePackageBusinessRules {
 
     public void checkIfAssurancePackageByIdExists(Integer id) {
         if (!this.assurancePackageRepository.existsById(id)) {
-            throw new BusinessException("Verilen Assurance Package Id ile sistemde bir Assurance Package olmalıdır!");
+            throw new BusinessException(Messages.ID_NOT_FOUND);
         }
     }
 

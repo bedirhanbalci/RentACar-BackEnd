@@ -8,6 +8,7 @@ import com.tobeto.pair6.rentACar.core.utilities.results.SuccessResult;
 import com.tobeto.pair6.rentACar.entities.concretes.Car;
 import com.tobeto.pair6.rentACar.repositories.CarRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.CarService;
+import com.tobeto.pair6.rentACar.services.constants.Messages;
 import com.tobeto.pair6.rentACar.services.dtos.car.requests.AddCarRequest;
 import com.tobeto.pair6.rentACar.services.dtos.car.requests.DeleteCarRequest;
 import com.tobeto.pair6.rentACar.services.dtos.car.requests.UpdateCarRequest;
@@ -45,7 +46,7 @@ public class CarManager implements CarService {
 
         this.carRepository.save(car);
 
-        return new SuccessResult("Araç eklendi!");
+        return new SuccessResult(Messages.ADD);
 
     }
 
@@ -59,7 +60,7 @@ public class CarManager implements CarService {
 
         this.carRepository.delete(car);
 
-        return new SuccessResult("Araç silindi!");
+        return new SuccessResult(Messages.DELETE);
 
     }
 
@@ -80,7 +81,7 @@ public class CarManager implements CarService {
 
         this.carRepository.save(car);
 
-        return new SuccessResult("Araç güncellendi!");
+        return new SuccessResult(Messages.UPDATE);
 
     }
 
@@ -92,7 +93,7 @@ public class CarManager implements CarService {
         List<GetAllCarsResponse> carsResponse = cars.stream()
                 .map(car -> this.modelMapperService.forResponse().map(car, GetAllCarsResponse.class)).toList();
 
-        return new SuccessDataResult<>(carsResponse, "Tüm araçlar listelendi!");
+        return new SuccessDataResult<>(carsResponse, Messages.GET_ALL);
 
     }
 
@@ -104,7 +105,7 @@ public class CarManager implements CarService {
         GetByIdCarResponse response = this.modelMapperService.forResponse()
                 .map(carRepository.findById(id), GetByIdCarResponse.class);
 
-        return new SuccessDataResult<>(response, "Araç listelendi!");
+        return new SuccessDataResult<>(response, Messages.GET);
 
     }
 

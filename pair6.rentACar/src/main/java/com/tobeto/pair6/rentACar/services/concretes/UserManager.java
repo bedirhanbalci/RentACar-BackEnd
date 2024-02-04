@@ -8,6 +8,7 @@ import com.tobeto.pair6.rentACar.core.utilities.results.SuccessResult;
 import com.tobeto.pair6.rentACar.entities.concretes.User;
 import com.tobeto.pair6.rentACar.repositories.UserRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.UserService;
+import com.tobeto.pair6.rentACar.services.constants.Messages;
 import com.tobeto.pair6.rentACar.services.dtos.user.requests.AddUserRequest;
 import com.tobeto.pair6.rentACar.services.dtos.user.requests.DeleteUserRequest;
 import com.tobeto.pair6.rentACar.services.dtos.user.requests.UpdateUserRequest;
@@ -42,7 +43,7 @@ public class UserManager implements UserService {
 
         this.userRepository.save(user);
 
-        return new SuccessResult("Kullanıcı eklendi!");
+        return new SuccessResult(Messages.ADD);
 
     }
 
@@ -56,7 +57,7 @@ public class UserManager implements UserService {
 
         this.userRepository.delete(user);
 
-        return new SuccessResult("Kullanıcı silindi!");
+        return new SuccessResult(Messages.DELETE);
 
     }
 
@@ -72,7 +73,7 @@ public class UserManager implements UserService {
 
         this.userRepository.save(user);
 
-        return new SuccessResult("Kullanıcı güncellendi!");
+        return new SuccessResult(Messages.UPDATE);
 
     }
 
@@ -84,7 +85,7 @@ public class UserManager implements UserService {
         List<GetAllUsersResponse> usersResponse = users.stream()
                 .map(user -> this.modelMapperService.forResponse().map(user, GetAllUsersResponse.class)).toList();
 
-        return new SuccessDataResult<>(usersResponse, "Tüm kullanıcılar listelendi!");
+        return new SuccessDataResult<>(usersResponse, Messages.GET_ALL);
 
     }
 
@@ -96,7 +97,7 @@ public class UserManager implements UserService {
         GetByIdUserResponse response = this.modelMapperService.forResponse()
                 .map(userRepository.findById(id), GetByIdUserResponse.class);
 
-        return new SuccessDataResult<>(response, "Kullanıcı listelendi!");
+        return new SuccessDataResult<>(response, Messages.GET);
 
     }
 
@@ -109,6 +110,6 @@ public class UserManager implements UserService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("No user found!"));
+        return userRepository.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException(Messages.USER_NOT_FOUND));
     }
 }

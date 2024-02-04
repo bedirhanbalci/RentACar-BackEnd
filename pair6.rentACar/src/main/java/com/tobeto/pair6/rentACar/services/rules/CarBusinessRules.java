@@ -4,6 +4,7 @@ import com.tobeto.pair6.rentACar.core.utilities.exceptions.BusinessException;
 import com.tobeto.pair6.rentACar.repositories.CarRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.ColorService;
 import com.tobeto.pair6.rentACar.services.abstracts.ModelService;
+import com.tobeto.pair6.rentACar.services.constants.Messages;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -17,25 +18,25 @@ public class CarBusinessRules {
 
     public void checkIfCarByPlateExists(String plate) {
         if (this.carRepository.existsByPlate(plate)) {
-            throw new BusinessException("Aynı plaka ile 2. araç eklenemez!");
+            throw new BusinessException(Messages.PLATE_ALREADY_EXISTS);
         }
     }
 
     public void checkIfModelByIdExists(Integer id) {
         if (!modelService.getModelById(id)) {
-            throw new BusinessException("Verilen Model Id bir model db'de bulunmalıdır!");
+            throw new BusinessException(Messages.MODEL_NOT_EXIST);
         }
     }
 
     public void checkIfColorByIdExists(Integer id) {
         if (!colorService.getColorById(id)) {
-            throw new BusinessException("Verilen Color Id bir color db'de bulunmalıdır!");
+            throw new BusinessException(Messages.COLOR_NOT_EXIST);
         }
     }
 
     public void checkIfCarByIdExists(Integer id) {
         if (!this.carRepository.existsById(id)) {
-            throw new BusinessException("Verilen Car Id ile sistemde bir Car olmalıdır!");
+            throw new BusinessException(Messages.ID_NOT_FOUND);
         }
     }
 

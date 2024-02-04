@@ -8,6 +8,7 @@ import com.tobeto.pair6.rentACar.core.utilities.results.SuccessResult;
 import com.tobeto.pair6.rentACar.entities.concretes.Branch;
 import com.tobeto.pair6.rentACar.repositories.BranchRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.BranchService;
+import com.tobeto.pair6.rentACar.services.constants.Messages;
 import com.tobeto.pair6.rentACar.services.dtos.branch.requests.AddBranchRequest;
 import com.tobeto.pair6.rentACar.services.dtos.branch.requests.DeleteBranchRequest;
 import com.tobeto.pair6.rentACar.services.dtos.branch.requests.UpdateBranchRequest;
@@ -38,7 +39,7 @@ public class BranchManager implements BranchService {
 
         this.branchRepository.save(branch);
 
-        return new SuccessResult("Şube eklendi!");
+        return new SuccessResult(Messages.ADD);
 
     }
 
@@ -52,7 +53,7 @@ public class BranchManager implements BranchService {
 
         this.branchRepository.delete(branch);
 
-        return new SuccessResult("Şube silindi!");
+        return new SuccessResult(Messages.DELETE);
 
     }
 
@@ -66,7 +67,7 @@ public class BranchManager implements BranchService {
 
         this.branchRepository.save(branch);
 
-        return new SuccessResult("Şube güncellendi!");
+        return new SuccessResult(Messages.UPDATE);
 
     }
 
@@ -78,7 +79,7 @@ public class BranchManager implements BranchService {
         List<GetAllBranchesResponse> branchesResponse = branches.stream()
                 .map(branch -> this.modelMapperService.forResponse().map(branch, GetAllBranchesResponse.class)).toList();
 
-        return new SuccessDataResult<>(branchesResponse, "Tüm şubeler listelendi!");
+        return new SuccessDataResult<>(branchesResponse, Messages.GET_ALL);
 
     }
 
@@ -90,7 +91,7 @@ public class BranchManager implements BranchService {
         GetByIdBranchResponse response = this.modelMapperService.forResponse()
                 .map(branchRepository.findById(id), GetByIdBranchResponse.class);
 
-        return new SuccessDataResult<>(response, "Şube listelendi!");
+        return new SuccessDataResult<>(response, Messages.GET);
 
     }
 

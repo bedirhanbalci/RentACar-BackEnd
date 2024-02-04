@@ -8,6 +8,7 @@ import com.tobeto.pair6.rentACar.core.utilities.results.SuccessResult;
 import com.tobeto.pair6.rentACar.entities.concretes.IndividualCustomer;
 import com.tobeto.pair6.rentACar.repositories.IndividualCustomerRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.IndividualCustomerService;
+import com.tobeto.pair6.rentACar.services.constants.Messages;
 import com.tobeto.pair6.rentACar.services.dtos.individualCustomer.requests.AddIndividualCustomerRequest;
 import com.tobeto.pair6.rentACar.services.dtos.individualCustomer.requests.DeleteIndividualCustomerRequest;
 import com.tobeto.pair6.rentACar.services.dtos.individualCustomer.requests.UpdateIndividualCustomerRequest;
@@ -38,7 +39,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
 
         this.individualCustomerRepository.save(individualCustomer);
 
-        return new SuccessResult("Bireysel müşteri eklendi!");
+        return new SuccessResult(Messages.ADD);
 
     }
 
@@ -52,7 +53,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
 
         this.individualCustomerRepository.delete(individualCustomer);
 
-        return new SuccessResult("Bireysel müşteri silindi!");
+        return new SuccessResult(Messages.DELETE);
 
     }
 
@@ -66,7 +67,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
 
         this.individualCustomerRepository.save(individualCustomer);
 
-        return new SuccessResult("Bireysel müşteri güncellendi!");
+        return new SuccessResult(Messages.UPDATE);
 
     }
 
@@ -78,7 +79,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
         List<GetAllIndividualCustomersResponse> individualCustomersResponse = individualCustomers.stream()
                 .map(individualCustomer -> this.modelMapperService.forResponse().map(individualCustomer, GetAllIndividualCustomersResponse.class)).toList();
 
-        return new SuccessDataResult<>(individualCustomersResponse, "Tüm bireysel müşteriler listelendi!");
+        return new SuccessDataResult<>(individualCustomersResponse, Messages.GET_ALL);
 
     }
 
@@ -90,7 +91,7 @@ public class IndividualCustomerManager implements IndividualCustomerService {
         GetByIdIndividualCustomerResponse response = this.modelMapperService.forResponse()
                 .map(individualCustomerRepository.findById(id), GetByIdIndividualCustomerResponse.class);
 
-        return new SuccessDataResult<>(response, "Bireysel müşteri listelendi!");
+        return new SuccessDataResult<>(response, Messages.GET);
 
     }
 
