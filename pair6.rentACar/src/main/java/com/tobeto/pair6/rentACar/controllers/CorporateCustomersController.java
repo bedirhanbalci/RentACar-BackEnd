@@ -23,7 +23,7 @@ public class CorporateCustomersController {
 
     private final CorporateCustomerService corporateCustomerService;
 
-    @PostMapping("/add")
+    @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public Result add(@RequestBody @Valid AddCorporateCustomerRequest addCorporateCustomerRequest) {
 
@@ -31,28 +31,28 @@ public class CorporateCustomersController {
 
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping()
     public Result delete(@RequestBody @Valid DeleteCorporateCustomerRequest deleteCorporateCustomerRequest) {
 
         return this.corporateCustomerService.delete(deleteCorporateCustomerRequest);
 
     }
 
-    @PutMapping("/update")
+    @PutMapping()
     public Result update(@RequestBody @Valid UpdateCorporateCustomerRequest updateCorporateCustomerRequest) {
 
         return this.corporateCustomerService.update(updateCorporateCustomerRequest);
 
     }
 
-    @GetMapping("/getAll")
+    @GetMapping()
     public DataResult<List<GetAllCorporateCustomersResponse>> getAll() {
 
         return this.corporateCustomerService.getAll();
 
     }
 
-    @GetMapping("/getById/{id}")
+    @GetMapping("/{id}")
     public DataResult<GetByIdCorporateCustomerResponse> getById(@PathVariable Integer id) {
 
         return this.corporateCustomerService.getById(id);

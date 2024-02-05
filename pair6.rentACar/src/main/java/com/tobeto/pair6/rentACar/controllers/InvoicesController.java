@@ -23,7 +23,7 @@ public class InvoicesController {
 
     private final InvoiceService invoiceService;
 
-    @PostMapping("/add")
+    @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public Result add(@RequestBody @Valid AddInvoiceRequest addInvoiceRequest) {
 
@@ -31,28 +31,28 @@ public class InvoicesController {
 
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping()
     public Result delete(@RequestBody @Valid DeleteInvoiceRequest deleteInvoiceRequest) {
 
         return this.invoiceService.delete(deleteInvoiceRequest);
 
     }
 
-    @PutMapping("/update")
+    @PutMapping()
     public Result update(@RequestBody @Valid UpdateInvoiceRequest updateInvoiceRequest) {
 
         return this.invoiceService.update(updateInvoiceRequest);
 
     }
 
-    @GetMapping("/getAll")
+    @GetMapping()
     public DataResult<List<GetAllInvoicesResponse>> getAll() {
 
         return this.invoiceService.getAll();
 
     }
 
-    @GetMapping("/getById/{id}")
+    @GetMapping("/{id}")
     public DataResult<GetByIdInvoiceResponse> getById(@PathVariable Integer id) {
 
         return this.invoiceService.getById(id);

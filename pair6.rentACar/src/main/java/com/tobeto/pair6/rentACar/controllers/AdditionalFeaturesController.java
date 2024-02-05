@@ -23,7 +23,7 @@ public class AdditionalFeaturesController {
 
     private final AdditionalFeatureService additionalFeatureService;
 
-    @PostMapping("/add")
+    @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public Result add(@RequestBody @Valid AddAdditionalFeatureRequest addAdditionalFeatureRequest) {
 
@@ -31,28 +31,28 @@ public class AdditionalFeaturesController {
 
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping()
     public Result delete(@RequestBody @Valid DeleteAdditionalFeatureRequest deleteAdditionalFeatureRequest) {
 
         return this.additionalFeatureService.delete(deleteAdditionalFeatureRequest);
 
     }
 
-    @PutMapping("/update")
+    @PutMapping()
     public Result update(@RequestBody @Valid UpdateAdditionalFeatureRequest updateAdditionalFeatureRequest) {
 
         return this.additionalFeatureService.update(updateAdditionalFeatureRequest);
 
     }
 
-    @GetMapping("/getAll")
+    @GetMapping()
     public DataResult<List<GetAllAdditionalFeaturesResponse>> getAll() {
 
         return this.additionalFeatureService.getAll();
 
     }
 
-    @GetMapping("/getById/{id}")
+    @GetMapping("/{id}")
     public DataResult<GetByIdAdditionalFeatureResponse> getById(@PathVariable Integer id) {
 
         return this.additionalFeatureService.getById(id);

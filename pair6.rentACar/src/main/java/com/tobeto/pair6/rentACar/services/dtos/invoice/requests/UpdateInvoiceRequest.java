@@ -1,6 +1,6 @@
 package com.tobeto.pair6.rentACar.services.dtos.invoice.requests;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -11,15 +11,16 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class UpdateInvoiceRequest {
 
-    @Positive(message = "Doğru Id girişi yapınız!")
+    @Positive(message = "Id must be a positive number!")
     private Integer id;
 
-    @NotNull(message = "Fatura oluşturma numarası boş olamaz!")
+    @NotBlank(message = "Invoice No cannot be blank!")
     private String invoiceNo;
 
+    @Positive(message = "Tax Rate must be a positive number!")
     private Double taxRate;
 
-    @Positive(message = "Doğru Rental Id girişi yapınız!")
+    @Positive(message = "Rental Id must be a positive number!")
     private Integer rentalId;
 
 }

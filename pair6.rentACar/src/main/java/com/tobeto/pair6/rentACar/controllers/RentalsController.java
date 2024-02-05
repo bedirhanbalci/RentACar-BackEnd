@@ -23,7 +23,7 @@ public class RentalsController {
 
     private final RentalService rentalService;
 
-    @PostMapping("/add")
+    @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public Result add(@RequestBody @Valid AddRentalRequest addRentalRequest) {
 
@@ -31,28 +31,28 @@ public class RentalsController {
 
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping()
     public Result delete(@RequestBody @Valid DeleteRentalRequest deleteRentalRequest) {
 
         return this.rentalService.delete(deleteRentalRequest);
 
     }
 
-    @PutMapping("/update")
+    @PutMapping()
     public Result update(@RequestBody @Valid UpdateRentalRequest updateRentalRequest) {
 
         return this.rentalService.update(updateRentalRequest);
 
     }
 
-    @GetMapping("/getAll")
+    @GetMapping()
     public DataResult<List<GetAllRentalsResponse>> getAll() {
 
         return this.rentalService.getAll();
 
     }
 
-    @GetMapping("/getById/{id}")
+    @GetMapping("/{id}")
     public DataResult<GetByIdRentalResponse> getById(@PathVariable Integer id) {
 
         return this.rentalService.getById(id);

@@ -23,7 +23,7 @@ public class UsersController {
 
     private final UserService userService;
 
-    @PostMapping("/add")
+    @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public Result add(@RequestBody @Valid AddUserRequest addUserRequest) {
 
@@ -31,28 +31,28 @@ public class UsersController {
 
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping()
     public Result delete(@RequestBody @Valid DeleteUserRequest deleteUserRequest) {
 
         return this.userService.delete(deleteUserRequest);
 
     }
 
-    @PutMapping("/update")
+    @PutMapping()
     public Result update(@RequestBody @Valid UpdateUserRequest updateUserRequest) {
 
         return this.userService.update(updateUserRequest);
 
     }
 
-    @GetMapping("/getAll")
+    @GetMapping()
     public DataResult<List<GetAllUsersResponse>> getAll() {
 
         return this.userService.getAll();
 
     }
 
-    @GetMapping("/getById/{id}")
+    @GetMapping("/{id}")
     public DataResult<GetByIdUserResponse> getById(@PathVariable Integer id) {
 
         return this.userService.getById(id);

@@ -23,7 +23,7 @@ public class IndividualCustomersController {
 
     private final IndividualCustomerService individualCustomerService;
 
-    @PostMapping("/add")
+    @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public Result add(@RequestBody @Valid AddIndividualCustomerRequest addIndividualCustomerRequest) {
 
@@ -31,28 +31,28 @@ public class IndividualCustomersController {
 
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping()
     public Result delete(@RequestBody @Valid DeleteIndividualCustomerRequest deleteIndividualCustomerRequest) {
 
         return this.individualCustomerService.delete(deleteIndividualCustomerRequest);
 
     }
 
-    @PutMapping("/update")
+    @PutMapping()
     public Result update(@RequestBody @Valid UpdateIndividualCustomerRequest updateIndividualCustomerRequest) {
 
         return this.individualCustomerService.update(updateIndividualCustomerRequest);
 
     }
 
-    @GetMapping("/getAll")
+    @GetMapping()
     public DataResult<List<GetAllIndividualCustomersResponse>> getAll() {
 
         return this.individualCustomerService.getAll();
 
     }
 
-    @GetMapping("/getById/{id}")
+    @GetMapping("/{id}")
     public DataResult<GetByIdIndividualCustomerResponse> getById(@PathVariable Integer id) {
 
         return this.individualCustomerService.getById(id);

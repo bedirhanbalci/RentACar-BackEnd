@@ -23,7 +23,7 @@ public class AssurancePackagesController {
 
     private final AssurancePackageService assurancePackageService;
 
-    @PostMapping("/add")
+    @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public Result add(@RequestBody @Valid AddAssurancePackageRequest addAssurancePackageRequest) {
 
@@ -31,28 +31,28 @@ public class AssurancePackagesController {
 
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping()
     public Result delete(@RequestBody @Valid DeleteAssurancePackageRequest deleteAssurancePackageRequest) {
 
         return this.assurancePackageService.delete(deleteAssurancePackageRequest);
 
     }
 
-    @PutMapping("/update")
+    @PutMapping()
     public Result update(@RequestBody @Valid UpdateAssurancePackageRequest updateAssurancePackageRequest) {
 
         return this.assurancePackageService.update(updateAssurancePackageRequest);
 
     }
 
-    @GetMapping("/getAll")
+    @GetMapping()
     public DataResult<List<GetAllAssurancePackagesResponse>> getAll() {
 
         return this.assurancePackageService.getAll();
 
     }
 
-    @GetMapping("/getById/{id}")
+    @GetMapping("/{id}")
     public DataResult<GetByIdAssurancePackageResponse> getById(@PathVariable Integer id) {
 
         return this.assurancePackageService.getById(id);

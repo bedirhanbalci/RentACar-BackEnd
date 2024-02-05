@@ -23,7 +23,7 @@ public class ColorsController {
 
     private final ColorService colorService;
 
-    @PostMapping("/add")
+    @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public Result add(@RequestBody @Valid AddColorRequest addColorRequest) {
 
@@ -31,28 +31,28 @@ public class ColorsController {
 
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping()
     public Result delete(@RequestBody @Valid DeleteColorRequest deleteColorRequest) {
 
         return this.colorService.delete(deleteColorRequest);
 
     }
 
-    @PutMapping("/update")
+    @PutMapping()
     public Result update(@RequestBody @Valid UpdateColorRequest updateColorRequest) {
 
         return this.colorService.update(updateColorRequest);
 
     }
 
-    @GetMapping("/getAll")
+    @GetMapping()
     public DataResult<List<GetAllColorsResponse>> getAll() {
 
         return this.colorService.getAll();
 
     }
 
-    @GetMapping("/getById/{id}")
+    @GetMapping("/{id}")
     public DataResult<GetByIdColorResponse> getById(@PathVariable Integer id) {
 
         return this.colorService.getById(id);
