@@ -23,7 +23,7 @@ public class CarsController {
 
     private final CarService carService;
 
-    @PostMapping("/add")
+    @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public Result add(@RequestBody @Valid AddCarRequest addCarRequest) {
 
@@ -31,28 +31,28 @@ public class CarsController {
 
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping()
     public Result delete(@RequestBody @Valid DeleteCarRequest deleteCarRequest) {
 
         return this.carService.delete(deleteCarRequest);
 
     }
 
-    @PutMapping("/update")
+    @PutMapping()
     public Result update(@RequestBody @Valid UpdateCarRequest updateCarRequest) {
 
         return this.carService.update(updateCarRequest);
 
     }
 
-    @GetMapping("/getAll")
+    @GetMapping()
     public DataResult<List<GetAllCarsResponse>> getAll() {
 
         return this.carService.getAll();
 
     }
 
-    @GetMapping("/getById/{id}")
+    @GetMapping("/{id}")
     public DataResult<GetByIdCarResponse> getById(@PathVariable Integer id) {
 
         return this.carService.getById(id);

@@ -13,22 +13,22 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class AddRentalRequest {
 
-    @NotNull(message = "Başlangıç tarihi boş olamaz!")
+    @NotNull(message = "Start Date must not be null!")
     private LocalDate startDate;
 
-    @NotNull(message = "Bitiş tarihi boş olamaz!")
+    @NotNull(message = "End Date must not be null!")
     private LocalDate endDate;
 
-    @Positive(message = "Doğru Car Id girişi yapınız!")
+    @Positive(message = "Car Id must be a positive number!")
     private Integer carId;
 
-    @Positive(message = "Doğru User Id girişi yapınız!")
+    @Positive(message = "User Id must be a positive number!")
     private Integer userId;
 
-//    @Positive(message = "Doğru Assurance Package Id girişi yapınız!")
+    @Positive(message = "Assurance Package Id must be a positive number!")
     private Integer assurancePackageId;
 
-//    @Positive(message = "Doğru Additional Feature Id girişi yapınız!")
+    @Positive(message = "Additional Feature Id must be a positive number!")
     private Integer additionalFeatureId;
 
 }

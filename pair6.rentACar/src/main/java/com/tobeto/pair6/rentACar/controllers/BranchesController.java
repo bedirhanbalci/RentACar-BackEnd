@@ -23,7 +23,7 @@ public class BranchesController {
 
     private final BranchService branchService;
 
-    @PostMapping("/add")
+    @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public Result add(@RequestBody @Valid AddBranchRequest addBranchRequest) {
 
@@ -31,28 +31,28 @@ public class BranchesController {
 
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping()
     public Result delete(@RequestBody @Valid DeleteBranchRequest deleteBranchRequest) {
 
         return this.branchService.delete(deleteBranchRequest);
 
     }
 
-    @PutMapping("/update")
+    @PutMapping()
     public Result update(@RequestBody @Valid UpdateBranchRequest updateBranchRequest) {
 
         return this.branchService.update(updateBranchRequest);
 
     }
 
-    @GetMapping("/getAll")
+    @GetMapping()
     public DataResult<List<GetAllBranchesResponse>> getAll() {
 
         return this.branchService.getAll();
 
     }
 
-    @GetMapping("/getById/{id}")
+    @GetMapping("/{id}")
     public DataResult<GetByIdBranchResponse> getById(@PathVariable Integer id) {
 
         return this.branchService.getById(id);

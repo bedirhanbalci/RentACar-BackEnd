@@ -1,6 +1,5 @@
 package com.tobeto.pair6.rentACar.services.dtos.user.requests;
 
-import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -12,20 +11,19 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class AddUserRequest {
 
-    @NotBlank(message = "Email boş olamaz!")
-    @Email(message = "Email doğru formatta olmalıdır!")
+    @NotBlank(message = "Email cannot be blank!")
+    @Email(message = "Invalid email format!")
     private String email;
 
-    @Column(name = "password")
+    @NotBlank(message = "Password cannot be blank!")
     private String password;
 
-    @Column(name = "phone_number")
+    @NotBlank(message = "Phone Number cannot be blank!")
     private String phoneNumber;
 
-    @Column(name = "address")
+    @NotBlank(message = "Address cannot be blank!")
     private String address;
 
-    @Column(name = "image_path")
     private String imagePath;
 
 }

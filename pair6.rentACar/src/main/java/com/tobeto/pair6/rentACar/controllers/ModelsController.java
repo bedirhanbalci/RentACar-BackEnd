@@ -23,7 +23,7 @@ public class ModelsController {
 
     private final ModelService modelService;
 
-    @PostMapping("/add")
+    @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
     public Result add(@RequestBody @Valid AddModelRequest addModelRequest) {
 
@@ -31,28 +31,28 @@ public class ModelsController {
 
     }
 
-    @DeleteMapping("/delete")
+    @DeleteMapping()
     public Result delete(@RequestBody @Valid DeleteModelRequest deleteModelRequest) {
 
         return this.modelService.delete(deleteModelRequest);
 
     }
 
-    @PutMapping("/update")
+    @PutMapping()
     public Result update(@RequestBody @Valid UpdateModelRequest updateModelRequest) {
 
         return this.modelService.update(updateModelRequest);
 
     }
 
-    @GetMapping("/getAll")
+    @GetMapping()
     public DataResult<List<GetAllModelsResponse>> getAll() {
 
         return this.modelService.getAll();
 
     }
 
-    @GetMapping("/getById/{id}")
+    @GetMapping("/{id}")
     public DataResult<GetByIdModelResponse> getById(@PathVariable Integer id) {
 
         return this.modelService.getById(id);

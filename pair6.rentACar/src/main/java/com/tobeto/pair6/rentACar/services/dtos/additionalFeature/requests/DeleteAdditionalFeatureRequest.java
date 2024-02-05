@@ -1,5 +1,6 @@
 package com.tobeto.pair6.rentACar.services.dtos.additionalFeature.requests;
 
+import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -9,6 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DeleteAdditionalFeatureRequest {
 
+    @Positive(message = "Id must be a positive number!")
     private Integer id;
 
 }

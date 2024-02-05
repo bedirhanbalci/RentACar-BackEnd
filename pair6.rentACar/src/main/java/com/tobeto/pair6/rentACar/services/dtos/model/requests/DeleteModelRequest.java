@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DeleteModelRequest {
 
-    @Positive(message = "Doğru Id girişi yapınız!")
+    @Positive(message = "Id must be a positive number!")
     private Integer id;
 
 }
