@@ -1,7 +1,6 @@
 package com.tobeto.pair6.rentACar.services.dtos.individualCustomer.requests;
 
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -24,7 +23,6 @@ public class AddIndividualCustomerRequest {
     @Size(min = 11, max = 11, message = "Nationality No must be 11 characters!")
     private String nationalityNo;
 
-    @NotNull(message = "Birth Date must not be null!")
     private LocalDate birthDate;
 
     @Positive(message = "User Id must be a positive number!")

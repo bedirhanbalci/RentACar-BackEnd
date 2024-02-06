@@ -1,6 +1,5 @@
 package com.tobeto.pair6.rentACar.services.dtos.rental.requests;
 
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,10 +12,8 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class AddRentalRequest {
 
-    @NotNull(message = "Start Date must not be null!")
     private LocalDate startDate;
 
-    @NotNull(message = "End Date must not be null!")
     private LocalDate endDate;
 
     @Positive(message = "Car Id must be a positive number!")
