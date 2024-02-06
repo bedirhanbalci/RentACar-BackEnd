@@ -76,7 +76,7 @@ class BranchManagerTest {
     void successfullyDelete(){
 
         DeleteBranchRequest deleteBranchRequest = new DeleteBranchRequest();
-        deleteBranchRequest.setId(2);
+        deleteBranchRequest.setId(4);
 
         Mockito.when(modelMapperService.forRequest().map(deleteBranchRequest, Branch.class)).thenReturn(new Branch());
 
@@ -91,6 +91,7 @@ class BranchManagerTest {
     void successfullyUpdate() {
 
         UpdateBranchRequest updateBranchRequest = new UpdateBranchRequest();
+        updateBranchRequest.setId(4);
         updateBranchRequest.setCity("Istanbul");
         updateBranchRequest.setAddress("Atasehir");
         updateBranchRequest.setPhoneNumber("123456789");
