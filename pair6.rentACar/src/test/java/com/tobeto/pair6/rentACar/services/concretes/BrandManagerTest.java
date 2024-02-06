@@ -103,6 +103,7 @@ class BrandManagerTest {
     void successfullyUpdate() {
 
         UpdateBrandRequest updateBrandRequest = new UpdateBrandRequest();
+        updateBrandRequest.setId(2);
         updateBrandRequest.setName("Mercedes");
 
         Mockito.when(modelMapperService.forRequest().map(updateBrandRequest, Brand.class)).thenReturn(new Brand());

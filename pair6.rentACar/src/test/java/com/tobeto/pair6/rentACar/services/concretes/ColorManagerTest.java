@@ -101,6 +101,7 @@ class ColorManagerTest {
     void successfullyUpdate() {
 
         UpdateColorRequest updateColorRequest = new UpdateColorRequest();
+        updateColorRequest.setId(3);
         updateColorRequest.setName("Yellow");
 
         Mockito.when(modelMapperService.forRequest().map(updateColorRequest, Color.class)).thenReturn(new Color());
