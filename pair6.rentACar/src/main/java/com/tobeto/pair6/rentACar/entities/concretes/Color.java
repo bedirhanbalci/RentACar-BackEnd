@@ -23,8 +23,4 @@ public class Color extends BaseEntity {
     @OneToMany(mappedBy = "color")
     private List<Car> cars;
 
-    public Color(String name){
-        this.name=name;
-    }
-
 }

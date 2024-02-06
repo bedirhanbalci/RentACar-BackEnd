@@ -1,7 +1,6 @@
 package com.tobeto.pair6.rentACar.services.concretes;
 
 import com.tobeto.pair6.rentACar.core.utilities.mappers.ModelMapperService;
-import com.tobeto.pair6.rentACar.core.utilities.results.DataResult;
 import com.tobeto.pair6.rentACar.core.utilities.results.Result;
 import com.tobeto.pair6.rentACar.core.utilities.results.SuccessResult;
 import com.tobeto.pair6.rentACar.entities.concretes.Color;
@@ -10,10 +9,8 @@ import com.tobeto.pair6.rentACar.services.constants.Messages;
 import com.tobeto.pair6.rentACar.services.dtos.color.requests.AddColorRequest;
 import com.tobeto.pair6.rentACar.services.dtos.color.requests.DeleteColorRequest;
 import com.tobeto.pair6.rentACar.services.dtos.color.requests.UpdateColorRequest;
-import com.tobeto.pair6.rentACar.services.dtos.color.responses.GetByIdColorResponse;
 import com.tobeto.pair6.rentACar.services.rules.ColorBusinessRules;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -23,7 +20,6 @@ import org.modelmapper.ModelMapper;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
