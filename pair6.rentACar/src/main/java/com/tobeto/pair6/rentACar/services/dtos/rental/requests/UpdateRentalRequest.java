@@ -1,6 +1,5 @@
 package com.tobeto.pair6.rentACar.services.dtos.rental.requests;
 
-import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Positive;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -16,10 +15,8 @@ public class UpdateRentalRequest {
     @Positive(message = "Id must be a positive number!")
     private Integer id;
 
-    @NotNull(message = "Start Date must not be null!")
     private LocalDate startDate;
 
-    @NotNull(message = "End Date must not be null!")
     private LocalDate endDate;
 
     private LocalDate returnDate;
