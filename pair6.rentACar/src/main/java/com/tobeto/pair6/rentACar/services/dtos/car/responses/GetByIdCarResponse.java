@@ -32,6 +32,8 @@ public class GetByIdCarResponse {
 
     private String modelName;
 
+    private String brandName;
+
     private String colorName;
 
     private String branchCity;

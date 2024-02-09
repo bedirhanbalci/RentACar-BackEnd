@@ -10,6 +10,7 @@ import com.tobeto.pair6.rentACar.repositories.AssurancePackageRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.AssurancePackageService;
 import com.tobeto.pair6.rentACar.services.constants.Messages;
 import com.tobeto.pair6.rentACar.services.dtos.assurancePackage.requests.AddAssurancePackageRequest;
+import com.tobeto.pair6.rentACar.services.dtos.assurancePackage.requests.AssuranceRequest;
 import com.tobeto.pair6.rentACar.services.dtos.assurancePackage.requests.DeleteAssurancePackageRequest;
 import com.tobeto.pair6.rentACar.services.dtos.assurancePackage.requests.UpdateAssurancePackageRequest;
 import com.tobeto.pair6.rentACar.services.dtos.assurancePackage.responses.GetAllAssurancePackagesResponse;
@@ -93,6 +94,21 @@ public class AssurancePackageManager implements AssurancePackageService {
                 .map(assurancePackageRepository.findById(id), GetByIdAssurancePackageResponse.class);
 
         return new SuccessDataResult<>(response, Messages.GET);
+
+    }
+
+    @Override
+    public DataResult<GetByIdAssurancePackageResponse> addById(AssuranceRequest assuranceRequest) {
+
+        this.assurancePackageBusinessRules.checkIfAssurancePackageByIdExists(assuranceRequest.getId());
+
+        GetByIdAssurancePackageResponse response = this.modelMapperService.forResponse()
+                .map(assurancePackageRepository.findById(assuranceRequest.getId()), GetByIdAssurancePackageResponse.class);
+
+        response.setDailyPrice(this.assurancePackageBusinessRules.
+                calculateAssurancePrice(assuranceRequest.getStartDate(), assuranceRequest.getEndDate(), response.getDailyPrice()));
+
+        return new SuccessDataResult<>(response, Messages.ADD);
 
     }
 

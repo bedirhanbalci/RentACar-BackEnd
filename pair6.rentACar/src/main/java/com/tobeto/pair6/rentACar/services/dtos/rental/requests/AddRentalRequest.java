@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -24,6 +25,8 @@ public class AddRentalRequest {
 
     @Positive(message = "Assurance Package Id must be a positive number!")
     private Integer assurancePackageId;
+
+    private List<Object> additionalList;
 
     @Positive(message = "Additional Feature Id must be a positive number!")
     private Integer additionalFeatureId;
