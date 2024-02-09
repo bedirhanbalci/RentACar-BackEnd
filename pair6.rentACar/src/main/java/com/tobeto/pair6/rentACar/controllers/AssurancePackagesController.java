@@ -4,6 +4,7 @@ import com.tobeto.pair6.rentACar.core.utilities.results.DataResult;
 import com.tobeto.pair6.rentACar.core.utilities.results.Result;
 import com.tobeto.pair6.rentACar.services.abstracts.AssurancePackageService;
 import com.tobeto.pair6.rentACar.services.dtos.assurancePackage.requests.AddAssurancePackageRequest;
+import com.tobeto.pair6.rentACar.services.dtos.assurancePackage.requests.AssuranceRequest;
 import com.tobeto.pair6.rentACar.services.dtos.assurancePackage.requests.DeleteAssurancePackageRequest;
 import com.tobeto.pair6.rentACar.services.dtos.assurancePackage.requests.UpdateAssurancePackageRequest;
 import com.tobeto.pair6.rentACar.services.dtos.assurancePackage.responses.GetAllAssurancePackagesResponse;
@@ -56,6 +57,13 @@ public class AssurancePackagesController {
     public DataResult<GetByIdAssurancePackageResponse> getById(@PathVariable Integer id) {
 
         return this.assurancePackageService.getById(id);
+
+    }
+
+    @PostMapping("/addById")
+    public DataResult<GetByIdAssurancePackageResponse> addById(@RequestBody AssuranceRequest assuranceRequest) {
+
+        return this.assurancePackageService.addById(assuranceRequest);
 
     }
 

@@ -51,6 +51,7 @@ public class RentalBusinessRules {
 
     public double calculateTotalPrice(LocalDate startDate, LocalDate endDate, Double dailyPrice) {
         long rentalTime = ChronoUnit.DAYS.between(startDate, endDate);
+        rentalTime++;
         return rentalTime * dailyPrice;
     }
 

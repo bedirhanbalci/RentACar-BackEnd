@@ -91,7 +91,9 @@ public class CarManager implements CarService {
         List<Car> cars = carRepository.findAll();
 
         List<GetAllCarsResponse> carsResponse = cars.stream()
-                .map(car -> this.modelMapperService.forResponse().map(car, GetAllCarsResponse.class)).toList();
+                .map(car -> {GetAllCarsResponse response = this.modelMapperService.forResponse()
+                        .map(car, GetAllCarsResponse.class);
+                    response.setBrandName(car.getModel().getBrand().getName());return response;}).toList();
 
         return new SuccessDataResult<>(carsResponse, Messages.GET_ALL);
 
@@ -102,8 +104,12 @@ public class CarManager implements CarService {
 
         this.carBusinessRules.checkIfCarByIdExists(id);
 
+        Car car = carRepository.findById(id).orElseThrow();
+
         GetByIdCarResponse response = this.modelMapperService.forResponse()
-                .map(carRepository.findById(id), GetByIdCarResponse.class);
+                .map(car, GetByIdCarResponse.class);
+
+        response.setBrandName(car.getModel().getBrand().getName());
 
         return new SuccessDataResult<>(response, Messages.GET);
 

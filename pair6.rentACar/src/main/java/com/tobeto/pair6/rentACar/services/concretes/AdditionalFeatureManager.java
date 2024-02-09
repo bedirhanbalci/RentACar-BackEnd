@@ -10,6 +10,7 @@ import com.tobeto.pair6.rentACar.repositories.AdditionalFeatureRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.AdditionalFeatureService;
 import com.tobeto.pair6.rentACar.services.constants.Messages;
 import com.tobeto.pair6.rentACar.services.dtos.additionalFeature.requests.AddAdditionalFeatureRequest;
+import com.tobeto.pair6.rentACar.services.dtos.additionalFeature.requests.AdditionalRequest;
 import com.tobeto.pair6.rentACar.services.dtos.additionalFeature.requests.DeleteAdditionalFeatureRequest;
 import com.tobeto.pair6.rentACar.services.dtos.additionalFeature.requests.UpdateAdditionalFeatureRequest;
 import com.tobeto.pair6.rentACar.services.dtos.additionalFeature.responses.GetAllAdditionalFeaturesResponse;
@@ -92,6 +93,21 @@ public class AdditionalFeatureManager implements AdditionalFeatureService {
                 .map(additionalFeatureRepository.findById(id), GetByIdAdditionalFeatureResponse.class);
 
         return new SuccessDataResult<>(response, Messages.GET);
+
+    }
+
+    @Override
+    public DataResult<GetByIdAdditionalFeatureResponse> addById(AdditionalRequest additionalRequest) {
+
+        this.additionalFeatureBusinessRules.checkIfAdditionalFeatureByIdExists(additionalRequest.getId());
+
+        GetByIdAdditionalFeatureResponse response = this.modelMapperService.forResponse()
+                .map(additionalFeatureRepository.findById(additionalRequest.getId()), GetByIdAdditionalFeatureResponse.class);
+
+        response.setDailyPrice(this.additionalFeatureBusinessRules.
+                calculateAdditionalPrice(additionalRequest.getStartDate(), additionalRequest.getEndDate(), response.getDailyPrice(), additionalRequest.getQuantity()));
+
+        return new SuccessDataResult<>(response, Messages.ADD);
 
     }
 

@@ -4,6 +4,7 @@ import com.tobeto.pair6.rentACar.core.utilities.results.DataResult;
 import com.tobeto.pair6.rentACar.core.utilities.results.Result;
 import com.tobeto.pair6.rentACar.services.abstracts.AdditionalFeatureService;
 import com.tobeto.pair6.rentACar.services.dtos.additionalFeature.requests.AddAdditionalFeatureRequest;
+import com.tobeto.pair6.rentACar.services.dtos.additionalFeature.requests.AdditionalRequest;
 import com.tobeto.pair6.rentACar.services.dtos.additionalFeature.requests.DeleteAdditionalFeatureRequest;
 import com.tobeto.pair6.rentACar.services.dtos.additionalFeature.requests.UpdateAdditionalFeatureRequest;
 import com.tobeto.pair6.rentACar.services.dtos.additionalFeature.responses.GetAllAdditionalFeaturesResponse;
@@ -56,6 +57,13 @@ public class AdditionalFeaturesController {
     public DataResult<GetByIdAdditionalFeatureResponse> getById(@PathVariable Integer id) {
 
         return this.additionalFeatureService.getById(id);
+
+    }
+
+    @PostMapping("/addById")
+    public DataResult<GetByIdAdditionalFeatureResponse> addById(@RequestBody AdditionalRequest additionalRequest) {
+
+        return this.additionalFeatureService.addById(additionalRequest);
 
     }
 
