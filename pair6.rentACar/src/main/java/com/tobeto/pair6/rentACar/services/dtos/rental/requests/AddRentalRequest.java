@@ -26,7 +26,7 @@ public class AddRentalRequest {
     @Positive(message = "Assurance Package Id must be a positive number!")
     private Integer assurancePackageId;
 
-    private List<Object> additionalList;
+    private List<AdditionalModel> additionalList;
 
     @Positive(message = "Additional Feature Id must be a positive number!")
     private Integer additionalFeatureId;

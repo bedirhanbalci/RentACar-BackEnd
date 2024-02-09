@@ -8,6 +8,9 @@ import com.tobeto.pair6.rentACar.services.constants.Messages;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
+
 @Service
 @AllArgsConstructor
 public class CarBusinessRules {
@@ -38,6 +41,12 @@ public class CarBusinessRules {
         if (!this.carRepository.existsById(id)) {
             throw new BusinessException(Messages.ID_NOT_FOUND);
         }
+    }
+
+    public double calculateTotalPrice(LocalDate startDate, LocalDate endDate, Double dailyPrice) {
+        long rentalTime = ChronoUnit.DAYS.between(startDate, endDate);
+        rentalTime++;
+        return rentalTime * dailyPrice;
     }
 
 }

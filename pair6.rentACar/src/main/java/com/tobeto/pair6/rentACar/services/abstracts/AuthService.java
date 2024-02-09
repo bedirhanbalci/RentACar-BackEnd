@@ -4,6 +4,8 @@ import com.tobeto.pair6.rentACar.entities.concretes.User;
 import com.tobeto.pair6.rentACar.services.dtos.auth.requests.LoginRequest;
 import com.tobeto.pair6.rentACar.services.dtos.auth.requests.RegisterRequest;
 import com.tobeto.pair6.rentACar.services.dtos.auth.responses.AuthenticationResponse;
+import com.tobeto.pair6.rentACar.services.dtos.corporateCustomer.requests.AddCorporate;
+import com.tobeto.pair6.rentACar.services.dtos.individualCustomer.requests.AddIndividual;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -22,4 +24,7 @@ public interface AuthService {
 
     void refreshToken(HttpServletRequest request, HttpServletResponse response) throws IOException;
 
+    void registerIndividual(AddIndividual addIndividual);
+
+    void registerCorporate(AddCorporate addCorporate);
 }

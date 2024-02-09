@@ -95,4 +95,11 @@ public class IndividualCustomerManager implements IndividualCustomerService {
 
     }
 
+    @Override
+    public void addIndividual(IndividualCustomer individualCustomer) {
+
+        this.individualCustomerRepository.save(individualCustomer);
+
+    }
+
 }

@@ -8,14 +8,18 @@ import com.tobeto.pair6.rentACar.core.utilities.results.SuccessResult;
 import com.tobeto.pair6.rentACar.entities.concretes.Car;
 import com.tobeto.pair6.rentACar.repositories.CarRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.CarService;
+import com.tobeto.pair6.rentACar.services.abstracts.RentalService;
 import com.tobeto.pair6.rentACar.services.constants.Messages;
 import com.tobeto.pair6.rentACar.services.dtos.car.requests.AddCarRequest;
 import com.tobeto.pair6.rentACar.services.dtos.car.requests.DeleteCarRequest;
+import com.tobeto.pair6.rentACar.services.dtos.car.requests.TotalPriceRequest;
 import com.tobeto.pair6.rentACar.services.dtos.car.requests.UpdateCarRequest;
 import com.tobeto.pair6.rentACar.services.dtos.car.responses.GetAllCarsResponse;
 import com.tobeto.pair6.rentACar.services.dtos.car.responses.GetByIdCarResponse;
 import com.tobeto.pair6.rentACar.services.rules.CarBusinessRules;
+import com.tobeto.pair6.rentACar.services.rules.RentalBusinessRules;
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -120,6 +124,14 @@ public class CarManager implements CarService {
     public boolean getCarById(Integer id) {
 
         return this.carRepository.existsById(id);
+
+    }
+
+    @Override
+    public Double totalPrice(TotalPriceRequest totalPriceRequest) {
+
+        DataResult <GetByIdCarResponse> response = this.getById(totalPriceRequest.getCarId());
+        return this.carBusinessRules.calculateTotalPrice(totalPriceRequest.getStartDate(), totalPriceRequest.getEndDate(), response.getData().getDailyPrice());
 
     }
 

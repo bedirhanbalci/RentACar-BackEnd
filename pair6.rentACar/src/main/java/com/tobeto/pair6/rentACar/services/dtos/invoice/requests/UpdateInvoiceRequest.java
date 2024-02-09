@@ -17,9 +17,6 @@ public class UpdateInvoiceRequest {
     @NotBlank(message = "Invoice No cannot be blank!")
     private String invoiceNo;
 
-    @Positive(message = "Tax Rate must be a positive number!")
-    private Double taxRate;
-
     @Positive(message = "Rental Id must be a positive number!")
     private Integer rentalId;
 

@@ -4,20 +4,26 @@ import com.tobeto.pair6.rentACar.core.utilities.mappers.ModelMapperService;
 import com.tobeto.pair6.rentACar.core.utilities.results.*;
 import com.tobeto.pair6.rentACar.entities.concretes.Rental;
 import com.tobeto.pair6.rentACar.repositories.RentalRepository;
-import com.tobeto.pair6.rentACar.services.abstracts.CarService;
-import com.tobeto.pair6.rentACar.services.abstracts.RentalService;
+import com.tobeto.pair6.rentACar.services.abstracts.*;
 import com.tobeto.pair6.rentACar.services.constants.Messages;
+import com.tobeto.pair6.rentACar.services.dtos.additionalFeature.requests.AdditionalRequest;
+import com.tobeto.pair6.rentACar.services.dtos.assurancePackage.requests.AssuranceRequest;
 import com.tobeto.pair6.rentACar.services.dtos.car.responses.GetByIdCarResponse;
+import com.tobeto.pair6.rentACar.services.dtos.invoice.requests.AddInvoiceRequest;
 import com.tobeto.pair6.rentACar.services.dtos.rental.requests.AddRentalRequest;
+import com.tobeto.pair6.rentACar.services.dtos.rental.requests.AdditionalModel;
 import com.tobeto.pair6.rentACar.services.dtos.rental.requests.DeleteRentalRequest;
 import com.tobeto.pair6.rentACar.services.dtos.rental.requests.UpdateRentalRequest;
 import com.tobeto.pair6.rentACar.services.dtos.rental.responses.GetAllRentalsResponse;
 import com.tobeto.pair6.rentACar.services.dtos.rental.responses.GetByIdRentalResponse;
+import com.tobeto.pair6.rentACar.services.rules.AdditionalFeatureBusinessRules;
+import com.tobeto.pair6.rentACar.services.rules.AssurancePackageBusinessRules;
 import com.tobeto.pair6.rentACar.services.rules.RentalBusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 
 @Service
 @AllArgsConstructor
@@ -30,6 +36,12 @@ public class RentalManager implements RentalService {
     private final ModelMapperService modelMapperService;
 
     private final RentalBusinessRules rentalBusinessRules;
+
+    private final AdditionalFeatureService additionalFeatureService;
+
+    private final AssurancePackageService assurancePackageService;
+
+    private final InvoiceService invoiceService;
 
     @Override
     public Result add(AddRentalRequest addRentalRequest) {
@@ -52,9 +64,31 @@ public class RentalManager implements RentalService {
 
         rental.setStartKilometer(carResponse.getData().getKilometer());
 
-        rental.setTotalPrice(this.rentalBusinessRules.calculateTotalPrice(addRentalRequest.getStartDate(), addRentalRequest.getEndDate(), carResponse.getData().getDailyPrice()));
+        Double carPrice = this.rentalBusinessRules.calculateTotalPrice(addRentalRequest.getStartDate(), addRentalRequest.getEndDate(), carResponse.getData().getDailyPrice());
 
-        this.rentalRepository.save(rental);
+        Double totalPrice = 0.0;
+        totalPrice += carPrice;
+
+        Double assurancePrice = this.assurancePackageService.addById(new AssuranceRequest(addRentalRequest.getAssurancePackageId(), addRentalRequest.getStartDate(), addRentalRequest.getEndDate())).getData().getDailyPrice();
+
+        totalPrice += assurancePrice;
+
+        Double additionalPrice = 0.0;
+
+
+        for (AdditionalModel additionalModel : addRentalRequest.getAdditionalList()) {
+
+            additionalPrice += this.additionalFeatureService.addById(new AdditionalRequest(additionalModel.getId(), addRentalRequest.getStartDate(), addRentalRequest.getEndDate(), additionalModel.getQuantity())).getData().getDailyPrice();
+
+        }
+
+        totalPrice += additionalPrice;
+
+        rental.setTotalPrice(totalPrice);
+
+        Rental savedRental = this.rentalRepository.save(rental);
+
+        this.invoiceService.add(new AddInvoiceRequest(UUID.randomUUID().toString(), savedRental.getId()));
 
         return new SuccessResult(Messages.ADD);
 

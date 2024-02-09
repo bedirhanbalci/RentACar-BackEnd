@@ -4,6 +4,7 @@ import com.tobeto.pair6.rentACar.core.utilities.results.DataResult;
 import com.tobeto.pair6.rentACar.core.utilities.results.Result;
 import com.tobeto.pair6.rentACar.services.dtos.car.requests.AddCarRequest;
 import com.tobeto.pair6.rentACar.services.dtos.car.requests.DeleteCarRequest;
+import com.tobeto.pair6.rentACar.services.dtos.car.requests.TotalPriceRequest;
 import com.tobeto.pair6.rentACar.services.dtos.car.requests.UpdateCarRequest;
 import com.tobeto.pair6.rentACar.services.dtos.car.responses.GetAllCarsResponse;
 import com.tobeto.pair6.rentACar.services.dtos.car.responses.GetByIdCarResponse;
@@ -23,4 +24,5 @@ public interface CarService {
 
     boolean getCarById(Integer id);
 
+    Double totalPrice(TotalPriceRequest totalPriceRequest);
 }
