@@ -2,15 +2,18 @@ package com.tobeto.pair6.rentACar.services.concretes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tobeto.pair6.rentACar.core.services.JwtService;
-import com.tobeto.pair6.rentACar.entities.concretes.Token;
-import com.tobeto.pair6.rentACar.entities.concretes.TokenType;
-import com.tobeto.pair6.rentACar.entities.concretes.User;
+import com.tobeto.pair6.rentACar.entities.concretes.*;
 import com.tobeto.pair6.rentACar.repositories.TokenRepository;
 import com.tobeto.pair6.rentACar.repositories.UserRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.AuthService;
+import com.tobeto.pair6.rentACar.services.abstracts.IndividualCustomerService;
+import com.tobeto.pair6.rentACar.services.abstracts.UserService;
 import com.tobeto.pair6.rentACar.services.dtos.auth.requests.LoginRequest;
 import com.tobeto.pair6.rentACar.services.dtos.auth.requests.RegisterRequest;
 import com.tobeto.pair6.rentACar.services.dtos.auth.responses.AuthenticationResponse;
+import com.tobeto.pair6.rentACar.services.dtos.corporateCustomer.requests.AddCorporate;
+import com.tobeto.pair6.rentACar.services.dtos.individualCustomer.requests.AddIndividual;
+import com.tobeto.pair6.rentACar.services.rules.UserBusinessRules;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
@@ -36,13 +39,18 @@ public class AuthManager implements AuthService {
 
     private final AuthenticationManager authenticationManager;
 
+    private final IndividualCustomerService individualCustomerService;
+
+    private final UserBusinessRules userBusinessRules;
+
     @Override
     public AuthenticationResponse register(RegisterRequest registerRequest) {
 
         var user = User.builder()
                 .email(registerRequest.getEmail())
                 .password(passwordEncoder.encode(registerRequest.getPassword()))
-                .role(registerRequest.getRole())
+                .phoneNumber(registerRequest.getPhoneNumber())
+                .role(Role.USER)
                 .build();
         var savedUser = userRepository.save(user);
         var jwtToken = jwtService.generateToken(user);
@@ -50,6 +58,7 @@ public class AuthManager implements AuthService {
         saveUserToken(savedUser, jwtToken);
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
+                .user(savedUser)
                 .refreshToken(refreshToken)
                 .build();
 
@@ -128,5 +137,29 @@ public class AuthManager implements AuthService {
 
             }
         }
+    }
+
+    @Override
+    public void registerIndividual(AddIndividual addIndividual) {
+
+        this.userBusinessRules.checkIfUserByEmailExists(addIndividual.getEmail());
+
+        IndividualCustomer individualCustomer = IndividualCustomer.builder().firstName(addIndividual.getFirstName())
+                .lastName(addIndividual.getLastName())
+                .birthDate(addIndividual.getBirthDate())
+                .nationalityNo(addIndividual.getNationalityNo())
+                .build();
+
+        AuthenticationResponse response = this.register(new RegisterRequest(addIndividual.getEmail(), addIndividual.getPassword(), addIndividual.getPhoneNumber()));
+
+        individualCustomer.setUser(response.getUser());
+
+        this.individualCustomerService.addIndividual(individualCustomer);
+
+    }
+
+    @Override
+    public void registerCorporate(AddCorporate addCorporate) {
+
     }
 }

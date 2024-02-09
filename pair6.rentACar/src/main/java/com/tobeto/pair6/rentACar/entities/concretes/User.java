@@ -10,7 +10,7 @@ import jakarta.persistence.*;
 import java.util.Collection;
 import java.util.List;
 
-@Table(name = "users")
+@Table(name = "users", uniqueConstraints = @UniqueConstraint(columnNames = "email"))
 @Entity
 @Builder
 @Getter

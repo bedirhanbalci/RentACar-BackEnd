@@ -13,8 +13,6 @@ public class GetAllInvoicesResponse {
 
     private String invoiceNo;
 
-    private Double taxRate;
-
-    private Double rentalTotalPrice;
+    private Double generalPrice;
 
 }

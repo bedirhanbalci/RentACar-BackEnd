@@ -2,6 +2,7 @@ package com.tobeto.pair6.rentACar.services.abstracts;
 
 import com.tobeto.pair6.rentACar.core.utilities.results.DataResult;
 import com.tobeto.pair6.rentACar.core.utilities.results.Result;
+import com.tobeto.pair6.rentACar.entities.concretes.IndividualCustomer;
 import com.tobeto.pair6.rentACar.services.dtos.individualCustomer.requests.AddIndividualCustomerRequest;
 import com.tobeto.pair6.rentACar.services.dtos.individualCustomer.requests.DeleteIndividualCustomerRequest;
 import com.tobeto.pair6.rentACar.services.dtos.individualCustomer.requests.UpdateIndividualCustomerRequest;
@@ -21,5 +22,7 @@ public interface IndividualCustomerService {
     DataResult<List<GetAllIndividualCustomersResponse>> getAll();
 
     DataResult<GetByIdIndividualCustomerResponse> getById(Integer id);
+
+    void addIndividual(IndividualCustomer individualCustomer);
 
 }

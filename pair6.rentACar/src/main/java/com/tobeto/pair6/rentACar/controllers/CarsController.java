@@ -5,6 +5,7 @@ import com.tobeto.pair6.rentACar.core.utilities.results.Result;
 import com.tobeto.pair6.rentACar.services.abstracts.CarService;
 import com.tobeto.pair6.rentACar.services.dtos.car.requests.AddCarRequest;
 import com.tobeto.pair6.rentACar.services.dtos.car.requests.DeleteCarRequest;
+import com.tobeto.pair6.rentACar.services.dtos.car.requests.TotalPriceRequest;
 import com.tobeto.pair6.rentACar.services.dtos.car.requests.UpdateCarRequest;
 import com.tobeto.pair6.rentACar.services.dtos.car.responses.GetAllCarsResponse;
 import com.tobeto.pair6.rentACar.services.dtos.car.responses.GetByIdCarResponse;
@@ -56,6 +57,13 @@ public class CarsController {
     public DataResult<GetByIdCarResponse> getById(@PathVariable Integer id) {
 
         return this.carService.getById(id);
+
+    }
+
+    @PostMapping("/totalPrice")
+    public Double totalPrice(@RequestBody TotalPriceRequest totalPriceRequest) {
+
+        return this.carService.totalPrice(totalPriceRequest);
 
     }
 

@@ -18,9 +18,6 @@ public class Invoice extends BaseEntity {
     @Column(name = "invoice_no")
     private String invoiceNo;
 
-    @Column(name = "tax_rate")
-    private Double taxRate;
-
     @ManyToOne
     @JoinColumn(name = "rental_id")
     private Rental rental;

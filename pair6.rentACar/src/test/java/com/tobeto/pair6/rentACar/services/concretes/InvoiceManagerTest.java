@@ -58,7 +58,6 @@ class InvoiceManagerTest {
 
         AddInvoiceRequest addInvoiceRequest = new AddInvoiceRequest();
         addInvoiceRequest.setInvoiceNo("112");
-        addInvoiceRequest.setTaxRate(18.5);
         addInvoiceRequest.setRentalId(1);
 
         Mockito.when(modelMapperService.forRequest().map(addInvoiceRequest, Invoice.class)).thenReturn(new Invoice());
@@ -91,7 +90,6 @@ class InvoiceManagerTest {
         UpdateInvoiceRequest updateInvoiceRequest = new UpdateInvoiceRequest();
         updateInvoiceRequest.setId(2);
         updateInvoiceRequest.setInvoiceNo("112");
-        updateInvoiceRequest.setTaxRate(18.5);
         updateInvoiceRequest.setRentalId(1);
 
         Mockito.when(modelMapperService.forRequest().map(updateInvoiceRequest, Invoice.class)).thenReturn(new Invoice());
