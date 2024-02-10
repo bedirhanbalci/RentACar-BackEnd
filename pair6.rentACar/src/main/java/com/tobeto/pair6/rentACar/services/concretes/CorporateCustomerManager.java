@@ -95,4 +95,11 @@ public class CorporateCustomerManager implements CorporateCustomerService {
 
     }
 
+    @Override
+    public void addCorporate(CorporateCustomer corporateCustomer) {
+
+        this.corporateCustomerRepository.save(corporateCustomer);
+
+    }
+
 }

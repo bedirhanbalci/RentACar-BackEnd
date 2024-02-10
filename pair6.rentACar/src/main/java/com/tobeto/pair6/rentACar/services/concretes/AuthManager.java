@@ -6,6 +6,7 @@ import com.tobeto.pair6.rentACar.entities.concretes.*;
 import com.tobeto.pair6.rentACar.repositories.TokenRepository;
 import com.tobeto.pair6.rentACar.repositories.UserRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.AuthService;
+import com.tobeto.pair6.rentACar.services.abstracts.CorporateCustomerService;
 import com.tobeto.pair6.rentACar.services.abstracts.IndividualCustomerService;
 import com.tobeto.pair6.rentACar.services.abstracts.UserService;
 import com.tobeto.pair6.rentACar.services.dtos.auth.requests.LoginRequest;
@@ -40,6 +41,8 @@ public class AuthManager implements AuthService {
     private final AuthenticationManager authenticationManager;
 
     private final IndividualCustomerService individualCustomerService;
+
+    private final CorporateCustomerService corporateCustomerService;
 
     private final UserBusinessRules userBusinessRules;
 
@@ -144,7 +147,8 @@ public class AuthManager implements AuthService {
 
         this.userBusinessRules.checkIfUserByEmailExists(addIndividual.getEmail());
 
-        IndividualCustomer individualCustomer = IndividualCustomer.builder().firstName(addIndividual.getFirstName())
+        IndividualCustomer individualCustomer = IndividualCustomer.builder()
+                .firstName(addIndividual.getFirstName())
                 .lastName(addIndividual.getLastName())
                 .birthDate(addIndividual.getBirthDate())
                 .nationalityNo(addIndividual.getNationalityNo())
@@ -160,6 +164,21 @@ public class AuthManager implements AuthService {
 
     @Override
     public void registerCorporate(AddCorporate addCorporate) {
+
+        this.userBusinessRules.checkIfUserByEmailExists(addCorporate.getEmail());
+
+        CorporateCustomer corporateCustomer = CorporateCustomer.builder()
+                .companyName(addCorporate.getCompanyName())
+                .contactName(addCorporate.getContactName())
+                .contactTitle(addCorporate.getContactTitle())
+                .taxNumber(addCorporate.getTaxNumber())
+                .build();
+
+        AuthenticationResponse response = this.register(new RegisterRequest(addCorporate.getEmail(), addCorporate.getPassword(), addCorporate.getPhoneNumber()));
+
+        corporateCustomer.setUser(response.getUser());
+
+        this.corporateCustomerService.addCorporate(corporateCustomer);
 
     }
 }
