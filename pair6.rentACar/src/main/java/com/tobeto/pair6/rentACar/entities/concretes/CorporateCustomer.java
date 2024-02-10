@@ -2,10 +2,7 @@ package com.tobeto.pair6.rentACar.entities.concretes;
 
 import com.tobeto.pair6.rentACar.entities.abstracts.BaseEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Table(name = "corporate_customers")
 @Entity
@@ -13,6 +10,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 public class CorporateCustomer extends BaseEntity {
 
     @Column(name = "company_name")
