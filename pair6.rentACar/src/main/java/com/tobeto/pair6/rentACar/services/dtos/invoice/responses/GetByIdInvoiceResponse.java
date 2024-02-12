@@ -4,15 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 public class GetByIdInvoiceResponse {
 
-    private Integer id;
+    private LocalDate createdDate;
 
     private String invoiceNo;
-
-    private Double generalPrice;
 
 }

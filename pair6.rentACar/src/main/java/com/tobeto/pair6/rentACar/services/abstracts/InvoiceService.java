@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface InvoiceService {
 
-    Result add(AddInvoiceRequest addInvoiceRequest);
+    GetByIdInvoiceResponse add(AddInvoiceRequest addInvoiceRequest);
 
     Result delete(DeleteInvoiceRequest deleteInvoiceRequest);
 

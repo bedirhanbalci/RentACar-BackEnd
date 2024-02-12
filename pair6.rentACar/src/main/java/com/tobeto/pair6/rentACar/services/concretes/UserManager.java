@@ -7,6 +7,8 @@ import com.tobeto.pair6.rentACar.core.utilities.results.SuccessDataResult;
 import com.tobeto.pair6.rentACar.core.utilities.results.SuccessResult;
 import com.tobeto.pair6.rentACar.entities.concretes.User;
 import com.tobeto.pair6.rentACar.repositories.UserRepository;
+import com.tobeto.pair6.rentACar.services.abstracts.CorporateCustomerService;
+import com.tobeto.pair6.rentACar.services.abstracts.IndividualCustomerService;
 import com.tobeto.pair6.rentACar.services.abstracts.UserService;
 import com.tobeto.pair6.rentACar.services.constants.Messages;
 import com.tobeto.pair6.rentACar.services.dtos.user.requests.AddUserRequest;
@@ -20,6 +22,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -31,6 +34,10 @@ public class UserManager implements UserService {
     private final ModelMapperService modelMapperService;
 
     private final UserBusinessRules userBusinessRules;
+
+    private final CorporateCustomerService corporateCustomerService;
+
+    private final IndividualCustomerService individualCustomerService;
 
     @Override
     public Result add(AddUserRequest addUserRequest) {
@@ -90,14 +97,27 @@ public class UserManager implements UserService {
     }
 
     @Override
-    public DataResult<GetByIdUserResponse> getById(Integer id) {
+    public List<Object> getById(Integer id) {
 
         this.userBusinessRules.checkIfUserByIdExists(id);
 
-        GetByIdUserResponse response = this.modelMapperService.forResponse()
-                .map(userRepository.findById(id), GetByIdUserResponse.class);
+        List<Object> result = new ArrayList<>();
 
-        return new SuccessDataResult<>(response, Messages.GET);
+
+        User user = userRepository.findById(id).orElseThrow();
+
+        GetByIdUserResponse response = this.modelMapperService.forResponse()
+                .map(user, GetByIdUserResponse.class);
+
+        if (user.getCorporateCustomers().size() > 0){
+           result.add(this.corporateCustomerService.getById(user.getCorporateCustomers().get(0).getId()).getData());
+        }else{
+            result.add(this.individualCustomerService.getById(user.getIndividualCustomers().get(0).getId()).getData());
+        }
+
+        result.add(response);
+
+        return result;
 
     }
 

@@ -3,6 +3,7 @@ package com.tobeto.pair6.rentACar.controllers;
 import com.tobeto.pair6.rentACar.core.utilities.results.DataResult;
 import com.tobeto.pair6.rentACar.core.utilities.results.Result;
 import com.tobeto.pair6.rentACar.services.abstracts.RentalService;
+import com.tobeto.pair6.rentACar.services.dtos.invoice.responses.GetByIdInvoiceResponse;
 import com.tobeto.pair6.rentACar.services.dtos.rental.requests.AddRentalRequest;
 import com.tobeto.pair6.rentACar.services.dtos.rental.requests.DeleteRentalRequest;
 import com.tobeto.pair6.rentACar.services.dtos.rental.requests.UpdateRentalRequest;
@@ -25,7 +26,7 @@ public class RentalsController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public Result add(@RequestBody @Valid AddRentalRequest addRentalRequest) {
+    public GetByIdInvoiceResponse add(@RequestBody @Valid AddRentalRequest addRentalRequest) {
 
         return this.rentalService.add(addRentalRequest);
 
