@@ -19,4 +19,6 @@ public class GetAllAdditionalFeaturesResponse {
 
     private Integer quantity;
 
+    private String imagePath;
+
 }

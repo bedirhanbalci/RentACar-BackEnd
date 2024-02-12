@@ -32,6 +32,9 @@ public class AdditionalFeature extends BaseEntity {
     @Column(name = "quantity")
     private Integer quantity;
 
+    @Column(name = "image_path")
+    private String imagePath;
+
     @OneToMany(mappedBy = "additionalFeature")
     private List<Rental> rentals;
 
