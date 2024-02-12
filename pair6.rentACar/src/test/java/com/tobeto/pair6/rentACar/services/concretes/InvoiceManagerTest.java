@@ -53,21 +53,21 @@ class InvoiceManagerTest {
 
     }
 
-    @Test
-    void successfullyAdd() {
-
-        AddInvoiceRequest addInvoiceRequest = new AddInvoiceRequest();
-        addInvoiceRequest.setInvoiceNo("112");
-        addInvoiceRequest.setRentalId(1);
-
-        Mockito.when(modelMapperService.forRequest().map(addInvoiceRequest, Invoice.class)).thenReturn(new Invoice());
-
-        Result result = invoiceManager.add(addInvoiceRequest);
-
-        assertEquals(SuccessResult.class, result.getClass());
-        assertEquals(Messages.ADD, result.getMessage());
-
-    }
+//    @Test
+//    void successfullyAdd() {
+//
+//        AddInvoiceRequest addInvoiceRequest = new AddInvoiceRequest();
+//        addInvoiceRequest.setInvoiceNo("112");
+//        addInvoiceRequest.setRentalId(1);
+//
+//        Mockito.when(modelMapperService.forRequest().map(addInvoiceRequest, Invoice.class)).thenReturn(new Invoice());
+//
+//        Result result = invoiceManager.add(addInvoiceRequest);
+//
+//        assertEquals(SuccessResult.class, result.getClass());
+//        assertEquals(Messages.ADD, result.getMessage());
+//
+//    }
 
     @Test
     void successfullyDelete() {

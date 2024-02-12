@@ -31,15 +31,15 @@ public class InvoiceManager implements InvoiceService {
     private final InvoiceBusinessRules invoiceBusinessRules;
 
     @Override
-    public Result add(AddInvoiceRequest addInvoiceRequest) {
+    public GetByIdInvoiceResponse add(AddInvoiceRequest addInvoiceRequest) {
 
         Invoice invoice = this.modelMapperService.forRequest()
                 .map(addInvoiceRequest, Invoice.class);
         invoice.setId(null);
 
-        this.invoiceRepository.save(invoice);
+        Invoice createdInvoice = this.invoiceRepository.save(invoice);
 
-        return new SuccessResult(Messages.ADD);
+        return new GetByIdInvoiceResponse(createdInvoice.getCreatedDate(), createdInvoice.getInvoiceNo());
 
     }
 

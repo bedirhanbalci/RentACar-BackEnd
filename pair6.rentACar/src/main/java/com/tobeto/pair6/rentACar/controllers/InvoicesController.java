@@ -25,7 +25,7 @@ public class InvoicesController {
 
     @PostMapping()
     @ResponseStatus(HttpStatus.CREATED)
-    public Result add(@RequestBody @Valid AddInvoiceRequest addInvoiceRequest) {
+    public GetByIdInvoiceResponse add(@RequestBody @Valid AddInvoiceRequest addInvoiceRequest) {
 
         return this.invoiceService.add(addInvoiceRequest);
 

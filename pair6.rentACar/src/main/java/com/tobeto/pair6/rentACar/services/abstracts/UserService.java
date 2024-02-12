@@ -6,7 +6,6 @@ import com.tobeto.pair6.rentACar.services.dtos.user.requests.AddUserRequest;
 import com.tobeto.pair6.rentACar.services.dtos.user.requests.DeleteUserRequest;
 import com.tobeto.pair6.rentACar.services.dtos.user.requests.UpdateUserRequest;
 import com.tobeto.pair6.rentACar.services.dtos.user.responses.GetAllUsersResponse;
-import com.tobeto.pair6.rentACar.services.dtos.user.responses.GetByIdUserResponse;
 import org.springframework.security.core.userdetails.UserDetailsService;
 
 import java.util.List;
@@ -21,7 +20,7 @@ public interface UserService extends UserDetailsService {
 
     DataResult<List<GetAllUsersResponse>> getAll();
 
-    DataResult<GetByIdUserResponse> getById(Integer id);
+    List<Object> getById(Integer id);
 
     boolean getUserById(Integer id);
 

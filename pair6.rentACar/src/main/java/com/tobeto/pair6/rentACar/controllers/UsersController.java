@@ -53,7 +53,7 @@ public class UsersController {
     }
 
     @GetMapping("/{id}")
-    public DataResult<GetByIdUserResponse> getById(@PathVariable Integer id) {
+    public List<Object> getById(@PathVariable Integer id) {
 
         return this.userService.getById(id);
 

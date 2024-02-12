@@ -10,14 +10,13 @@ import com.tobeto.pair6.rentACar.services.dtos.additionalFeature.requests.Additi
 import com.tobeto.pair6.rentACar.services.dtos.assurancePackage.requests.AssuranceRequest;
 import com.tobeto.pair6.rentACar.services.dtos.car.responses.GetByIdCarResponse;
 import com.tobeto.pair6.rentACar.services.dtos.invoice.requests.AddInvoiceRequest;
+import com.tobeto.pair6.rentACar.services.dtos.invoice.responses.GetByIdInvoiceResponse;
 import com.tobeto.pair6.rentACar.services.dtos.rental.requests.AddRentalRequest;
 import com.tobeto.pair6.rentACar.services.dtos.rental.requests.AdditionalModel;
 import com.tobeto.pair6.rentACar.services.dtos.rental.requests.DeleteRentalRequest;
 import com.tobeto.pair6.rentACar.services.dtos.rental.requests.UpdateRentalRequest;
 import com.tobeto.pair6.rentACar.services.dtos.rental.responses.GetAllRentalsResponse;
 import com.tobeto.pair6.rentACar.services.dtos.rental.responses.GetByIdRentalResponse;
-import com.tobeto.pair6.rentACar.services.rules.AdditionalFeatureBusinessRules;
-import com.tobeto.pair6.rentACar.services.rules.AssurancePackageBusinessRules;
 import com.tobeto.pair6.rentACar.services.rules.RentalBusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -44,7 +43,7 @@ public class RentalManager implements RentalService {
     private final InvoiceService invoiceService;
 
     @Override
-    public Result add(AddRentalRequest addRentalRequest) {
+    public GetByIdInvoiceResponse add(AddRentalRequest addRentalRequest) {
 
         this.rentalBusinessRules.checkIfCarByIdExists(addRentalRequest.getCarId());
 
@@ -88,9 +87,9 @@ public class RentalManager implements RentalService {
 
         Rental savedRental = this.rentalRepository.save(rental);
 
-        this.invoiceService.add(new AddInvoiceRequest(UUID.randomUUID().toString(), savedRental.getId()));
+        GetByIdInvoiceResponse createdInvoice = this.invoiceService.add(new AddInvoiceRequest(UUID.randomUUID().toString(), savedRental.getId()));
 
-        return new SuccessResult(Messages.ADD);
+        return createdInvoice;
 
     }
 

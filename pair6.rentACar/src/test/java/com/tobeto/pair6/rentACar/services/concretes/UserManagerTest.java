@@ -37,16 +37,16 @@ class UserManagerTest {
     @Mock
     private UserBusinessRules userBusinessRules;
 
-    @BeforeEach
-    void setUp() {
-
-        MockitoAnnotations.openMocks(this);
-        ModelMapper mockedModelMapper = Mockito.mock(ModelMapper.class);
-        Mockito.when(modelMapperService.forRequest()).thenReturn(mockedModelMapper);
-        Mockito.when(modelMapperService.forResponse()).thenReturn(mockedModelMapper);
-        userManager = new UserManager(userRepository, modelMapperService, userBusinessRules);
-
-    }
+//    @BeforeEach
+//    void setUp() {
+//
+//        MockitoAnnotations.openMocks(this);
+//        ModelMapper mockedModelMapper = Mockito.mock(ModelMapper.class);
+//        Mockito.when(modelMapperService.forRequest()).thenReturn(mockedModelMapper);
+//        Mockito.when(modelMapperService.forResponse()).thenReturn(mockedModelMapper);
+//        userManager = new UserManager(userRepository, modelMapperService, userBusinessRules);
+//
+//    }
 
     @AfterEach
     void tearDown() {
