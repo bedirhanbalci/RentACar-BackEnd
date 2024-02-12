@@ -19,4 +19,6 @@ public class GetByIdAdditionalFeatureResponse {
 
     private Integer quantity;
 
+    private String imagePath;
+
 }

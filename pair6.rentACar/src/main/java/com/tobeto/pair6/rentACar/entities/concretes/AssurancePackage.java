@@ -29,6 +29,9 @@ public class AssurancePackage extends BaseEntity {
     @Column(name = "daily_price")
     private Double dailyPrice;
 
+    @Column(name = "image_path")
+    private String imagePath;
+
     @OneToMany(mappedBy = "assurancePackage")
     private List<Rental> rentals;
 
