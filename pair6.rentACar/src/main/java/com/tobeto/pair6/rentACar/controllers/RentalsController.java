@@ -60,4 +60,15 @@ public class RentalsController {
 
     }
 
+    @PostMapping("/dateValid")
+    public void checkIfRentalByDateValid(@RequestBody @Valid AddRentalRequest addRentalRequest) {
+
+         this.rentalService.checkIfRentalByDateValid(addRentalRequest);
+
+    }
+
+
+
+
+
 }
