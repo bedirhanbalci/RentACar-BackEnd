@@ -17,4 +17,6 @@ public class GetAllAssurancePackagesResponse {
 
     private Double dailyPrice;
 
+    private String imagePath;
+
 }

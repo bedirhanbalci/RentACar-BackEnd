@@ -1,6 +1,8 @@
 package com.tobeto.pair6.rentACar.controllers;
 
 import com.tobeto.pair6.rentACar.services.abstracts.AuthService;
+import com.tobeto.pair6.rentACar.services.dtos.auth.requests.CorporateLoginRequest;
+import com.tobeto.pair6.rentACar.services.dtos.auth.requests.IndividualLoginRequest;
 import com.tobeto.pair6.rentACar.services.dtos.auth.requests.LoginRequest;
 import com.tobeto.pair6.rentACar.services.dtos.auth.requests.RegisterRequest;
 import com.tobeto.pair6.rentACar.services.dtos.auth.responses.AuthenticationResponse;
@@ -29,6 +31,16 @@ public class AuthController {
     @PostMapping("/login")
     public AuthenticationResponse login(@RequestBody LoginRequest loginRequest) {
         return authService.login(loginRequest);
+    }
+
+    @PostMapping("/individualLogin")
+    public AuthenticationResponse individualLogin(@RequestBody IndividualLoginRequest individualLoginRequest) {
+        return authService.individualLogin(individualLoginRequest);
+    }
+
+    @PostMapping("/corporateLogin")
+    public AuthenticationResponse corporateLogin(@RequestBody CorporateLoginRequest corporateLoginRequest) {
+        return authService.corporateLogin(corporateLoginRequest);
     }
 
     @PostMapping("/individualRegister")

@@ -2,6 +2,7 @@ package com.tobeto.pair6.rentACar.services.concretes;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tobeto.pair6.rentACar.core.services.JwtService;
+import com.tobeto.pair6.rentACar.core.utilities.exceptions.BusinessException;
 import com.tobeto.pair6.rentACar.entities.concretes.*;
 import com.tobeto.pair6.rentACar.repositories.TokenRepository;
 import com.tobeto.pair6.rentACar.repositories.UserRepository;
@@ -9,6 +10,8 @@ import com.tobeto.pair6.rentACar.services.abstracts.AuthService;
 import com.tobeto.pair6.rentACar.services.abstracts.CorporateCustomerService;
 import com.tobeto.pair6.rentACar.services.abstracts.IndividualCustomerService;
 import com.tobeto.pair6.rentACar.services.abstracts.UserService;
+import com.tobeto.pair6.rentACar.services.dtos.auth.requests.CorporateLoginRequest;
+import com.tobeto.pair6.rentACar.services.dtos.auth.requests.IndividualLoginRequest;
 import com.tobeto.pair6.rentACar.services.dtos.auth.requests.LoginRequest;
 import com.tobeto.pair6.rentACar.services.dtos.auth.requests.RegisterRequest;
 import com.tobeto.pair6.rentACar.services.dtos.auth.responses.AuthenticationResponse;
@@ -83,6 +86,45 @@ public class AuthManager implements AuthService {
                 .id(user.getId())
                 .build();
 
+    }
+
+    @Override
+    public AuthenticationResponse individualLogin(IndividualLoginRequest individualLoginRequest) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(individualLoginRequest.getEmail(), individualLoginRequest.getPassword()));
+        var user = userRepository.findByEmail(individualLoginRequest.getEmail()).orElseThrow();
+        var jwtToken = jwtService.generateToken(user);
+        var refreshToken = jwtService.generateRefreshToken(user);
+        if (!(user.getIndividualCustomers().size() > 0)){
+            throw new BusinessException("This is not individual!");
+        }
+
+        revokeAllUserTokens(user);
+        saveUserToken(user, jwtToken);
+        return AuthenticationResponse.builder()
+                .accessToken(jwtToken)
+                .refreshToken(refreshToken)
+                .role(user.getRole())
+                .id(user.getId())
+                .build();
+    }
+
+    @Override
+    public AuthenticationResponse corporateLogin(CorporateLoginRequest corporateLoginRequest) {
+        authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(corporateLoginRequest.getEmail(), corporateLoginRequest.getPassword()));
+        var user = userRepository.findByEmail(corporateLoginRequest.getEmail()).orElseThrow();
+        var jwtToken = jwtService.generateToken(user);
+        var refreshToken = jwtService.generateRefreshToken(user);
+        if (!(user.getCorporateCustomers().size() > 0)){
+            throw new BusinessException("This is not Corporate!");
+        }
+        revokeAllUserTokens(user);
+        saveUserToken(user, jwtToken);
+        return AuthenticationResponse.builder()
+                .accessToken(jwtToken)
+                .refreshToken(refreshToken)
+                .role(user.getRole())
+                .id(user.getId())
+                .build();
     }
 
 
