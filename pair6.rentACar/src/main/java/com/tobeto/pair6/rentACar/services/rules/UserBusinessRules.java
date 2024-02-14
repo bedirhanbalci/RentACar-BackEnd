@@ -12,6 +12,7 @@ public class UserBusinessRules {
 
     private final UserRepository userRepository;
 
+
     public void checkIfUserByEmailExists(String email) {
         if (this.userRepository.existsByEmail(email)) {
             throw new BusinessException(Messages.EMAIL_ALREADY_EXISTS);

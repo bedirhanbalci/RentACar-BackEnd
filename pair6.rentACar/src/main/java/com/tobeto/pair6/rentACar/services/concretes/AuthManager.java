@@ -9,7 +9,7 @@ import com.tobeto.pair6.rentACar.repositories.UserRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.AuthService;
 import com.tobeto.pair6.rentACar.services.abstracts.CorporateCustomerService;
 import com.tobeto.pair6.rentACar.services.abstracts.IndividualCustomerService;
-import com.tobeto.pair6.rentACar.services.abstracts.UserService;
+import com.tobeto.pair6.rentACar.services.constants.Messages;
 import com.tobeto.pair6.rentACar.services.dtos.auth.requests.CorporateLoginRequest;
 import com.tobeto.pair6.rentACar.services.dtos.auth.requests.IndividualLoginRequest;
 import com.tobeto.pair6.rentACar.services.dtos.auth.requests.LoginRequest;
@@ -95,7 +95,7 @@ public class AuthManager implements AuthService {
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
         if (!(user.getIndividualCustomers().size() > 0)){
-            throw new BusinessException("This is not individual!");
+            throw new BusinessException(Messages.INDIVIDUAL_USER_NOT_FOUND);
         }
 
         revokeAllUserTokens(user);
@@ -115,7 +115,7 @@ public class AuthManager implements AuthService {
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
         if (!(user.getCorporateCustomers().size() > 0)){
-            throw new BusinessException("This is not Corporate!");
+            throw new BusinessException(Messages.CORPORATE_USER_NOT_FOUND);
         }
         revokeAllUserTokens(user);
         saveUserToken(user, jwtToken);

@@ -16,6 +16,10 @@ public class Messages {
 
     public static final String ID_NOT_FOUND = "Id not found!";
 
+    public static final String INDIVIDUAL_USER_NOT_FOUND = "This is not Individual user!";
+
+    public static final String CORPORATE_USER_NOT_FOUND = "This is not Corporate user!";
+
     public static final String BRAND_ALREADY_EXISTS = "The brand already exists!";
 
     public static final String PLATE_ALREADY_EXISTS = "The plate already exists!";
