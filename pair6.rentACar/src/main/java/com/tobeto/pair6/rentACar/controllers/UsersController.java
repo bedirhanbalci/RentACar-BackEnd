@@ -7,7 +7,6 @@ import com.tobeto.pair6.rentACar.services.dtos.user.requests.AddUserRequest;
 import com.tobeto.pair6.rentACar.services.dtos.user.requests.DeleteUserRequest;
 import com.tobeto.pair6.rentACar.services.dtos.user.requests.UpdateUserRequest;
 import com.tobeto.pair6.rentACar.services.dtos.user.responses.GetAllUsersResponse;
-import com.tobeto.pair6.rentACar.services.dtos.user.responses.GetByIdUserResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;

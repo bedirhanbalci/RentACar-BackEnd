@@ -1,6 +1,5 @@
 package com.tobeto.pair6.rentACar.services.dtos.auth.requests;
 
-import com.tobeto.pair6.rentACar.entities.concretes.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

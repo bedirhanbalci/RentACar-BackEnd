@@ -163,11 +163,13 @@ public class RentalManager implements RentalService {
 
     @Override
     public void checkIfRentalByDateValid(AddRentalRequest addRentalRequest) {
+
         this.rentalBusinessRules.checkIfRentalByStartDate(addRentalRequest.getStartDate());
 
         this.rentalBusinessRules.checkIfRentalByEndDate(addRentalRequest.getEndDate(), addRentalRequest.getStartDate());
 
         this.rentalBusinessRules.checkIfRentalByDateValid(addRentalRequest.getStartDate(), addRentalRequest.getEndDate());
+
     }
 
 }
