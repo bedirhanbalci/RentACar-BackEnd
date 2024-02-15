@@ -8,6 +8,7 @@ import com.tobeto.pair6.rentACar.services.dtos.branch.requests.DeleteBranchReque
 import com.tobeto.pair6.rentACar.services.dtos.branch.requests.UpdateBranchRequest;
 import com.tobeto.pair6.rentACar.services.dtos.branch.responses.GetAllBranchesResponse;
 import com.tobeto.pair6.rentACar.services.dtos.branch.responses.GetByIdBranchResponse;
+import com.tobeto.pair6.rentACar.services.dtos.car.responses.GetByIdCarResponse;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -56,6 +57,13 @@ public class BranchesController {
     public DataResult<GetByIdBranchResponse> getById(@PathVariable Integer id) {
 
         return this.branchService.getById(id);
+
+    }
+
+    @GetMapping("/getCarById/{id}")
+    public DataResult<GetByIdCarResponse> getCarById(@PathVariable Integer id) {
+
+        return this.branchService.getCarById(id);
 
     }
 
