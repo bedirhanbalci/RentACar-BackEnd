@@ -14,6 +14,7 @@ import com.tobeto.pair6.rentACar.services.dtos.branch.requests.DeleteBranchReque
 import com.tobeto.pair6.rentACar.services.dtos.branch.requests.UpdateBranchRequest;
 import com.tobeto.pair6.rentACar.services.dtos.branch.responses.GetAllBranchesResponse;
 import com.tobeto.pair6.rentACar.services.dtos.branch.responses.GetByIdBranchResponse;
+import com.tobeto.pair6.rentACar.services.dtos.car.responses.GetByIdCarResponse;
 import com.tobeto.pair6.rentACar.services.rules.BranchBusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -92,6 +93,16 @@ public class BranchManager implements BranchService {
                 .map(branchRepository.findById(id), GetByIdBranchResponse.class);
 
         return new SuccessDataResult<>(response, Messages.GET);
+
+    }
+
+    @Override
+    public DataResult<GetByIdCarResponse> getCarById(Integer id) {
+
+        GetByIdCarResponse getByIdCarResponse=modelMapperService.forResponse().map(
+                branchRepository.findById(id).get().getCars().get(0),GetByIdCarResponse.class);
+
+        return new SuccessDataResult<>(getByIdCarResponse, Messages.GET);
 
     }
 

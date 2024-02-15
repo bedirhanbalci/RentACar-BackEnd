@@ -11,6 +11,8 @@ import com.tobeto.pair6.rentACar.services.abstracts.CorporateCustomerService;
 import com.tobeto.pair6.rentACar.services.abstracts.IndividualCustomerService;
 import com.tobeto.pair6.rentACar.services.abstracts.UserService;
 import com.tobeto.pair6.rentACar.services.constants.Messages;
+import com.tobeto.pair6.rentACar.services.dtos.corporateCustomer.requests.UpdateCorporateCustomerRequest;
+import com.tobeto.pair6.rentACar.services.dtos.individualCustomer.requests.UpdateIndividualCustomerRequest;
 import com.tobeto.pair6.rentACar.services.dtos.user.requests.AddUserRequest;
 import com.tobeto.pair6.rentACar.services.dtos.user.requests.DeleteUserRequest;
 import com.tobeto.pair6.rentACar.services.dtos.user.requests.UpdateUserRequest;
@@ -24,6 +26,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -71,14 +74,43 @@ public class UserManager implements UserService {
     @Override
     public Result update(UpdateUserRequest updateUserRequest) {
 
-        this.userBusinessRules.checkIfUserByIdExists(updateUserRequest.getId());
+        Optional<User> userInDb=this.userRepository.findById(updateUserRequest.getId());
 
-        this.userBusinessRules.checkIfUserByEmailExists(updateUserRequest.getEmail());
+        User user=userInDb.get();
 
-        User user = this.modelMapperService.forRequest()
-                .map(updateUserRequest, User.class);
+        if(!updateUserRequest.getPassword().equals(""))user.setPassword(updateUserRequest.getPassword());
+        user.setAddress(updateUserRequest.getAddress());
+        user.setImagePath(updateUserRequest.getImagePath());
+        user.setPhoneNumber(updateUserRequest.getPhoneNumber());
+
+
 
         this.userRepository.save(user);
+
+        if (!updateUserRequest.getCompanyName().equals("")) {
+            corporateCustomerService.update(
+                    UpdateCorporateCustomerRequest.builder()
+                            .id(user.getCorporateCustomers().get(0).getId())
+                            .userId(user.getId())
+                            .companyName(updateUserRequest.getCompanyName())
+                            .contactName(updateUserRequest.getContactName())
+                            .contactTitle(updateUserRequest.getContactTitle())
+                            .taxNumber(updateUserRequest.getTaxNumber())
+                            .build()
+            );
+        } else {
+            individualCustomerService.update(
+                    UpdateIndividualCustomerRequest.builder()
+                            .id(user.getIndividualCustomers().get(0).getId())
+                            .firstName(updateUserRequest.getFirstName())
+                            .lastName(updateUserRequest.getLastName())
+                            .nationalityNo(updateUserRequest.getNationalityNo())
+                            .birthDate(updateUserRequest.getBirthDate())
+                            .userId(user.getId())
+                            .build()
+            );
+        }
+
 
         return new SuccessResult(Messages.UPDATE);
 
