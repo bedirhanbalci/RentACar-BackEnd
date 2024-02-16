@@ -1,10 +1,7 @@
 package com.tobeto.pair6.rentACar.services.concretes;
 
 import com.tobeto.pair6.rentACar.core.utilities.mappers.ModelMapperService;
-import com.tobeto.pair6.rentACar.core.utilities.results.DataResult;
-import com.tobeto.pair6.rentACar.core.utilities.results.Result;
-import com.tobeto.pair6.rentACar.core.utilities.results.SuccessDataResult;
-import com.tobeto.pair6.rentACar.core.utilities.results.SuccessResult;
+import com.tobeto.pair6.rentACar.core.utilities.results.*;
 import com.tobeto.pair6.rentACar.entities.concretes.User;
 import com.tobeto.pair6.rentACar.repositories.UserRepository;
 import com.tobeto.pair6.rentACar.services.abstracts.CorporateCustomerService;
@@ -22,6 +19,7 @@ import com.tobeto.pair6.rentACar.services.rules.UserBusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -41,6 +39,8 @@ public class UserManager implements UserService {
     private final CorporateCustomerService corporateCustomerService;
 
     private final IndividualCustomerService individualCustomerService;
+
+    private final PasswordEncoder passwordEncoder;
 
     @Override
     public Result add(AddUserRequest addUserRequest) {
@@ -74,21 +74,27 @@ public class UserManager implements UserService {
     @Override
     public Result update(UpdateUserRequest updateUserRequest) {
 
-        Optional<User> userInDb=this.userRepository.findById(updateUserRequest.getId());
+        Optional<User> optionalUser = userRepository.findById(updateUserRequest.getId());
 
-        User user=userInDb.get();
+        if (optionalUser.isEmpty()) {
+            return new ErrorResult(Messages.USER_NOT_FOUND);
+        }
 
-        if(!updateUserRequest.getPassword().equals(""))user.setPassword(updateUserRequest.getPassword());
+        User user = optionalUser.get();
+
+        String newPassword = updateUserRequest.getPassword();
+        if (newPassword != null && !newPassword.isBlank()) {
+            user.setPassword(passwordEncoder.encode(newPassword));
+        }
+
         user.setAddress(updateUserRequest.getAddress());
         user.setImagePath(updateUserRequest.getImagePath());
         user.setPhoneNumber(updateUserRequest.getPhoneNumber());
 
-
-
         this.userRepository.save(user);
 
-        if (!updateUserRequest.getCompanyName().equals("")) {
-            corporateCustomerService.update(
+        if (!updateUserRequest.getCompanyName().isBlank()) {
+            this.corporateCustomerService.update(
                     UpdateCorporateCustomerRequest.builder()
                             .id(user.getCorporateCustomers().get(0).getId())
                             .userId(user.getId())
@@ -99,7 +105,8 @@ public class UserManager implements UserService {
                             .build()
             );
         } else {
-            individualCustomerService.update(
+
+            this.individualCustomerService.update(
                     UpdateIndividualCustomerRequest.builder()
                             .id(user.getIndividualCustomers().get(0).getId())
                             .firstName(updateUserRequest.getFirstName())
@@ -111,9 +118,7 @@ public class UserManager implements UserService {
             );
         }
 
-
         return new SuccessResult(Messages.UPDATE);
-
     }
 
     @Override
