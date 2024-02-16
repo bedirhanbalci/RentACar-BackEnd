@@ -60,6 +60,13 @@ public class RentalsController {
 
     }
 
+    @GetMapping("/getByUserId/{id}")
+    public List<List<Object>> getByUserId(@PathVariable Integer id) {
+
+        return this.rentalService.getByUserId(id);
+
+    }
+
     @PostMapping("/dateValid")
     public void checkIfRentalByDateValid(@RequestBody @Valid AddRentalRequest addRentalRequest) {
 

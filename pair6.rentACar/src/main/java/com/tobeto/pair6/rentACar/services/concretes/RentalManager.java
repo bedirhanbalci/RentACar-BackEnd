@@ -21,6 +21,7 @@ import com.tobeto.pair6.rentACar.services.rules.RentalBusinessRules;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -41,6 +42,8 @@ public class RentalManager implements RentalService {
     private final AssurancePackageService assurancePackageService;
 
     private final InvoiceService invoiceService;
+
+    private final UserService userService;
 
     @Override
     public GetByIdInvoiceResponse add(AddRentalRequest addRentalRequest) {
@@ -171,5 +174,28 @@ public class RentalManager implements RentalService {
         this.rentalBusinessRules.checkIfRentalByDateValid(addRentalRequest.getStartDate(), addRentalRequest.getEndDate());
 
     }
+
+    @Override
+    public List<List<Object>> getByUserId(Integer id) {
+
+        List<List<Object>> response = new ArrayList<>();
+
+        List<Rental> rentaList=this.rentalRepository.findByUserId(id);
+
+        List<GetAllRentalsResponse> rentalsResponse = rentaList.stream()
+                .map(rental -> this.modelMapperService.forResponse().map(rental, GetAllRentalsResponse.class)).toList();
+
+        for (int index = 0; index < rentaList.size(); index++) {
+
+            List<Object> list=new ArrayList<>();
+            list.add(rentalsResponse.get(index));
+            list.add(invoiceService.findByRentalId(rentaList.get(index).getId()));
+            list.add(userService.getById(id).get(0));
+            response.add(list);
+
+        }
+        return response;
+    }
+
 
 }

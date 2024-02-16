@@ -85,6 +85,14 @@ public class BranchManager implements BranchService {
     }
 
     @Override
+    public List<GetAllBranchesResponse> getByCity(String city) {
+        return branchRepository.findByCityStartingWith(city).stream().map((branch) -> {
+            return new GetAllBranchesResponse(branch.getId(), branch.getCity(),
+                    branch.getAddress(), branch.getPhoneNumber(), branch.getLatitude(), branch.getLongitude());
+        }).toList();
+    }
+
+    @Override
     public DataResult<GetByIdBranchResponse> getById(Integer id) {
 
         this.branchBusinessRules.checkIfBranchByIdExists(id);

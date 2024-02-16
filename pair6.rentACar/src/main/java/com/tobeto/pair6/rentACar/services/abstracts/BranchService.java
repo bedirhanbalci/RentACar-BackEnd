@@ -21,6 +21,8 @@ public interface BranchService {
 
     DataResult<List<GetAllBranchesResponse>> getAll();
 
+    List<GetAllBranchesResponse> getByCity(String city);
+
     DataResult<GetByIdBranchResponse> getById(Integer id);
 
     DataResult<GetByIdCarResponse> getCarById(Integer id);

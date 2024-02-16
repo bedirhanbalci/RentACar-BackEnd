@@ -67,4 +67,9 @@ public class BranchesController {
 
     }
 
+    @GetMapping("/getByCity")
+    public List<GetAllBranchesResponse> getByCity(@RequestParam String city) {
+        return branchService.getByCity(city);
+    }
+
 }

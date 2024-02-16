@@ -22,4 +22,6 @@ public interface InvoiceService {
 
     DataResult<GetByIdInvoiceResponse> getById(Integer id);
 
+    Object findByRentalId(Integer id);
+
 }
