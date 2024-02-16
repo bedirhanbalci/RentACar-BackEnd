@@ -24,4 +24,6 @@ public interface RentalService {
     DataResult<GetByIdRentalResponse> getById(Integer id);
 
     void checkIfRentalByDateValid(AddRentalRequest addRentalRequest);
+
+    List<List<Object>> getByUserId(Integer id);
 }

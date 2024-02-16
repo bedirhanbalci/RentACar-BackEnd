@@ -94,5 +94,12 @@ public class InvoiceManager implements InvoiceService {
         return new SuccessDataResult<>(response, Messages.GET);
 
     }
+    @Override       
+    public Object findByRentalId(Integer id){
+
+        return this.modelMapperService.forResponse()
+                .map(invoiceRepository.findByRentalId(id), GetByIdInvoiceResponse.class);
+        
+    };
 
 }
