@@ -115,15 +115,15 @@ class AdditionalFeatureManagerTest {
 
     }
 
-//    @Test
-//    void successfullyGetById() {
-//
-//        AdditionalFeature additionalFeature = new AdditionalFeature();
-//        Mockito.when(additionalFeatureRepository.findById(additionalFeature.getId())).thenReturn(Optional.of(new AdditionalFeature()));
-//        additionalFeatureManager.getById(additionalFeature.getId());
-//        assert true;
-//
-//    }
+    @Test
+    void successfullyGetById() {
+
+        AdditionalFeature additionalFeature = new AdditionalFeature();
+        Mockito.when(additionalFeatureRepository.findById(additionalFeature.getId())).thenReturn(Optional.of(new AdditionalFeature()));
+        additionalFeatureManager.getById(additionalFeature.getId());
+        assert true;
+
+    }
 
 
 }

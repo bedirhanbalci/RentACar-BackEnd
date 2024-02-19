@@ -66,25 +66,30 @@ public class RentalManager implements RentalService {
 
         rental.setStartKilometer(carResponse.getData().getKilometer());
 
-        Double carPrice = this.rentalBusinessRules.calculateTotalPrice(addRentalRequest.getStartDate(), addRentalRequest.getEndDate(), carResponse.getData().getDailyPrice());
+        Double carPrice = this.rentalBusinessRules.calculateTotalPrice(addRentalRequest.getStartDate(),
+                addRentalRequest.getEndDate(), carResponse.getData().getDailyPrice());
 
         Double totalPrice = 0.0;
         totalPrice += carPrice;
 
-        Double assurancePrice = this.assurancePackageService.addById(new AssuranceRequest(addRentalRequest.getAssurancePackageId(), addRentalRequest.getStartDate(), addRentalRequest.getEndDate())).getData().getDailyPrice();
-
+        Double assurancePrice = 0.0;
+        if (addRentalRequest.getAssurancePackageId() != null) {
+            assurancePrice = this.assurancePackageService.addById(new AssuranceRequest(addRentalRequest.getAssurancePackageId(),
+                    addRentalRequest.getStartDate(), addRentalRequest.getEndDate())).getData().getDailyPrice();
+        }
         totalPrice += assurancePrice;
 
+
         Double additionalPrice = 0.0;
-
-
-        for (AdditionalModel additionalModel : addRentalRequest.getAdditionalList()) {
-
-            additionalPrice += this.additionalFeatureService.addById(new AdditionalRequest(additionalModel.getId(), addRentalRequest.getStartDate(), addRentalRequest.getEndDate(), additionalModel.getQuantity())).getData().getDailyPrice();
-
+        List<AdditionalModel> additionalList = addRentalRequest.getAdditionalList();
+        if (additionalList != null) {
+            for (AdditionalModel additionalModel : additionalList) {
+                additionalPrice += this.additionalFeatureService.addById(new AdditionalRequest(additionalModel.getId(),
+                        addRentalRequest.getStartDate(), addRentalRequest.getEndDate(), additionalModel.getQuantity())).getData().getDailyPrice();
+            }
         }
-
         totalPrice += additionalPrice;
+
 
         rental.setTotalPrice(totalPrice);
 
