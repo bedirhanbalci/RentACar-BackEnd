@@ -113,14 +113,14 @@ class AssurancePackageManagerTest {
 
     }
 
-//    @Test
-//    void successfullyGetById() {
-//
-//        AssurancePackage assurancePackage = new AssurancePackage();
-//        Mockito.when(assurancePackageRepository.findById(assurancePackage.getId())).thenReturn(Optional.of(new AssurancePackage()));
-//        assurancePackageManager.getById(assurancePackage.getId());
-//        assert true;
-//
-//    }
+    @Test
+    void successfullyGetById() {
+
+        AssurancePackage assurancePackage = new AssurancePackage();
+        Mockito.when(assurancePackageRepository.findById(assurancePackage.getId())).thenReturn(Optional.of(new AssurancePackage()));
+        assurancePackageManager.getById(assurancePackage.getId());
+        assert true;
+
+    }
 
 }
