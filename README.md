@@ -7,6 +7,8 @@
 - [Project Description and Objective](#project-description-and-objective)
 - [Used Technologies, Libraries and Tools](#used-technologies-libraries-and-tools)
 - [Project Download and Opening Steps](#project-download-and-opening-steps)
+  - [Back-End](#back-end)
+  - [Front-End](#front-end)
 - [Project Architecture and Structure](#project-architecture-and-structure)
   - [Back-End](#back-end)
   - [Front-End](#front-end)
@@ -70,7 +72,6 @@
 
 ### Contact Page
 <img width="500" height="250" alt="corporate register page" src=  "https://github.com/bedirhanbalci/RentACar-BackEnd/assets/61194064/31ff49dc-e7f9-46ec-a687-7b27979a0159">
-
 
 ## Project Description and Objective
 Our project is a Full Stack project covering both the Back-End and Front-End structure of a rental website. We completed the Front-End part of our project using the React library, the Back-End part using the Java Spring framework, and using PostgreSQL as the database. We aimed to improve the user experience by simplifying the interface that users find complex and by easily adapting to new technologies. We developed our project based on the principles of environmental friendliness and sustainability. With its innovative structure, our project aims to minimize environmental impacts and efficiently use natural resources. Additionally, it stands out with its ability to quickly adapt to technological advancements. These features are among the elements that highlight the environmental sensitivity and technological adaptability of our project. Our project benefits the transportation and service sectors by providing car rental services to customers to meet their transportation needs.
@@ -137,7 +138,7 @@ In our project, we used Swagger UI to perform HTTP requests. At the same time, w
 - yup 1.3.3
 - toastr 2.1.4
 - react-toastify 10.0.0
-- bcryptjs 2.4.3    
+- bcryptjs 2.4.3
 
 ## Project Download and Opening Steps
 
@@ -155,13 +156,17 @@ In our project, we used Swagger UI to perform HTTP requests. At the same time, w
 
 ## Project Architecture and Structure
 
-### Back-End 
+### Back-End
+
+#### **_Architecture_**
 
 ![Architecture](https://github.com/bedirhanbalci/RentACar-BackEnd/assets/61194064/b8dac7d8-08ee-4c33-8ee9-0de8a458d281)
 
 In our RentACar project, we presented the file structures and contents of both the Back-End and Front-End sections. During the project development process, we adopted a layered architectural approach. This enabled us to manage project dependencies correctly and ensure division of work between layers.
 
 Fundamentally, our project's Back-End structure consists of four main layers: entities, repositories, services, and controllers, along with the auxiliary core layer. These structures interact with each other to form the Back-End architecture of our project.
+
+#### **_Entities_**
 
 ![Entities](https://github.com/bedirhanbalci/RentACar-BackEnd/assets/61194064/e1b1a340-eac0-4e6e-9c7e-2901c46dd3c3)
 
@@ -171,9 +176,13 @@ In this layer, we modeled the data structures necessary for our project and crea
 
 Furthermore, to effectively utilize object-oriented programming (OOP), we connected all our entity classes to a common base entity. This way, we could manage our common properties in a single point and achieve a more modular structure by preventing code repetition.
 
+#### **_Repositories_**
+
 ![Repositories](https://github.com/bedirhanbalci/RentACar-BackEnd/assets/61194064/07306a52-b8ed-41fb-b7c7-cbb7422fa490)
 
 In the Repository layer, we created repository interfaces that will interact with the database, thanks to the convenience provided by Spring Data JPA.
+
+#### **_Services_**
 
 ![Services](https://github.com/bedirhanbalci/RentACar-BackEnd/assets/61194064/05a707bc-d4d1-4334-8fda-73ac99ebdf2e)
 
@@ -195,31 +204,38 @@ We created requests from clients such as creating new records or updating and de
 
 In the Rules component, we established our business rules. In this folder, we defined specific rules, conditions, and validation processes related to business logic. These business rules were incorporated into our manager classes. An example would be the conditions required for a vehicle to be rented out.
 
+#### **_Controllers_**
+
 ![Controllers](https://github.com/bedirhanbalci/RentACar-BackEnd/assets/61194064/2f01b016-2d15-4563-b873-87fd88ae2e9d)
 
 Through our Controller layer, we exposed our APIs to the outside world using Spring Framework's RESTful API features. This allowed us to manage CRUD (Create, Read, Update, Delete) operations using HTTP methods (GET, POST, PUT, DELETE) and various annotations provided by Spring.
+
 By configuring our APIs in this manner, we were able to perform fundamental operations such as data creation, retrieval, updating, and deletion:
 
-Post Mapping: Used to create new records.
-Put Mapping: Used to update existing records.
-Delete Mapping: Used to delete existing records.
-Get Mapping: Used for data retrieval operations.
+- **Post Mapping:** Used to create new records.
+- **Put Mapping:** Used to update existing records.
+- **Delete Mapping:** Used to delete existing records.
+- **Get Mapping:** Used for data retrieval operations.
+
+#### **_Core_**
 
 ![Core](https://github.com/bedirhanbalci/RentACar-BackEnd/assets/61194064/986863b6-6ebb-49dd-85cb-f3a43c44f710)
 
-Configuration Classes: These are the classes responsible for configuring our application. We mark these classes with the Configuration annotation and configure the application's settings and dependencies.
+**Configuration Classes:** These are the classes responsible for configuring our application. We mark these classes with the Configuration annotation and configure the application's settings and dependencies.
 
-Filters: This class serves as a JWT (Json Web Token) authentication filter designed for use with Spring Security. We used the JWT Authentication Filter to control incoming HTTP requests and authenticate the JWT tokens in these requests. Then, we authenticated the tokens and stored the authenticated user information in the security context.
+**Filters:** This class serves as a JWT (Json Web Token) authentication filter designed for use with Spring Security. We used the JWT Authentication Filter to control incoming HTTP requests and authenticate the JWT tokens in these requests. Then, we authenticated the tokens and stored the authenticated user information in the security context.
 
-Services: In this module, we managed the user authentication processes of the application with the Jwt Service class, handling the creation, verification, and processing of JWT tokens.
+**Services:** In this module, we managed the user authentication processes of the application with the Jwt Service class, handling the creation, verification, and processing of JWT tokens.
 
-Utilities: Helper classes that fulfill our general requirements are found here. Under this package, we have three separate modules: exceptions, mappers, and results.
+**Utilities:** Helper classes that fulfill our general requirements are found here. Under this package, we have three separate modules: exceptions, mappers, and results.
 
-Exceptions: Alongside the global exception handler, we centrally handled various error situations in our application. For example, we customized our errors with the Business Exception Class. This way, we handled error situations appropriately and displayed meaningful error messages to the user.
+**Exceptions:** Alongside the global exception handler, we centrally handled various error situations in our application. For example, we customized our errors with the Business Exception Class. This way, we handled error situations appropriately and displayed meaningful error messages to the user.
 
-Mappers: In this module, we integrated the model mapper class that we wanted to include in our application from the outside.
+**Mappers:** In this module, we integrated the model mapper class that we wanted to include in our application from the outside.
 
-Results: We used this module to present the results of our application's operations in a more meaningful and organized manner. Additionally, we ensured that the data is displayed in a more understandable and user-friendly manner on the Front-End.
+**Results:** We used this module to present the results of our application's operations in a more meaningful and organized manner. Additionally, we ensured that the data is displayed in a more understandable and user-friendly manner on the Front-End.
+
+#### **_Resources_**
 
 ![Resources](https://github.com/bedirhanbalci/RentACar-BackEnd/assets/61194064/71bcf12a-724a-45b2-a5b9-b24ddf733cf1)
 
@@ -227,17 +243,19 @@ The Application Properties file contains the general configuration settings of o
 
 ### Front-End
 
-#### **_Components_**
+#### **_Architecture_**
 
 ![Architecture](https://github.com/bedirhanbalci/RentACar-BackEnd/assets/61194064/3cb77c58-e1da-4e90-b57d-5369fe6f4182)
 
 In the root directory of our RentACar Front-End project, there are three main folders: node_modules, src, and public.
 
-Node Modules: This directory contains project dependencies and npm packages.
+**Node Modules:** This directory contains project dependencies and npm packages.
 
-Src: It is the main directory where our source code resides. This folder includes components, pages, services, and other source files.
+**Src:** It is the main directory where our source code resides. This folder includes components, pages, services, and other source files.
 
-Public: This directory contains our static files.
+**Public:** This directory contains our static files.
+
+#### **_Components_**
 
 ![Components](https://github.com/bedirhanbalci/RentACar-BackEnd/assets/61194064/3a7da8b4-da38-462e-94e1-a248f882ce06)
 
@@ -249,39 +267,39 @@ Under the Layout heading, we created components that constitute the general layo
 
 **Common Components**
 
-Formik Input: Our input field component used in form operations.
+**Formik Input:** Our input field component used in form operations.
 
-Formik Select: Our dropdown menu (select) component providing options in forms.
+**Formik Select:** Our dropdown menu (select) component providing options in forms.
 
 **Layout Components**
 
-Background: Our component used to set background videos and images on the homepage.
+**Background:** Our component used to set background videos and images on the homepage.
 
-Branches Card: Our card component displayed on the Branches page.
+**Branches Card:** Our card component displayed on the Branches page.
 
-Branch Map: Our component displaying branch locations on a map on the Branches page.
+**Branch Map:** Our component displaying branch locations on a map on the Branches page.
 
-Campaign Slider: Our component displaying coverages and extras content in slider format on the homepage.
+**Campaign Slider:** Our component displaying coverages and extras content in slider format on the homepage.
 
-Car Card: Our card component displaying summary information of vehicles.
+**Car Card:** Our card component displaying summary information of vehicles.
 
-Contact Card: Our card component displayed on the Contact page.
+**Contact Card:** Our card component displayed on the Contact page.
 
-Contact Map: Our map component holding the location information of our main branch on the Contact page.
+**Contact Map:** Our map component holding the location information of our main branch on the Contact page.
 
-Dropdown Card: Our dropdown card component displayed in the navbar.
+**Dropdown Card:** Our dropdown card component displayed in the navbar.
 
-Footer: Our component fixed at the bottom of the page.
+**Footer:** Our component fixed at the bottom of the page.
 
-Login Card: Our card component designed for user login.
+**Login Card:** Our card component designed for user login.
 
-Main Slider: Our component turning background videos and images on the homepage into a slider.
+**Main Slider:** Our component turning background videos and images on the homepage into a slider.
 
-Navbar: Our navigation bar component located at the top of the page.
+**Navbar:** Our navigation bar component located at the top of the page.
 
-Ovarley Loader: Our loader component displayed during loading.
+**Overlay Loader:** Our loader component displayed during loading.
 
-User Update Form: Our form component designed to update user information.
+**User Update Form:** Our form component designed to update user information.
 
 #### **_Guards_**
 
@@ -291,37 +309,37 @@ In our project, we prioritized access control to ensure user security. In this c
 
 ![Pages](https://github.com/bedirhanbalci/RentACar-BackEnd/assets/61194064/87517359-6c9e-4b3e-ab33-81808e4ada16)
 
-About: This page elaborates on the company's mission, history, and detailed profiles of team members.
+**About:** This page elaborates on the company's mission, history, and detailed profiles of team members.
 
-Additional Feature: This page allows users to select additional features during the car rental process and examine their details.
+**Additional Feature:** This page allows users to select additional features during the car rental process and examine their details.
 
-Assurance Package: This page enables users to select assurance packages during the car rental process and examine their details.
+**Assurance Package:** This page enables users to select assurance packages during the car rental process and examine their details.
 
-Branches: The Branches page allows users to access the location information of our branches and reserve vehicles available at those branches.
+**Branches:** The Branches page allows users to access the location information of our branches and reserve vehicles available at those branches.
 
-Car Detail: The Car Detail page allows users to access detailed information about a specific vehicle.
+**Car Detail:** The Car Detail page allows users to access detailed information about a specific vehicle.
 
-Car List: The Car List page is where users can list available vehicles for rental.
+**Car List:** The Car List page is where users can list available vehicles for rental.
 
-Contact: The Contact page contains the location information of our main branch and a form for users to get in touch.
+**Contact:** The Contact page contains the location information of our main branch and a form for users to get in touch.
 
-Corporate Register: The Corporate Customer Registration page allows corporate users to register.
+**Corporate Register:** The Corporate Customer Registration page allows corporate users to register.
 
-Individual Register: The Individual Customer Registration page allows individual users to register.
+**Individual Register:** The Individual Customer Registration page allows individual users to register.
 
-Homepage: The Homepage is the first page that welcomes the user.
+**Homepage:** The Homepage is the first page that welcomes the user.
 
-Invoice: The Invoice page allows users to view invoice information related to rental transactions.
+**Invoice:** The Invoice page allows users to view invoice information related to rental transactions.
 
-Not Found: The Not Found page displays an error message to users when an invalid URL is entered.
+**Not Found:** The Not Found page displays an error message to users when an invalid URL is entered.
 
-Order Complete: The Order Complete page confirms to users that they have successfully completed a car rental transaction.
+**Order Complete:** The Order Complete page confirms to users that they have successfully completed a car rental transaction.
 
-Profile: The Profile page is where users can view and edit their account information.
+**Profile:** The Profile page is where users can view and edit their account information.
 
-Rental: The Rental page displays information about the car rental process and allows users to confirm payment.
+**Rental:** The Rental page displays information about the car rental process and allows users to confirm payment.
 
-Reservation: The Reservation page allows users to reserve vehicles based on their selected date range.
+**Reservation:** The Reservation page allows users to reserve vehicles based on their selected date range.
 
 #### **_Models_**
 
